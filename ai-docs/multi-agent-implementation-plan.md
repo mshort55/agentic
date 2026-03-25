@@ -1027,56 +1027,27 @@ When new domain expert agents are added:
 - No orchestrator code changes needed
 ```
 
-#### 3.3 Create Convenience Skill/Command
-Create a user-facing skill that wraps the orchestrator:
+#### 3.3 Create Convenience Slash Command
+Create a Claude Code custom slash command that wraps the orchestrator:
 
-Create `.claude/agents/orchestrator/analyze-design-spec-skill.md`:
-```markdown
----
-name: analyze-design-spec
-description: Analyze a design spec using domain expert agents
-triggers:
-  - "/analyze-spec"
-  - "/spec-analysis"
----
+Create `.claude/commands/analyze-spec.md`:
 
-# Analyze Design Spec Skill
+This file becomes the `/analyze-spec` command. It uses `$ARGUMENTS` to receive the spec path and options from the user, then follows the orchestrator instructions.
 
-User-friendly interface to the design spec orchestrator.
-
-## Usage
-
-```
-/analyze-spec <path-to-spec> [options]
-```
-
-## Options
-- `--full`: Comprehensive analysis with all agents (default)
-- `--fast`: Quick analysis with core agents only
-- `--focus=<area>`: Focus on specific domain expertise area(s)
-  - Areas: go, k8s, controller, crd, unit-test, e2e-test, coding
-  - Can specify multiple: --focus=go,testing
-
-## Examples
-
+**Usage:**
 ```bash
-# Full analysis
 /analyze-spec design-specs/add-new-feature.md
-
-# Quick analysis
 /analyze-spec design-specs/bug-fix.md --fast
-
-# Focus on testing
 /analyze-spec design-specs/add-feature.md --focus=unit-test,e2e-test
-
-# Focus on Kubernetes and controllers
 /analyze-spec design-specs/operator-enhancement.md --focus=k8s,controller
+/analyze-spec design-specs/api-change.md --smart
 ```
 
-## Implementation
-
-Parse arguments and invoke design-spec-orchestrator with appropriate parameters.
-```
+**Options:**
+- `--full`: Comprehensive analysis with all agents (default)
+- `--fast`: Quick analysis with high-priority agents only
+- `--focus=<areas>`: Focus on specific domain areas (comma-separated)
+- `--smart`: Auto-detect relevant agents from spec content
 
 ### Deliverables
 - [ ] Orchestrator agent created with full logic
@@ -1241,121 +1212,14 @@ Agents can be extended with:
 - Persistent state (across multiple specs)
 ```
 
-#### 4.2 Create Agent Validator
-Create `.claude/agents/tools/agent-validator.md`:
-```markdown
----
-name: agent-validator
-description: Validates agent definitions and registry configuration
----
+#### 4.2 Agent Validation & Discovery
 
-# Agent Validator
+**Note:** Validation and discovery capabilities are consolidated into the existing `agent-registry-helper` tool (`.claude/agents/tools/agent-registry-helper.md`). Separate `agent-validator` and `agent-discovery` tools were considered but deemed redundant since the registry helper already provides:
 
-Validates agent definitions for correctness and completeness.
-
-## Validation Checks
-
-### Agent Definition File
-- [ ] Valid YAML frontmatter
-- [ ] Required fields present (name, description, type)
-- [ ] Tools are valid Claude Code tools
-- [ ] Triggers are non-empty
-- [ ] Analysis framework is present
-- [ ] Output format is defined
-
-### Agent Registry
-- [ ] Valid YAML syntax
-- [ ] All agents have unique names
-- [ ] Agent types are valid (domain_expert, orchestrator, custom)
-- [ ] Tools are valid
-- [ ] No duplicate triggers across agents
-
-### Integration
-- [ ] Agent file exists at registered path
-- [ ] Agent is discoverable by orchestrator
-- [ ] Triggers don't conflict with existing agents
-
-## Usage
-
-```
-/validate-agent security-expert
-/validate-registry
-```
-
-## Output
-
-Reports:
-- ✅ Passed checks
-- ❌ Failed checks with details
-- ⚠️  Warnings and suggestions
-```
-
-#### 4.3 Create Agent Discovery Mechanism
-
-Auto-discovery features:
-1. Scan `.claude/agents/domain-experts/` for agent files
-2. Parse frontmatter to extract metadata
-3. Build runtime registry from files + config
-4. Validate against agents.yaml
-5. Report any mismatches
-
-Create `.claude/agents/tools/agent-discovery.md`:
-```markdown
----
-name: agent-discovery
-description: Discovers and catalogs all available domain expert agents
----
-
-# Agent Discovery Tool
-
-Automatically discovers domain expert agents from the filesystem.
-
-## Discovery Process
-
-1. Scan directories:
-   - `.claude/agents/domain-experts/`
-   - `.claude/agents/custom/` (if exists)
-
-2. For each `.md` file:
-   - Parse YAML frontmatter
-   - Extract agent metadata
-   - Validate structure
-
-3. Compare with `config/agents.yaml`:
-   - Check for unregistered agents
-   - Check for missing agent files
-   - Verify metadata consistency
-
-4. Generate report
-
-## Output
-
-```markdown
-# Agent Discovery Report
-
-## Registered Agents (7)
-- ✅ go-expert (enabled, priority: high)
-- ✅ k8s-expert (enabled, priority: high)
-- ✅ controller-expert (enabled, priority: high)
-- ✅ crd-expert (enabled, priority: medium)
-- ✅ unit-test-expert (enabled, priority: high)
-- ✅ e2e-test-expert (enabled, priority: medium)
-- ✅ coding-expert (enabled, priority: medium)
-
-## Unregistered Agents (1)
-- ⚠️  security-expert (found at .claude/agents/domain-experts/security-expert.md)
-  Action: Add to config/agents.yaml
-
-## Missing Agents (0)
-- None
-
-## Disabled Agents (0)
-- None
-
-## Recommendations
-- Register security-expert in agents.yaml
-```
-```
+- **Validation**: Check agent config for correctness, required fields, valid tools, trigger overlap
+- **Discovery**: Scan filesystem for agent files, cross-reference against registry, detect unregistered or missing agents
+- **Listing**: Show all agents with status, priority, and configuration
+- **Suggestions**: Analyze design specs and recommend which agents to invoke
 
 #### 4.4 skill-creator Integration Plan
 
@@ -1447,8 +1311,7 @@ Use skill-creator to:
 
 ### Deliverables
 - [ ] Adding new agents guide created
-- [ ] Agent validator tool created
-- [ ] Agent discovery tool created
+- [ ] Validation & discovery consolidated in agent-registry-helper (no separate tools needed)
 - [ ] skill-creator integration plan documented
 
 ### Success Criteria
