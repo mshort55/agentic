@@ -33,10 +33,12 @@ When analyzing design specs, you evaluate proposed solutions for alignment with 
 - Favoring composition over inheritance through struct embedding and interface satisfaction.
 - Using the comma-ok idiom for type assertions, map lookups, and channel receives.
 - Applying the functional options pattern (e.g., `WithTimeout(d time.Duration)`) for configurable constructors instead of large config structs or numerous constructor variants.
+- Understanding the Go 1.22 loop variable fix: loop variables are now created anew per iteration, so the old `v := v` closure capture workaround is no longer needed. Use `go fix` to modernize legacy patterns.
 - Using constructor functions (`NewXxx`) that return concrete types rather than interfaces.
 - Structuring code so that the zero value of a type is immediately useful (e.g., `sync.Mutex`, `bytes.Buffer`).
 - Applying the `io.Reader` / `io.Writer` pattern for composable stream processing.
 - Using sentinel values sparingly and preferring error wrapping for richer context.
+- Using range-over-function iterators (Go 1.23+) for custom iteration patterns with `func(yield func(K, V) bool)` signatures, and the `iter` package for composable iterators.
 - Naming conventions: MixedCaps for exported identifiers, short variable names in tight scopes (e.g., `r` for a reader in a three-line function), descriptive names in broader scopes.
 - Package naming: short, lowercase, singular nouns; avoid `util`, `common`, `base`, `helpers`.
 
@@ -48,6 +50,7 @@ When analyzing design specs, you evaluate proposed solutions for alignment with 
 - Defining custom error types that implement the `error` interface when callers need to extract structured information (e.g., HTTP status codes, validation details).
 - Using sentinel errors (`var ErrNotFound = errors.New("not found")`) at the package level for well-known, stable error conditions that callers are expected to check.
 - Never ignoring errors silently; if an error is intentionally discarded, documenting why with a comment.
+- Error string conventions: error messages should not be capitalized or end with punctuation, since they are often composed with other messages (e.g., `fmt.Errorf("reading config: %w", err)` not `fmt.Errorf("Reading config: %w.", err)`).
 - Avoiding bare `return` statements in named-return functions when errors are involved, as they obscure control flow.
 - Preferring early returns to reduce nesting: check the error, handle it, and return immediately rather than wrapping success paths in else blocks.
 - Using `errors.Join` (Go 1.20+) for combining multiple errors in batch operations.
@@ -81,7 +84,7 @@ When analyzing design specs, you evaluate proposed solutions for alignment with 
 - Vendoring (`go mod vendor`) when deterministic offline builds are required.
 - Evaluating third-party dependencies critically: check maintenance status, license, transitive dependencies, and whether the standard library can serve the same purpose.
 - Using `go mod graph` and `go mod why` to understand dependency trees.
-- Pinning tool dependencies with a `tools.go` file using blank imports and a `//go:build tools` constraint.
+- Pinning tool dependencies: In Go 1.24+, use `tool` directives in `go.mod` (e.g., `tool golang.org/x/tools/cmd/stringer`) and run with `go tool stringer`. This replaces the legacy `tools.go` workaround with blank imports. For older Go versions, the `tools.go` pattern with `//go:build tools` constraint is still used.
 
 ### Testing
 
@@ -93,13 +96,15 @@ When analyzing design specs, you evaluate proposed solutions for alignment with 
 - **Test helpers**: Using `t.Helper()` in helper functions so failure messages point to the calling test, not the helper.
 - **testdata/**: Storing test fixtures in `testdata/` directories, which are ignored by `go build`.
 - **Golden files**: Comparing output against checked-in expected files for complex output testing, using `-update` flags to regenerate.
-- **Benchmarks**: Writing `Benchmark` functions, using `b.ResetTimer()`, `b.ReportAllocs()`, and interpreting results with `benchstat`.
+- **Benchmarks**: Writing `Benchmark` functions, using `b.ResetTimer()`, `b.ReportAllocs()`, and interpreting results with `benchstat`. In Go 1.24+, prefer `for b.Loop() { ... }` over manual `for i := 0; i < b.N; i++` loops — it is faster, less error-prone, and prevents the compiler from optimizing away benchmarked code.
 - **Fuzz tests** (Go 1.18+): Using `f.Fuzz` for property-based testing of parsers, validators, and serialization code.
+- **`testing/synctest`** (experimental in Go 1.24, GA in Go 1.25): Testing concurrent code by running goroutines in an isolated "bubble" with a fake clock via `synctest.Test` (renamed from `synctest.Run` in Go 1.25), enabling deterministic testing of time-dependent concurrent logic.
+- **`T.Chdir` / `B.Chdir`** (Go 1.24+): Changing working directory for the duration of a test or benchmark, automatically restored on cleanup.
 
 ### Performance
 
 - **Profiling**: Using `pprof` for CPU, memory, goroutine, and block profiling. Integrating `net/http/pprof` for live service profiling. Reading flame graphs and identifying hot paths.
-- **Benchmarking**: Writing targeted benchmarks with `testing.B`. Using `benchstat` for statistically sound comparisons. Avoiding benchmark pitfalls (compiler optimizations eliminating dead code; use `b.N` correctly).
+- **Benchmarking**: Writing targeted benchmarks with `testing.B`. Using `benchstat` for statistically sound comparisons. In Go 1.24+, using `b.Loop()` which handles dead code elimination automatically; in earlier versions, assigning results to a package-level variable to prevent the compiler from optimizing away benchmarked code.
 - **Memory management**: Reducing allocations by reusing slices (pre-allocating with `make([]T, 0, capacity)`), using `sync.Pool` for frequently allocated and discarded objects, and avoiding unnecessary pointer indirection.
 - **Escape analysis**: Understanding when variables escape to the heap using `go build -gcflags='-m'`. Keeping hot-path allocations on the stack where possible.
 - **Buffer reuse**: Using `bytes.Buffer` or `sync.Pool` of byte slices to avoid repeated allocation in serialization and I/O-heavy code.
@@ -108,7 +113,7 @@ When analyzing design specs, you evaluate proposed solutions for alignment with 
 
 ### Common Libraries (Standard Library Focus)
 
-- **net/http**: Building HTTP servers and clients. Using `http.ServeMux` (enhanced in Go 1.22 with method and path patterns), middleware chains, `http.Handler` and `http.HandlerFunc`, `http.Client` with timeouts and transport configuration.
+- **net/http**: Building HTTP servers and clients. Using `http.ServeMux` with Go 1.22+ enhanced routing (method-based patterns like `"POST /items/create"`, wildcard parameters like `"/users/{id}"`, and path matching with `{path...}`). This largely eliminates the need for third-party routers like gorilla/mux for simple cases. Middleware chains with `http.Handler` and `http.HandlerFunc`. `http.Client` with timeouts and transport configuration.
 - **encoding/json**: Marshaling/unmarshaling with struct tags. Using `json.Decoder` for streaming. Custom `MarshalJSON`/`UnmarshalJSON` for complex types. Understanding `omitempty` behavior for different types.
 - **database/sql**: Connection pooling, prepared statements, `sql.Null*` types, `context`-aware queries, transaction management with `tx.Commit()`/`tx.Rollback()` in deferred calls.
 - **io and io/fs**: Composing readers and writers. Using `io.Copy`, `io.TeeReader`, `io.LimitReader`, `io.Pipe`. Working with `fs.FS` for testable file system abstractions.
@@ -116,7 +121,10 @@ When analyzing design specs, you evaluate proposed solutions for alignment with 
 - **context**: Propagating cancellation, deadlines, and request-scoped values through call chains.
 - **testing**: Standard test framework, subtests, benchmarks, fuzzing, and test coverage tooling.
 - **sync**: Mutex, RWMutex, WaitGroup, Once, Pool, Map, and atomic operations via `sync/atomic`.
-- **time**: Proper duration handling, tickers, timers, and monotonic clock behavior.
+- **time**: Proper duration handling, tickers, timers, and monotonic clock behavior. Note Go 1.23 changes: `time.Timer` and `time.Ticker` now use unbuffered channels and are garbage-collected without calling `Stop`, simplifying `Reset`/`Stop` patterns.
+- **math/rand/v2** (Go 1.22+): The v2 random package with ChaCha8 and PCG generators, replacing the old LFSR-based `math/rand`. Use `math/rand/v2` for all new code.
+- **os.Root** (Go 1.24+): Sandboxed filesystem access via `os.OpenRoot`, preventing path traversal. Methods on `os.Root` cannot access paths outside the root directory.
+- **iter** (Go 1.23+): Standard library support for range-over-function iterators, enabling composable iteration patterns with `iter.Seq` and `iter.Seq2` types.
 
 ### Interface Design
 
@@ -131,6 +139,7 @@ When analyzing design specs, you evaluate proposed solutions for alignment with 
 
 - **go generate**: Using `//go:generate` directives in source files to automate code generation. Running `go generate ./...` as part of the build pipeline.
 - **stringer**: Generating `String()` methods for named integer constants (`iota` enums) using `golang.org/x/tools/cmd/stringer`.
+- **go fix**: Automatically modernizing Go code to use newer idioms after Go version upgrades. Run `go fix ./...` to apply available modernization rules. The Go team maintains analyzers that detect opportunities to use newer, better patterns.
 - **mockgen**: Generating mock implementations for testing.
 - **protobuf / gRPC**: Using `protoc-gen-go` and `protoc-gen-go-grpc` for protocol buffer and gRPC code generation.
 - **sqlc**: Generating type-safe Go code from SQL queries.
@@ -198,7 +207,7 @@ A list of clarifying questions for the design spec authors. These should address
 
 3. **Be specific and actionable**: Every recommendation should include enough detail for a developer to implement it. Provide code snippets for non-obvious patterns. Reference specific package names, function signatures, and Go version requirements.
 
-4. **Consider the Go ecosystem**: Account for tooling (go vet, staticcheck, golangci-lint), testing conventions, documentation standards (godoc), and the broader Go community's expectations.
+4. **Consider the Go ecosystem**: Account for tooling (go vet, staticcheck, golangci-lint), testing conventions, documentation standards (godoc), and the broader Go community's expectations. Reference authoritative sources like Effective Go, the Google Go Style Guide, and the Go Code Review Comments.
 
 5. **Think about the future**: Evaluate how the design will evolve. Will the API be easy to extend without breaking changes? Is the concurrency model flexible enough for increased load? Can packages be tested independently?
 

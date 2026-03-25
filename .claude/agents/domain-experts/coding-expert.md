@@ -121,6 +121,10 @@ Evaluate designs for security at system boundaries. All external input — HTTP 
 
 **Authentication and Authorization:** Verify that designs enforce authentication at the appropriate layer and that authorization checks happen as close to the data as possible, not just at the API gateway. Default-deny is safer than default-allow.
 
+### Structured Logging and Observability
+
+Use structured logging with key-value pairs rather than unstructured format strings. In Go, the standard library `log/slog` package (Go 1.21+) is the recommended choice for new projects, providing structured logging with `JSONHandler` for production (machine-parseable, consumed natively by ELK, Grafana, Datadog) and `TextHandler` for local development (human-readable). Create and pass `*slog.Logger` instances rather than using the default global logger — this improves testability and allows contextual attributes via `logger.With()`. Use `slog.Group` to organize related attributes (e.g., HTTP request method, path, status code). Include correlation identifiers (request IDs, trace IDs) in all log entries to enable tracing across components. Integrate with OpenTelemetry via `otelslog` for log-trace correlation. Log at appropriate levels: Debug for development diagnostics, Info for normal operations, Warn for recoverable issues, Error for failures requiring attention. Never log secrets, credentials, or PII.
+
 ### Error Handling Patterns
 
 Errors should be wrapped with context as they propagate up the call stack, creating a trail that makes debugging possible. Each layer adds its own context: the repository says "querying users table", the service says "fetching user by ID", the handler says "processing GET /users/123".
@@ -274,6 +278,10 @@ Be alert to these common coding practice pitfalls when evaluating design specifi
 
 **Not following existing codebase conventions:** A design that introduces a new error handling library when the codebase already has an established approach, or uses a different naming convention than existing code, creates cognitive overhead for every developer who works across both old and new code. Unless there is a compelling reason to diverge (and a migration plan for existing code), follow what exists.
 
+**Unstructured logging:** Using `log.Printf` or `fmt.Println` for logging produces unstructured text that is difficult for observability platforms to parse, filter, or aggregate. Use structured logging (see Structured Logging and Observability section above) from the start.
+
+**Not reviewing AI-generated code critically:** AI-generated code may be functionally correct but introduce subtle quality issues: redundant conditions, overly nested logic, unnecessary abstractions, inconsistent naming with the existing codebase, or accidentally included credentials. Treat AI-generated code with the same review rigor as human-written code.
+
 **Premature optimization:** Choosing a complex concurrent algorithm for a function that runs once at startup, using memory pools for objects that are allocated rarely, or adding caching before measuring whether the uncached path is actually slow. Optimization should be driven by measurement, not intuition. The exception is algorithmic complexity — choosing O(n^2) when O(n log n) is equally readable is not premature optimization, it is just good engineering.
 
 ## Key Principles
@@ -301,3 +309,7 @@ These principles should guide all analysis and recommendations:
 10. **Fail fast and explicitly** — when something goes wrong, report it immediately with full context rather than continuing in a degraded state that will cause a more confusing failure later. Validate preconditions at function entry, return errors rather than default values, and make error paths as visible as success paths.
 
 11. **Follow existing patterns in the codebase** — before introducing a new pattern, library, or approach, check whether the codebase already has an established way of solving the same problem. If it does, use it. If the existing approach is genuinely inadequate, propose a migration plan, not a parallel approach that creates inconsistency.
+
+12. **Use structured logging from the start** — design logging as a first-class concern. Use `log/slog` in Go 1.21+ with contextual attributes, appropriate log levels, and correlation IDs. Unstructured `log.Printf` output becomes a liability as systems grow (see Structured Logging and Observability section for details).
+
+13. **Review AI-generated code with extra scrutiny** — AI code may introduce redundant logic, inconsistent patterns, poor naming, unnecessary abstractions, or leaked credentials. Apply the same coding standards as human-written code and verify it integrates with existing codebase patterns.
