@@ -1,0 +1,284 @@
+version: "1.0"
+
+# Agent Registry
+# This file defines all available domain expert agents and orchestrators
+# Agents are automatically discovered and can be invoked by the orchestrator
+
+agent_registry:
+  # Domain expert agents - specialized knowledge consultants for specific domains
+  domain_experts:
+    - name: go-expert
+      type: domain_expert
+      domain: "Go language and idioms"
+      description: "Expert in Go best practices, patterns, error handling, concurrency, and testing"
+      enabled: true
+      priority: high
+      model: opus  # opus for deep analysis, sonnet for faster responses
+      tools:
+        - Read
+        - Grep
+        - Glob
+        - WebSearch
+      triggers:
+        - "go"
+        - "golang"
+        - "*.go files"
+        - "goroutines"
+        - "channels"
+        - "interfaces"
+      expertise_areas:
+        - "Idiomatic Go patterns"
+        - "Error handling (errors.Is, errors.As, wrapping)"
+        - "Concurrency (goroutines, channels, sync, context)"
+        - "Project structure (internal/, pkg/, cmd/)"
+        - "Testing (table-driven, testify, gomock)"
+        - "Performance and memory management"
+
+    - name: k8s-expert
+      type: domain_expert
+      domain: "Kubernetes patterns and best practices"
+      description: "Expert in Kubernetes resources, deployment strategies, RBAC, and networking"
+      enabled: true
+      priority: high
+      model: opus
+      tools:
+        - Read
+        - Grep
+        - Glob
+        - WebSearch
+        - Bash
+      triggers:
+        - "kubernetes"
+        - "k8s"
+        - "deployment"
+        - "service"
+        - "configmap"
+        - "secret"
+        - "rbac"
+      expertise_areas:
+        - "Resource patterns and manifests"
+        - "Deployment strategies"
+        - "Service discovery and networking"
+        - "ConfigMaps and Secrets"
+        - "RBAC and security"
+        - "Resource limits and requests"
+        - "Health checks (liveness, readiness)"
+
+    - name: controller-expert
+      type: domain_expert
+      domain: "Kubernetes controller patterns"
+      description: "Expert in controller-runtime, reconciliation loops, and operator patterns"
+      enabled: true
+      priority: high
+      model: opus
+      tools:
+        - Read
+        - Grep
+        - Glob
+        - WebSearch
+      triggers:
+        - "controller"
+        - "reconcile"
+        - "controller-runtime"
+        - "operator"
+        - "watch"
+      expertise_areas:
+        - "controller-runtime patterns"
+        - "Reconciliation loop design"
+        - "Event filtering and predicates"
+        - "Error handling and retry logic"
+        - "Leader election"
+        - "Finalizers and garbage collection"
+        - "Status conditions"
+        - "Performance and scalability"
+
+    - name: crd-expert
+      type: domain_expert
+      domain: "Custom Resource Definitions"
+      description: "Expert in CRD design, API versioning, validation, and webhooks"
+      enabled: true
+      priority: medium
+      model: opus
+      tools:
+        - Read
+        - Grep
+        - Glob
+        - WebSearch
+      triggers:
+        - "crd"
+        - "custom resource"
+        - "api"
+        - "kubebuilder"
+        - "webhook"
+      expertise_areas:
+        - "API design and versioning"
+        - "Kubebuilder markers and validation"
+        - "OpenAPI schema design"
+        - "Status subresource"
+        - "Printer columns"
+        - "Webhook validation"
+        - "Conversion webhooks"
+
+    - name: unit-test-expert
+      type: domain_expert
+      domain: "Unit testing patterns and practices"
+      description: "Expert in Go unit testing, table-driven tests, mocking, and test organization"
+      enabled: true
+      priority: high
+      model: sonnet  # Faster for test analysis
+      tools:
+        - Read
+        - Grep
+        - Glob
+        - WebSearch
+      triggers:
+        - "unit test"
+        - "_test.go"
+        - "testing"
+        - "mock"
+        - "testify"
+      expertise_areas:
+        - "Table-driven tests in Go"
+        - "Test organization and structure"
+        - "Mocking strategies (gomock, interfaces)"
+        - "Test helpers and utilities"
+        - "Coverage and meaningful tests"
+        - "Test naming conventions"
+        - "Parallel test execution"
+
+    - name: e2e-test-expert
+      type: domain_expert
+      domain: "End-to-end testing with Ginkgo"
+      description: "Expert in Ginkgo/Gomega, test environment setup, and integration testing"
+      enabled: true
+      priority: medium
+      model: sonnet
+      tools:
+        - Read
+        - Grep
+        - Glob
+        - WebSearch
+        - Bash
+      triggers:
+        - "e2e"
+        - "ginkgo"
+        - "integration test"
+        - "gomega"
+      expertise_areas:
+        - "Ginkgo BDD testing"
+        - "Gomega matchers"
+        - "Test environment setup"
+        - "Test isolation and cleanup"
+        - "Flake reduction"
+        - "Parallel execution strategies"
+        - "CI/CD integration"
+
+    - name: coding-expert
+      type: domain_expert
+      domain: "General coding best practices"
+      description: "Expert in clean code, SOLID principles, refactoring, and code organization"
+      enabled: true
+      priority: medium
+      model: sonnet
+      tools:
+        - Read
+        - Grep
+        - Glob
+      triggers:
+        - "code quality"
+        - "clean code"
+        - "refactoring"
+        - "solid"
+        - "code organization"
+      expertise_areas:
+        - "SOLID principles"
+        - "DRY, KISS, YAGNI"
+        - "Code organization and modularity"
+        - "Naming conventions"
+        - "Documentation practices"
+        - "Refactoring patterns"
+        - "Technical debt management"
+
+  # Orchestrator agents - coordinate and synthesize
+  orchestrator_agents:
+    - name: design-spec-orchestrator
+      type: orchestrator
+      description: "Main orchestrator for design spec analysis and implementation planning"
+      enabled: true
+      model: opus
+      capabilities:
+        - "Reads design specs"
+        - "Determines relevant domain experts"
+        - "Launches agents in parallel"
+        - "Synthesizes recommendations"
+        - "Resolves conflicts"
+        - "Generates implementation plans"
+
+# Extensibility configuration
+extensibility:
+  # Allow dynamic agent discovery from filesystem
+  allow_dynamic_agents: true
+
+  # Path to agent template for new agents
+  agent_template_path: ".claude/agents/templates/domain-expert-template.md"
+
+  # Auto-discover agents from these directories
+  auto_discover_agents: true
+  agent_directories:
+    - ".claude/agents/domain-experts"
+    - ".claude/agents/custom"
+
+  # Allow custom agent types
+  custom_agent_types_enabled: true
+
+  # Validation settings
+  validation:
+    require_domain_docs: true     # Require matching docs/domain-expertise/*.md
+    validate_on_load: true        # Validate agent definitions on load
+    strict_mode: false            # Fail on warnings vs just log
+
+# Orchestrator configuration
+orchestrator:
+  # Default mode for agent selection
+  default_mode: "full"  # Options: full, smart, focused, quick
+
+  # Parallelization settings
+  parallel_execution: true
+  max_parallel_agents: 10
+
+  # Timeout settings (milliseconds)
+  agent_timeout: 120000  # 2 minutes per agent
+  orchestration_timeout: 300000  # 5 minutes total
+
+  # Error handling
+  continue_on_agent_failure: true  # Continue if one agent fails
+  min_required_agents: 3           # Minimum agents needed for valid analysis
+
+  # Output settings
+  include_full_reports: true       # Include full agent reports in appendix
+  synthesis_format: "structured"   # Options: structured, narrative
+
+  # Background execution
+  allow_background_agents: true
+  background_timeout: 600000  # 10 minutes
+
+# Logging and monitoring
+monitoring:
+  log_agent_invocations: true
+  track_metrics: true
+  metrics_path: ".claude/metrics/"
+
+  # Metrics to track
+  metrics:
+    - agent_usage_count
+    - agent_execution_time
+    - recommendation_acceptance_rate
+    - synthesis_quality_score
+
+# Domain expertise documentation settings
+domain_docs:
+  base_path: "docs/domain-expertise/"
+  template_path: "docs/domain-expertise/template.md"
+  require_owner: true
+  require_update_date: true
+  auto_link_to_agents: true
