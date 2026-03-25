@@ -19,11 +19,15 @@ The Agentic Workflow System coordinates multiple domain expert agents to analyze
 
 ## Quick Start
 
-### Current Status: Phase 0 Complete ✅
+### Current Status: Phase 1 Complete ✅
 
-Foundation established. Ready to begin Phase 1.
+Infrastructure established. Agent templates and tools ready.
 
-See [Phase 0 Summary](ai-docs/phase-0-summary.md) for completion details.
+- ✅ **Phase 0:** Project setup and architecture
+- ✅ **Phase 1:** Agent infrastructure (templates, tools, integration plan)
+- 📋 **Phase 2:** Create 7 domain expert agents (next)
+
+See [Phase 1 Summary](ai-docs/phase-1-summary.md) for completion details.
 
 ### Using the System (Future)
 
@@ -65,7 +69,6 @@ vim design-specs/my-feature.md
 │   ├── template.md          # Design spec template
 │   └── examples/            # Example specs (Phase 5)
 ├── docs/
-│   ├── domain-expertise/    # Domain knowledge docs (Phase 2)
 │   └── agentic-workflow/
 │       └── architecture.md  # System architecture
 └── README.md                # This file
@@ -122,15 +125,13 @@ See [Multi-Agent Implementation Plan](ai-docs/multi-agent-implementation-plan.md
 - Design spec template
 - Architecture documentation
 
-### Phase 1: Agent Infrastructure (3-4 days)
+### Phase 1: Agent Infrastructure ✅ COMPLETE
 - Agent template
-- Domain expertise documentation template
 - Agent registry helper
 - skill-creator integration
 
 ### Phase 2: Domain Expert Agents (1-2 weeks)
-- Build 7 domain expert agents
-- Create domain knowledge documentation
+- Build 7 domain expert agents with embedded expertise
 
 ### Phase 3: Build Orchestrator (1 week)
 - Main orchestrator logic
@@ -204,10 +205,9 @@ See [Multi-Agent Implementation Plan](ai-docs/multi-agent-implementation-plan.md
 Adding new domain experts is straightforward:
 
 1. Copy agent template from `.claude/agents/templates/`
-2. Customize for your domain expertise area
+2. Customize for your domain with comprehensive expertise in prompt
 3. Add to `config/agents.yaml`
-4. Create domain documentation in `docs/domain-expertise/`
-5. **No orchestrator changes needed** ✅
+4. **No orchestrator changes needed** ✅
 
 See Phase 4 implementation plan for detailed guide.
 
@@ -223,9 +223,9 @@ See Phase 4 implementation plan for detailed guide.
 5. Share feedback to improve agents
 
 ### Improving Agents
-- Update domain expertise docs
-- Refine agent prompts
+- Refine agent prompts with updated expertise
 - Use skill-creator for optimization (future)
+- Test with diverse design specs
 
 ---
 

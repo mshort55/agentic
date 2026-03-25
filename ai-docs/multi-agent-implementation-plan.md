@@ -1,7 +1,7 @@
 # Multi-Agent System Implementation Plan
-## Design Spec Implementation with Specialized Practice Agents
+## Design Spec Implementation with Specialized Domain Expert Agents
 
-**Goal:** Build an extensible multi-agent system where a main orchestrator reads design specs and consults specialized practice agents in parallel for Go, Kubernetes, Controllers, CRDs, Testing, and Coding practices.
+**Goal:** Build an extensible multi-agent system where a main orchestrator reads design specs and consults specialized domain expert agents in parallel for Go, Kubernetes, Controllers, CRDs, Testing, and Coding practices.
 
 **Architecture:** Option 2 - Multi-Agent System with Specialized Agents
 
@@ -20,7 +20,7 @@
 /UbuntuSync/
 ├── .claude/
 │   └── agents/                    # Custom agent definitions
-│       ├── practices/             # Practice expert agents
+│       ├── domain-experts/        # Domain expert agents
 │       │   ├── go-expert.md
 │       │   ├── k8s-expert.md
 │       │   ├── controller-expert.md
@@ -31,16 +31,8 @@
 │       ├── orchestrator/          # Orchestrator skills/agents
 │       │   └── design-spec-orchestrator.md
 │       └── templates/             # Templates for new agents
-│           └── practice-agent-template.md
+│           └── domain-expert-template.md
 ├── docs/
-│   ├── practices/                 # Practice documentation (knowledge base)
-│   │   ├── go-practices.md
-│   │   ├── k8s-practices.md
-│   │   ├── controller-practices.md
-│   │   ├── crd-practices.md
-│   │   ├── unit-testing-practices.md
-│   │   ├── e2e-testing-practices.md
-│   │   └── coding-practices.md
 │   └── agentic-workflow/
 │       ├── architecture.md        # System architecture docs
 │       ├── agent-registry.md      # Catalog of all agents
@@ -56,10 +48,10 @@ Create `config/agents.yaml`:
 ```yaml
 version: "1.0"
 agent_registry:
-  # Practice expert agents
-  practice_agents:
+  # Domain expert agents
+  domain_experts:
     - name: go-expert
-      type: practice
+      type: domain_expert
       domain: "Go language and idioms"
       enabled: true
       priority: high
@@ -74,7 +66,7 @@ agent_registry:
         - "*.go files"
 
     - name: k8s-expert
-      type: practice
+      type: domain_expert
       domain: "Kubernetes patterns and best practices"
       enabled: true
       priority: high
@@ -91,7 +83,7 @@ agent_registry:
         - "service"
 
     - name: controller-expert
-      type: practice
+      type: domain_expert
       domain: "Kubernetes controller patterns"
       enabled: true
       priority: high
@@ -106,7 +98,7 @@ agent_registry:
         - "controller-runtime"
 
     - name: crd-expert
-      type: practice
+      type: domain_expert
       domain: "Custom Resource Definitions"
       enabled: true
       priority: medium
@@ -121,7 +113,7 @@ agent_registry:
         - "api"
 
     - name: unit-test-expert
-      type: practice
+      type: domain_expert
       domain: "Unit testing patterns and practices"
       enabled: true
       priority: high
@@ -136,7 +128,7 @@ agent_registry:
         - "testing"
 
     - name: e2e-test-expert
-      type: practice
+      type: domain_expert
       domain: "End-to-end testing with Ginkgo"
       enabled: true
       priority: medium
@@ -152,7 +144,7 @@ agent_registry:
         - "integration test"
 
     - name: coding-expert
-      type: practice
+      type: domain_expert
       domain: "General coding best practices"
       enabled: true
       priority: medium
@@ -175,7 +167,7 @@ agent_registry:
 # Extensibility configuration
 extensibility:
   allow_dynamic_agents: true
-  agent_template_path: ".claude/agents/templates/practice-agent-template.md"
+  agent_template_path: ".claude/agents/templates/domain-expert-template.md"
   auto_discover_agents: true
   agent_directories:
     - ".claude/agents/practices"
@@ -224,7 +216,7 @@ High-level steps (will be enhanced by agent analysis).
 - Question 1?
 - Question 2?
 
-## Practice Areas to Consult
+## Domain Experts to Consult
 <!-- Auto-detected by orchestrator, or manually specify -->
 - [ ] Go practices
 - [ ] Kubernetes practices
@@ -239,7 +231,7 @@ High-level steps (will be enhanced by agent analysis).
 Create `docs/agentic-workflow/architecture.md` with:
 - System overview diagram
 - Agent interaction flows
-- Data flow between orchestrator and practice agents
+- Data flow between orchestrator and domain expert agents
 - Decision criteria for agent activation
 - Extensibility points
 
@@ -265,13 +257,13 @@ Create `docs/agentic-workflow/architecture.md` with:
 ### Tasks
 
 #### 1.1 Create Agent Template
-Create `.claude/agents/templates/practice-agent-template.md`:
+Create `.claude/agents/templates/domain-expert-template.md`:
 ```markdown
 ---
 name: {{AGENT_NAME}}
 description: {{DOMAIN}} expert agent for design spec analysis
 model: opus
-type: practice
+type: domain_expert
 tools:
   - Read
   - Grep
@@ -390,68 +382,7 @@ If needed, you can:
 Always cite sources when recommending external patterns.
 ```
 
-#### 1.2 Create Practice Documentation Template
-Create template for `docs/practices/*.md`:
-```markdown
-# {{PRACTICE_AREA}} Best Practices
-
-**Last Updated:** {{DATE}}
-**Owner:** {{TEAM/PERSON}}
-**Agent:** {{AGENT_NAME}}
-
-## Overview
-What this practice area covers and why it matters.
-
-## Core Principles
-1. Principle 1: Description
-2. Principle 2: Description
-3. Principle 3: Description
-
-## Best Practices
-
-### Category 1
-#### Practice 1.1: Title
-- **What**: Description
-- **Why**: Rationale
-- **When**: Applicable scenarios
-- **Example**: Code snippet
-- **References**: Links to docs/articles
-
-### Category 2
-[Same structure]
-
-## Anti-Patterns to Avoid
-
-### Anti-Pattern 1: Title
-- **Description**: What it is
-- **Why avoid**: Problems it causes
-- **Instead**: Better approach
-- **Example**: Bad vs Good
-
-## Common Pitfalls
-1. Pitfall 1: Description and how to avoid
-2. Pitfall 2: Description and how to avoid
-
-## Codebase Conventions
-- Convention 1: Where/how we use it
-- Convention 2: Where/how we use it
-
-## Tools & Libraries
-- Tool 1: Purpose and usage
-- Tool 2: Purpose and usage
-
-## Testing Guidelines
-How to test code in this practice area.
-
-## Resources
-- [Resource 1](url)
-- [Resource 2](url)
-
-## Changelog
-- YYYY-MM-DD: Change description
-```
-
-#### 1.3 Create Agent Registry Helper
+#### 1.2 Create Agent Registry Helper
 Create `.claude/agents/agent-registry-helper.md` (skill or agent):
 ```markdown
 ---
@@ -465,7 +396,7 @@ This helper manages the agent registry and assists with agent discovery.
 
 ## Capabilities
 
-1. **List Available Agents**: Show all registered practice agents
+1. **List Available Agents**: Show all registered domain expert agents
 2. **Check Agent Status**: Verify which agents are enabled
 3. **Suggest Agents for Spec**: Analyze design spec and suggest relevant agents
 4. **Validate Agent Config**: Check agents.yaml for correctness
@@ -482,16 +413,16 @@ When called, determine what registry operation is needed:
 Always reference the source of truth: `/UbuntuSync/config/agents.yaml`
 ```
 
-#### 1.4 Integration with skill-creator
-Plan for using skill-creator to generate new practice agents:
+#### 1.3 Integration with skill-creator
+Plan for using skill-creator to generate new domain expert agents:
 ```markdown
-# Using skill-creator for New Practice Agents
+# Using skill-creator for New Domain Expert Agents
 
 ## Approach
-Use the skill-creator skill to generate new practice agent definitions based on the template.
+Use the skill-creator skill to generate new domain expert agent definitions based on the template.
 
 ## Workflow
-1. Identify need for new practice area (e.g., "security-practices")
+1. Identify need for new domain expertise area (e.g., "security-practices")
 2. Define the domain, expertise areas, and triggers
 3. Use skill-creator to generate agent definition from template
 4. Review and customize the generated agent
@@ -501,23 +432,22 @@ Use the skill-creator skill to generate new practice agent definitions based on 
 ## Command Pattern
 ```bash
 # Future usage (after skill-creator integration)
-/skill-creator create-practice-agent \
+/skill-creator create-domain-expert-agent \
   --name security-expert \
   --domain "Security and compliance" \
   --triggers "security,auth,rbac" \
-  --template practice-agent-template.md
+  --template domain-expert-template.md
 ```
 
 ## Benefits
-- Consistency across all practice agents
-- Faster onboarding of new practice areas
+- Consistency across all domain expert agents
+- Faster onboarding of new domain expertise areas
 - Built-in best practices from template
 - Easier maintenance
 ```
 
 ### Deliverables
 - [ ] Agent template created and documented
-- [ ] Practice documentation template created
 - [ ] Agent registry helper created
 - [ ] skill-creator integration plan documented
 
@@ -528,16 +458,16 @@ Use the skill-creator skill to generate new practice agent definitions based on 
 
 ---
 
-## Phase 2: Create Initial Practice Agents
+## Phase 2: Create Initial Domain Expert Agents
 
-**Objective:** Build the 7 core practice expert agents with rich domain knowledge.
+**Objective:** Build the 7 core domain expert agents with rich domain knowledge.
 
 **Duration:** 1-2 weeks (can be parallelized)
 
 ### Tasks
 
 #### 2.1 Go Expert Agent
-Create `.claude/agents/practices/go-expert.md`:
+Create `.claude/agents/domain-experts/go-expert.md`:
 
 **Domain expertise:**
 - Idiomatic Go patterns
@@ -562,7 +492,7 @@ Create `.claude/agents/practices/go-expert.md`:
 - Use context for cancellation
 
 #### 2.2 Kubernetes Expert Agent
-Create `.claude/agents/practices/k8s-expert.md`:
+Create `.claude/agents/domain-experts/k8s-expert.md`:
 
 **Domain expertise:**
 - Kubernetes resource patterns
@@ -589,7 +519,7 @@ Create `.claude/agents/practices/k8s-expert.md`:
 - Use namespaces for isolation
 
 #### 2.3 Controller Expert Agent
-Create `.claude/agents/practices/controller-expert.md`:
+Create `.claude/agents/domain-experts/controller-expert.md`:
 
 **Domain expertise:**
 - controller-runtime patterns
@@ -617,7 +547,7 @@ Create `.claude/agents/practices/controller-expert.md`:
 - Implement proper backoff
 
 #### 2.4 CRD Expert Agent
-Create `.claude/agents/practices/crd-expert.md`:
+Create `.claude/agents/domain-experts/crd-expert.md`:
 
 **Domain expertise:**
 - API design (versioning, compatibility)
@@ -644,7 +574,7 @@ Create `.claude/agents/practices/crd-expert.md`:
 - Meaningful printer columns
 
 #### 2.5 Unit Test Expert Agent
-Create `.claude/agents/practices/unit-test-expert.md`:
+Create `.claude/agents/domain-experts/unit-test-expert.md`:
 
 **Domain expertise:**
 - Table-driven tests in Go
@@ -671,7 +601,7 @@ Create `.claude/agents/practices/unit-test-expert.md`:
 - Use subtests for organization
 
 #### 2.6 E2E Test Expert Agent
-Create `.claude/agents/practices/e2e-test-expert.md`:
+Create `.claude/agents/domain-experts/e2e-test-expert.md`:
 
 **Domain expertise:**
 - Ginkgo BDD testing
@@ -698,7 +628,7 @@ Create `.claude/agents/practices/e2e-test-expert.md`:
 - Clear test data setup
 
 #### 2.7 Coding Expert Agent
-Create `.claude/agents/practices/coding-expert.md`:
+Create `.claude/agents/domain-experts/coding-expert.md`:
 
 **Domain expertise:**
 - SOLID principles
@@ -730,16 +660,14 @@ Create `.claude/agents/practices/coding-expert.md`:
 **Implementation steps:**
 1. Copy and customize template
 2. Research domain-specific best practices
-3. Document expertise areas comprehensively
+3. Document expertise areas comprehensively in agent prompt
 4. Define clear triggers
 5. Specify tools needed (Read, Grep, WebSearch, etc.)
-6. Create corresponding practice documentation in `docs/practices/`
-7. Add to agent registry in `config/agents.yaml`
-8. Create test design spec to validate
+6. Add to agent registry in `config/agents.yaml`
+7. Create test design spec to validate
 
 ### Deliverables
-- [ ] 7 practice agent definitions created
-- [ ] 7 corresponding practice documentation files
+- [ ] 7 domain expert agent definitions created
 - [ ] All agents registered in agents.yaml
 - [ ] Initial validation completed
 
@@ -753,7 +681,7 @@ Create `.claude/agents/practices/coding-expert.md`:
 
 ## Phase 3: Build Orchestrator
 
-**Objective:** Create the main orchestrator that coordinates practice agents and synthesizes recommendations.
+**Objective:** Create the main orchestrator that coordinates domain expert agents and synthesizes recommendations.
 
 **Duration:** 1 week
 
@@ -763,7 +691,7 @@ Create `.claude/agents/practices/coding-expert.md`:
 
 **Decision flow:**
 1. Read design spec from specified path
-2. Parse spec to identify relevant practice areas
+2. Parse spec to identify relevant domain expertise areas
 3. Check agent registry for enabled agents
 4. Match spec requirements to agent triggers
 5. Determine which agents to invoke (all or subset)
@@ -779,7 +707,7 @@ Create `.claude/agents/orchestrator/design-spec-orchestrator.md`:
 ```markdown
 ---
 name: design-spec-orchestrator
-description: Orchestrates design spec analysis using practice expert agents
+description: Orchestrates design spec analysis using domain expert agents
 triggers:
   - "analyze design spec"
   - "/analyze-spec"
@@ -792,7 +720,7 @@ You are the main orchestrator for design spec analysis and implementation planni
 ## Your Responsibilities
 
 1. **Read Design Spec**: Load and parse the design spec
-2. **Agent Selection**: Determine which practice agents are relevant
+2. **Agent Selection**: Determine which domain expert agents are relevant
 3. **Parallel Execution**: Launch all relevant agents simultaneously
 4. **Result Synthesis**: Combine agent recommendations into coherent plan
 5. **Conflict Resolution**: Reconcile contradictory recommendations
@@ -810,7 +738,7 @@ Parse and understand:
 - Feature overview and goals
 - Proposed changes
 - Affected areas (API, controller, tests, etc.)
-- Explicit practice areas mentioned
+- Complexity and scope
 
 ### Step 2: Load Agent Registry
 ```bash
@@ -948,7 +876,7 @@ Steps:
 2. Step 2
 3. Step 3
 
-Practice guidelines:
+Domain expertise guidelines:
 - From go-expert: {{guideline}}
 - From coding-expert: {{guideline}}
 
@@ -1088,11 +1016,11 @@ If agent fails:
 - Log the failure
 - Continue with other agents
 - Note missing analysis in final plan
-- Suggest manual review of that practice area
+- Suggest manual review of that domain expertise area
 
 ## Extension Points
 
-When new practice agents are added:
+When new domain expert agents are added:
 - Automatically discovered from agent registry
 - Included in parallel launches if triggered
 - Results integrated into synthesis
@@ -1106,7 +1034,7 @@ Create `.claude/agents/orchestrator/analyze-design-spec-skill.md`:
 ```markdown
 ---
 name: analyze-design-spec
-description: Analyze a design spec using practice expert agents
+description: Analyze a design spec using domain expert agents
 triggers:
   - "/analyze-spec"
   - "/spec-analysis"
@@ -1125,7 +1053,7 @@ User-friendly interface to the design spec orchestrator.
 ## Options
 - `--full`: Comprehensive analysis with all agents (default)
 - `--fast`: Quick analysis with core agents only
-- `--focus=<area>`: Focus on specific practice area(s)
+- `--focus=<area>`: Focus on specific domain expertise area(s)
   - Areas: go, k8s, controller, crd, unit-test, e2e-test, coding
   - Can specify multiple: --focus=go,testing
 
@@ -1166,7 +1094,7 @@ Parse arguments and invoke design-spec-orchestrator with appropriate parameters.
 
 ## Phase 4: Extensibility Framework
 
-**Objective:** Build mechanisms to easily add new practice agents without modifying core system.
+**Objective:** Build mechanisms to easily add new domain expert agents without modifying core system.
 
 **Duration:** 3-5 days
 
@@ -1175,26 +1103,25 @@ Parse arguments and invoke design-spec-orchestrator with appropriate parameters.
 #### 4.1 Create "Add New Agent" Guide
 Create `docs/agentic-workflow/adding-new-agents.md`:
 ```markdown
-# Adding New Practice Agents
+# Adding New Domain Expert Agents
 
-This guide explains how to add new practice expert agents to the system.
+This guide explains how to add new domain expert agents to the system.
 
 ## Quick Start
 
-1. Identify the practice area (e.g., "security-practices")
+1. Identify the domain expertise area (e.g., "security-practices")
 2. Use the agent template
-3. Customize for your domain
+3. Customize for your domain with comprehensive expertise
 4. Register in agent registry
-5. Create practice documentation
-6. Test with sample design spec
+5. Test with sample design spec
 
 ## Detailed Steps
 
 ### Step 1: Create Agent Definition
 
 ```bash
-cp .claude/agents/templates/practice-agent-template.md \
-   .claude/agents/practices/security-expert.md
+cp .claude/agents/templates/domain-expert-template.md \
+   .claude/agents/domain-experts/security-expert.md
 ```
 
 Customize:
@@ -1205,38 +1132,27 @@ Customize:
 - Configure tools
 - Specify model (opus for complex, sonnet for faster)
 
-### Step 2: Define Domain Expertise
+### Step 2: Define Domain Expertise in Agent Prompt
 
-List specific areas of expertise:
+Add specific areas of expertise to the agent definition:
 - Authentication and authorization
 - Secrets management
 - RBAC design
 - Security scanning
 - Compliance requirements
 - CVE remediation
-- etc.
-
-### Step 3: Create Practice Documentation
-
-```bash
-cp docs/practices/template.md docs/practices/security-practices.md
-```
-
-Document:
-- Core principles
-- Best practices by category
-- Anti-patterns
+- Best practices and anti-patterns
 - Common pitfalls
 - Tools and libraries
 - Testing approach
-- Resources
+- etc.
 
-### Step 4: Register Agent
+### Step 3: Register Agent
 
 Edit `config/agents.yaml`:
 ```yaml
 - name: security-expert
-  type: practice
+  type: domain_expert
   domain: "Security and compliance practices"
   enabled: true
   priority: high
@@ -1253,7 +1169,7 @@ Edit `config/agents.yaml`:
     - "compliance"
 ```
 
-### Step 5: Test
+### Step 4: Test
 
 Create test design spec: `design-specs/test-security-expert.md`
 
@@ -1265,7 +1181,7 @@ Verify:
 - Recommendations are actionable
 - Output follows format
 
-### Step 6: Document
+### Step 5: Document
 
 Update `docs/agentic-workflow/agent-registry.md` with:
 - Agent name and purpose
@@ -1277,7 +1193,7 @@ Update `docs/agentic-workflow/agent-registry.md` with:
 
 Once integrated:
 ```bash
-/skill-creator create-practice-agent \
+/skill-creator create-domain-expert-agent \
   --name security-expert \
   --domain "Security and compliance" \
   --expertise "auth,secrets,rbac,scanning" \
@@ -1285,17 +1201,16 @@ Once integrated:
 ```
 
 This will:
-- Generate agent definition from template
-- Create practice documentation stub
+- Generate agent definition from template with comprehensive expertise
 - Register in agents.yaml
 - Prompt for domain-specific customization
 
 ## Best Practices
 
-- **Focus**: One clear practice area per agent
+- **Focus**: One clear domain expertise area per agent
 - **Tools**: Only request tools the agent will actually use
 - **Triggers**: Specific enough to avoid false positives
-- **Documentation**: Keep practice docs updated
+- **Expertise**: Keep agent prompts comprehensive and updated
 - **Testing**: Always test with real design specs
 - **Maintenance**: Review and update agent knowledge quarterly
 
@@ -1351,15 +1266,9 @@ Validates agent definitions for correctness and completeness.
 ### Agent Registry
 - [ ] Valid YAML syntax
 - [ ] All agents have unique names
-- [ ] Agent types are valid (practice, orchestrator, custom)
+- [ ] Agent types are valid (domain_expert, orchestrator, custom)
 - [ ] Tools are valid
 - [ ] No duplicate triggers across agents
-
-### Practice Documentation
-- [ ] Matching .md file exists in docs/practices/
-- [ ] Contains required sections
-- [ ] Has update date and owner
-- [ ] Examples are present
 
 ### Integration
 - [ ] Agent file exists at registered path
@@ -1384,7 +1293,7 @@ Reports:
 #### 4.3 Create Agent Discovery Mechanism
 
 Auto-discovery features:
-1. Scan `.claude/agents/practices/` for agent files
+1. Scan `.claude/agents/domain-experts/` for agent files
 2. Parse frontmatter to extract metadata
 3. Build runtime registry from files + config
 4. Validate against agents.yaml
@@ -1394,17 +1303,17 @@ Create `.claude/agents/tools/agent-discovery.md`:
 ```markdown
 ---
 name: agent-discovery
-description: Discovers and catalogs all available practice agents
+description: Discovers and catalogs all available domain expert agents
 ---
 
 # Agent Discovery Tool
 
-Automatically discovers practice agents from the filesystem.
+Automatically discovers domain expert agents from the filesystem.
 
 ## Discovery Process
 
 1. Scan directories:
-   - `.claude/agents/practices/`
+   - `.claude/agents/domain-experts/`
    - `.claude/agents/custom/` (if exists)
 
 2. For each `.md` file:
@@ -1434,7 +1343,7 @@ Automatically discovers practice agents from the filesystem.
 - ✅ coding-expert (enabled, priority: medium)
 
 ## Unregistered Agents (1)
-- ⚠️  security-expert (found at .claude/agents/practices/security-expert.md)
+- ⚠️  security-expert (found at .claude/agents/domain-experts/security-expert.md)
   Action: Add to config/agents.yaml
 
 ## Missing Agents (0)
@@ -1462,19 +1371,19 @@ skill-creator is available for creating and managing skills in Claude Code.
 ## Integration Approach
 
 ### Phase 1: Manual Template Usage
-Use existing templates to create new practice agents manually.
+Use existing templates to create new domain expert agents manually.
 
 ### Phase 2: skill-creator for Agent Generation (Future)
-Enhance skill-creator to understand practice agent pattern:
+Enhance skill-creator to understand domain expert agent pattern:
 
 1. **Create agent-specific skill templates**
-   - practice-agent template in skill-creator format
+   - domain-expert-agent template in skill-creator format
    - Include customization prompts
    - Auto-populate from parameters
 
-2. **Add practice-agent creation command**
+2. **Add domain-expert-agent creation command**
    ```bash
-   /skill-creator create-practice-agent
+   /skill-creator create-domain-expert-agent
    ```
 
    Prompts for:
@@ -1486,7 +1395,6 @@ Enhance skill-creator to understand practice agent pattern:
 
 3. **Auto-registration**
    - Automatically update agents.yaml
-   - Create practice documentation stub
    - Run validation
    - Suggest test design spec
 
@@ -1501,7 +1409,7 @@ Use skill-creator to:
 
 ```bash
 # Create new agent
-/skill-creator create-practice-agent \
+/skill-creator create-domain-expert-agent \
   --name observability-expert \
   --domain "Observability and monitoring"
 
@@ -1512,11 +1420,10 @@ Use skill-creator to:
 # - Priority level? (high, medium, low)
 
 # skill-creator generates:
-# 1. .claude/agents/practices/observability-expert.md
-# 2. docs/practices/observability-practices.md (stub)
-# 3. Updates config/agents.yaml
-# 4. Runs validation
-# 5. Creates test design spec
+# 1. .claude/agents/domain-experts/observability-expert.md (with comprehensive expertise)
+# 2. Updates config/agents.yaml
+# 3. Runs validation
+# 4. Creates test design spec
 
 # Optimize agent
 /skill-creator optimize-agent observability-expert \
@@ -1603,7 +1510,7 @@ For each test spec:
 
 #### 5.3 Test Agent Quality
 
-For each practice agent:
+For each domain expert agent:
 1. Verify expertise is comprehensive
 2. Check recommendations are specific and actionable
 3. Ensure examples are relevant
@@ -1692,7 +1599,7 @@ Create `docs/agentic-workflow/user-guide.md`:
 ### Bug Fixes
 1. Create minimal design spec
 2. Run quick analysis (--fast)
-3. Focus on relevant practice area
+3. Focus on relevant domain expertise area
 4. Implement fix
 5. Verify tests
 
@@ -1709,7 +1616,7 @@ Create `docs/agentic-workflow/user-guide.md`:
 - Review all agent recommendations
 - Ask clarifying questions
 - Iterate on the plan
-- Keep practice docs updated
+- Keep agent prompts updated with latest practices
 
 ## Troubleshooting
 
@@ -1750,7 +1657,7 @@ Create `docs/agentic-workflow/developer-guide.md`:
 
 ## Extensibility
 
-### Adding New Practice Areas
+### Adding New Domain Expertise Areas
 [Detailed guide]
 
 ### Custom Agents
@@ -1761,8 +1668,8 @@ Create `docs/agentic-workflow/developer-guide.md`:
 
 ## Maintenance
 
-### Updating Practice Documentation
-[How and when to update]
+### Updating Agent Expertise
+[How and when to update agent prompts]
 
 ### Agent Performance Optimization
 [Using skill-creator for optimization]
@@ -1777,9 +1684,9 @@ Create `docs/agentic-workflow/agent-registry.md`:
 ```markdown
 # Agent Registry
 
-Complete catalog of all practice agents.
+Complete catalog of all domain expert agents.
 
-## Practice Agents
+## Domain Expert Agents
 
 ### go-expert
 - **Domain:** Go language and idioms
@@ -1823,7 +1730,7 @@ Create `docs/agentic-workflow/runbook.md`:
 /analyze-spec design-specs/your-spec.md
 ```
 
-### Adding a New Practice Agent
+### Adding a New Domain Expert Agent
 1. Copy template
 2. Customize
 3. Register
@@ -1831,10 +1738,9 @@ Create `docs/agentic-workflow/runbook.md`:
 5. Document
 
 ### Updating an Existing Agent
-1. Edit agent file
-2. Update practice docs
-3. Test with example specs
-4. Document changes
+1. Edit agent file (update expertise in prompt)
+2. Test with example specs
+3. Document changes
 
 ### Troubleshooting Failed Agent
 1. Check agent definition
@@ -1854,10 +1760,10 @@ Create `docs/agentic-workflow/runbook.md`:
 
 ### Weekly
 - Review agent usage metrics
-- Check for new practice areas
+- Check for new domain expertise areas
 
 ### Monthly
-- Update practice documentation
+- Update agent prompts with latest best practices
 - Review and optimize slow agents
 - Validate all agents still work
 
@@ -1921,7 +1827,7 @@ Options for integration:
 2. Track which recommendations are followed
 3. Measure impact on code quality
 4. Iterate on agent prompts
-5. Add new practice areas based on needs
+5. Add new domain expertise areas based on needs
 
 #### 7.4 Metrics and Monitoring
 
@@ -2025,4 +1931,4 @@ Track:
 3. How should we handle token costs at scale?
 4. Should we integrate skill-creator now or later?
 5. What CI/CD integration is needed?
-6. Who will maintain practice documentation?
+6. Who will maintain and update agent prompts?

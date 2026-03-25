@@ -4,6 +4,8 @@
 **Status:** Infrastructure Setup Complete
 **Next Phase:** Phase 1 - Agent Infrastructure
 
+> **Historical Note:** This document reflects the original Phase 0 plan. The `docs/domain-expertise/` directory mentioned below was later removed from the architecture. Domain expertise now lives directly in agent prompt files rather than separate documentation. See [multi-agent-implementation-plan.md](multi-agent-implementation-plan.md) for current approach.
+
 ---
 
 ## Overview

@@ -233,7 +233,6 @@ extensibility:
 
   # Validation settings
   validation:
-    require_domain_docs: true     # Require matching docs/domain-expertise/*.md
     validate_on_load: true        # Validate agent definitions on load
     strict_mode: false            # Fail on warnings vs just log
 
@@ -274,11 +273,3 @@ monitoring:
     - agent_execution_time
     - recommendation_acceptance_rate
     - synthesis_quality_score
-
-# Domain expertise documentation settings
-domain_docs:
-  base_path: "docs/domain-expertise/"
-  template_path: "docs/domain-expertise/template.md"
-  require_owner: true
-  require_update_date: true
-  auto_link_to_agents: true

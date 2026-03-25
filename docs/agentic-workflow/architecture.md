@@ -21,12 +21,12 @@
 
 ## System Overview
 
-The Agentic Workflow system is a multi-agent architecture designed to analyze design specifications and provide comprehensive implementation guidance by consulting specialized practice expert agents in parallel.
+The Agentic Workflow system is a multi-agent architecture designed to analyze design specifications and provide comprehensive implementation guidance by consulting specialized domain expert agents in parallel.
 
 ### Purpose
 
 Enable developers to:
-- Receive expert guidance across multiple practice areas simultaneously
+- Receive expert guidance across multiple domain areas simultaneously
 - Get consistent, actionable implementation plans
 - Leverage best practices without manual consultation
 - Reduce code review cycles through upfront analysis
@@ -36,7 +36,7 @@ Enable developers to:
 
 1. **Parallelization First**: All agents run simultaneously for maximum speed
 2. **Separation of Concerns**: Each agent is expert in one domain
-3. **Extensibility by Design**: Adding new practice areas requires no code changes
+3. **Extensibility by Design**: Adding new domain areas requires no code changes
 4. **Configuration Over Code**: Agents are defined declaratively
 5. **Synthesis Over Aggregation**: Recommendations are synthesized, not just collected
 
@@ -62,7 +62,7 @@ Enable developers to:
 │  │  Design Spec Orchestrator                                  │ │
 │  │  • Reads and parses design spec                            │ │
 │  │  • Loads agent registry (agents.yaml)                      │ │
-│  │  • Determines relevant practice agents                     │ │
+│  │  • Determines relevant domain expert agents                     │ │
 │  │  • Launches agents in parallel                             │ │
 │  │  • Collects and synthesizes results                        │ │
 │  │  • Generates implementation plan                           │ │
@@ -73,7 +73,7 @@ Enable developers to:
                 │            │            │
                 ▼            ▼            ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                   PRACTICE AGENT LAYER                           │
+│                   DOMAIN EXPERT LAYER                            │
 │                                                                  │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐        │
 │  │    Go    │  │   K8s    │  │Controller│  │   CRD    │        │
@@ -118,17 +118,6 @@ Enable developers to:
 │                    KNOWLEDGE BASE LAYER                          │
 │                                                                  │
 │  ┌────────────────────────────────────────────────────────────┐ │
-│  │  Practice Documentation (docs/practices/)                   │ │
-│  │  • go-practices.md                                          │ │
-│  │  • k8s-practices.md                                         │ │
-│  │  • controller-practices.md                                  │ │
-│  │  • crd-practices.md                                         │ │
-│  │  • unit-testing-practices.md                                │ │
-│  │  • e2e-testing-practices.md                                 │ │
-│  │  • coding-practices.md                                      │ │
-│  └────────────────────────────────────────────────────────────┘ │
-│                                                                  │
-│  ┌────────────────────────────────────────────────────────────┐ │
 │  │  Codebase (Existing Code)                                   │ │
 │  │  • Existing patterns to reference                           │ │
 │  │  • Utilities and helpers to leverage                        │ │
@@ -171,7 +160,7 @@ Enable developers to:
 **Responsibilities:**
 - Parse and understand design specifications
 - Load agent registry from `config/agents.yaml`
-- Determine which practice agents are relevant
+- Determine which domain expert agents are relevant
 - Launch multiple agents in parallel (using Claude Code's Agent tool)
 - Collect results from all agents
 - Synthesize recommendations into coherent plan
@@ -184,11 +173,11 @@ Enable developers to:
 - **Synthesis**: Categorize, merge, and prioritize recommendations
 - **Conflict Resolution**: Analyze trade-offs when agents disagree
 
-### 2. Practice Expert Agents
+### 2. Domain Expert Agents
 
-**Location:** `.claude/agents/practices/*.md`
+**Location:** `.claude/agents/domain-experts/*.md`
 
-Each practice expert agent is a specialized consultant for one domain:
+Each domain expert agent is a specialized consultant for one domain:
 
 #### go-expert
 - **Domain**: Go language, idioms, patterns
@@ -231,7 +220,7 @@ Each practice expert agent is a specialized consultant for one domain:
 name: agent-name
 description: Brief description
 model: opus | sonnet
-type: practice
+type: domain_expert
 tools:
   - Tool1
   - Tool2
@@ -256,7 +245,7 @@ triggers:
 - Orchestrator configuration
 
 **Key Sections:**
-- `practice_agents`: All domain expert agents
+- `domain_experts`: All domain expert agents
 - `orchestrator_agents`: Orchestrator configuration
 - `extensibility`: Settings for adding new agents
 - `monitoring`: Metrics and logging configuration
@@ -264,18 +253,19 @@ triggers:
 ### 4. Knowledge Base
 
 **Locations:**
-- `docs/practices/*.md`: Curated practice documentation
+- Agent prompts: Domain expertise embedded in agent definitions
 - Codebase itself: Existing patterns and conventions
 - Web: Latest best practices (via WebSearch)
 
-**Practice Documentation Structure:**
+**Agent Expertise Structure:**
+Each agent contains comprehensive domain knowledge in their prompt:
 - Core principles
 - Best practices by category
 - Anti-patterns to avoid
 - Common pitfalls
 - Tools and libraries
 - Testing guidelines
-- Resources and references
+- Analysis framework
 
 ### 5. Tools
 
@@ -550,20 +540,19 @@ Create implementation plan:
 
 ## Extensibility Points
 
-### 1. Adding New Practice Agents
+### 1. Adding New Domain Expert Agents
 
 **Process:**
-1. Copy template: `.claude/agents/templates/practice-agent-template.md`
-2. Customize for new domain
-3. Create practice documentation: `docs/practices/new-practice.md`
-4. Register in `config/agents.yaml`
-5. Test with sample design spec
+1. Copy template: `.claude/agents/templates/domain-expert-template.md`
+2. Customize for new domain with comprehensive expertise in prompt
+3. Register in `config/agents.yaml`
+4. Test with sample design spec
 
 **No orchestrator changes needed** - agents are auto-discovered.
 
 ### 2. Custom Agent Types
 
-Beyond practice agents:
+Beyond domain expert agents:
 - **Implementation agents**: Can modify code (Edit, Write tools)
 - **Research agents**: Deep research (WebSearch focus)
 - **Validation agents**: Check compliance, security
@@ -735,7 +724,7 @@ New tools can be added to agents via MCP (Model Context Protocol):
 
 **Handling:**
 - Agents note research limitation
-- Rely on practice documentation
+- Rely on embedded expertise in prompts
 - Continue with codebase analysis
 - Flag reduced confidence in recommendations
 
@@ -786,10 +775,10 @@ monitoring:
 
 ## References
 
-- [Multi-Agent Implementation Plan](../../multi-agent-implementation-plan.md)
+- [Multi-Agent Implementation Plan](../../ai-docs/multi-agent-implementation-plan.md)
 - [Agent Registry](../../config/agents.yaml)
 - [Design Spec Template](../../design-specs/template.md)
-- [Practice Documentation](../practices/)
+- [Domain Expert Agents](../../.claude/agents/domain-experts/)
 
 ---
 

@@ -12,7 +12,7 @@ Build an agentic workflow where:
   - Unit testing practices
   - E2E test practices (Ginkgo)
   - General coding practices
-- System must be extensible for future practice areas
+- System must be extensible for future domain areas
 - Must follow current agentic workflow best practices (March 2026)
 
 ## Key Research Findings
@@ -74,7 +74,7 @@ New 2026 standard by Anthropic for how agents access tools and resources, enabli
 ```
 Main Agent (Supervisor)
 ├── Reads design spec
-├── Determines which practice areas are needed
+├── Determines which domain areas are needed
 └── Consults Skills for each area:
     ├── /go-practices skill
     ├── /kubernetes-practices skill
@@ -86,7 +86,7 @@ Main Agent (Supervisor)
 ```
 
 **How It Works:**
-- Create a skill for each practice area using Claude Code's skill system
+- Create a skill for each domain area using Claude Code's skill system
 - Each skill is a reusable, invocable prompt with domain expertise
 - Main agent orchestrates by calling skills as needed
 - Skills return recommendations/guidance to main agent
@@ -108,7 +108,7 @@ Main Agent (Supervisor)
 
 **Best For:**
 - Quick guidance lookups
-- Lightweight practice consultations
+- Lightweight domain consultations
 - When practices are documented and stable
 - Single-threaded workflows
 
@@ -132,7 +132,7 @@ Orchestrator Agent
 ```
 
 **How It Works:**
-- Create custom agent definitions for each practice area
+- Create custom agent definitions for each domain area
 - Each agent has specialized tools, prompts, and knowledge
 - Orchestrator launches agents in parallel using Agent tool
 - Agents can do deep research, file analysis, web searches independently
@@ -158,7 +158,7 @@ Orchestrator Agent
 - Complex analysis requiring research
 - When practices need to analyze codebase
 - Parallel processing is important
-- Dynamic, evolving practice areas
+- Dynamic, evolving domain areas
 
 ---
 
@@ -178,7 +178,7 @@ Main Agent
 ```
 
 **How It Works:**
-- Use skills for quick, well-defined practice lookups
+- Use skills for quick, well-defined domain lookups
 - Use agents for areas requiring codebase analysis, research, or complex reasoning
 - Main agent decides which consultation method based on task complexity
 - Best of both worlds approach
@@ -210,29 +210,29 @@ Main Agent
 ```
 Single Agent with Knowledge Base
 ├── Reads design spec
-├── Accesses practice knowledge base (markdown files):
-│   ├── docs/practices/go-practices.md
-│   ├── docs/practices/k8s-practices.md
-│   ├── docs/practices/controller-practices.md
-│   ├── docs/practices/crd-practices.md
-│   ├── docs/practices/testing-practices.md
-│   └── docs/practices/coding-practices.md
+├── Accesses domain knowledge base (markdown files):
+│   ├── docs/domain-expertise/go-practices.md
+│   ├── docs/domain-expertise/k8s-practices.md
+│   ├── docs/domain-expertise/controller-practices.md
+│   ├── docs/domain-expertise/crd-practices.md
+│   ├── docs/domain-expertise/testing-practices.md
+│   └── docs/domain-expertise/coding-practices.md
 └── Uses Grep/Read to retrieve relevant sections
 ```
 
 **How It Works:**
-- Maintain markdown files with practice guidelines
+- Maintain markdown files with domain expertise guidelines
 - Agent reads design spec, identifies relevant practices
-- Uses Grep to find relevant sections in practice docs
+- Uses Grep to find relevant sections in domain expertise docs
 - Synthesizes into implementation guidance
 - Simple, direct, no multi-agent complexity
 
 **Pros:**
 - ✅ Simplest approach - easy to understand and maintain
-- ✅ Practice docs are version controlled and reviewable
+- ✅ Domain expertise docs are version controlled and reviewable
 - ✅ Fast - no agent spawning overhead
 - ✅ Easy to extend - add new markdown files
-- ✅ Team can contribute to practice docs directly
+- ✅ Team can contribute to domain expertise docs directly
 - ✅ Low token usage
 - ✅ Practices are explicit and auditable
 
@@ -246,7 +246,7 @@ Single Agent with Knowledge Base
 **Best For:**
 - Well-documented, stable practices
 - Small to medium teams
-- When you want human-editable practice docs
+- When you want human-editable domain expertise docs
 - Quick MVP implementation
 
 ---
@@ -332,12 +332,12 @@ workflow = create_workflow([
 ### Phase 1: Start Simple (Week 1-2)
 **Approach: Knowledge Base + Single Agent (Option 4)**
 
-1. Create `docs/practices/` directory structure
-2. Document each practice area in markdown files
+1. Create `docs/domain-expertise/` directory structure
+2. Document each domain area in markdown files
 3. Create a simple orchestrator that:
    - Reads design spec
-   - Identifies relevant practice areas
-   - Greps/reads practice docs
+   - Identifies relevant domain areas
+   - Greps/reads domain expertise docs
    - Synthesizes implementation plan
 
 **Why start here:**
@@ -350,7 +350,7 @@ workflow = create_workflow([
 ### Phase 2: Add Parallelization (Week 3-4)
 **Approach: Upgrade to Multi-Agent System (Option 2)**
 
-1. Convert practice docs into agent prompts
+1. Convert domain expertise docs into agent prompts
 2. Create specialized agent definitions
 3. Orchestrator launches agents in parallel
 4. Each agent analyzes design spec from their domain perspective
@@ -459,7 +459,7 @@ system_prompt: |
 - Extract key requirements
 - Identify affected areas (API, controller, tests, etc.)
 
-## Step 2: Consult Practice Experts
+## Step 2: Consult Domain Experts
 Launch in parallel:
 - Go practices review
 - K8s practices review
@@ -540,4 +540,4 @@ Output structured plan with:
 ---
 
 **Document created:** March 25, 2026
-**Research focus:** Agentic workflow best practices for design spec implementation with extensible practice consultation
+**Research focus:** Agentic workflow best practices for design spec implementation with extensible domain consultation
