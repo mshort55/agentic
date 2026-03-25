@@ -771,6 +771,58 @@ monitoring:
 3. **Multi-spec analysis**: Compare multiple design specs
 4. **Automated implementation**: Agents write code, not just recommend
 
+### Superpowers Integration (Phase 6-7)
+
+[Superpowers](https://github.com/obra/superpowers) is an agentic skills framework for systematic software development using TDD, worktrees, and task breakdown. It complements our system: we produce the "what and why" (analysis and implementation plans), superpowers handles the "how and when" (actual code implementation).
+
+```
+Design Spec → Agentic Analysis → Implementation Plan → Superpowers → Working Code
+```
+
+Integration points:
+- Handoff: Our implementation plans feed into superpowers' planning phase
+- On-demand consultation: Domain experts available during implementation
+- Feedback loop: Implementation outcomes improve future recommendations
+
+### Self-Optimization Loop (Phase 7+)
+
+The end-to-end agentic workflow should continuously improve itself. After each full cycle (design spec → analysis → implementation), lessons learned feed back to optimize the system's own files.
+
+```
+Design Spec → Analysis → Plan → Implementation → Review
+     ↑                                              │
+     └──────────── Lessons Learned ←───────────────┘
+```
+
+**Goal:** The system self-tunes its own markdown and YAML files based on real-world outcomes.
+
+**What gets optimized:**
+- **Domain expert agent prompts** - Refine expertise, add patterns that worked, remove advice that didn't
+- **Agent registry config** (`agents.yaml`) - Adjust triggers, priorities, model selections based on usage
+- **Design spec template** - Improve template based on what information agents actually needed
+- **Orchestrator prompts** - Improve synthesis based on what recommendations were actionable vs ignored
+
+**How it works:**
+1. After implementation completes, a review step captures:
+   - Which recommendations were followed vs skipped (and why)
+   - What problems arose that no agent predicted
+   - What patterns emerged that should be codified
+   - Which agents provided the most/least value
+2. A self-optimization agent analyzes the review and proposes changes to system files
+3. Changes are submitted for human review (not auto-applied)
+4. Approved changes are committed, improving future cycles
+
+**Examples of self-learned improvements:**
+- "go-expert never catches X pattern → add to go-expert prompt"
+- "crd-expert trigger list missing 'validation webhook' → add trigger"
+- "implementation plans lack migration steps → update orchestrator synthesis format"
+- "e2e-test-expert recommendations too generic → add project-specific conventions"
+
+**Safeguards:**
+- All proposed changes require human approval
+- Changes tracked via git for easy rollback
+- Metrics tracked to verify improvements over time
+
 ---
 
 ## References

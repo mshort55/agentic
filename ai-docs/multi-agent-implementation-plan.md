@@ -1839,17 +1839,63 @@ Track:
 - Code quality improvements
 - Developer satisfaction
 
+#### 7.5 Superpowers Integration
+
+Integrate [superpowers](https://github.com/obra/superpowers) as the execution layer after analysis.
+
+1. Design handoff format: implementation plan → superpowers input
+2. Test manual handoff workflow (analysis → superpowers implementation)
+3. Enable on-demand domain expert consultation during implementation
+4. Optional auto-launch of superpowers after analysis completes
+5. Document end-to-end workflow
+
+#### 7.6 Self-Optimization Loop
+
+The end-to-end workflow should continuously improve its own files based on real outcomes.
+
+**Goal:** After each full cycle (design spec → analysis → implementation), lessons learned are captured and used to optimize domain expert prompts, agent registry config, templates, and orchestrator logic.
+
+**Implementation:**
+
+1. **Capture phase** - After implementation completes, review step records:
+   - Which recommendations were followed vs skipped (and why)
+   - Problems that arose that no agent predicted
+   - Patterns that emerged and should be codified
+   - Which agents provided the most/least value
+
+2. **Analysis phase** - A self-optimization agent analyzes the review and proposes changes:
+   - Update domain expert prompts (add patterns that worked, remove advice that didn't)
+   - Adjust `agents.yaml` (triggers, priorities, model selections)
+   - Improve design spec template (add fields agents actually needed)
+   - Refine orchestrator synthesis format
+
+3. **Apply phase** - Proposed changes submitted for human review:
+   - All changes require human approval before commit
+   - Changes tracked via git for easy rollback
+   - Metrics tracked to verify improvements over time
+
+**Examples of self-learned improvements:**
+- "go-expert never catches X pattern → add to go-expert prompt"
+- "crd-expert trigger list missing 'validation webhook' → add trigger"
+- "implementation plans lack migration steps → update orchestrator synthesis format"
+- "e2e-test-expert recommendations too generic → add project-specific conventions"
+
 ### Deliverables
 - [ ] Integration with development workflow
 - [ ] Team trained
 - [ ] Feedback mechanisms in place
 - [ ] Metrics collection started
+- [ ] Superpowers handoff workflow documented and tested
+- [ ] Self-optimization loop capturing lessons learned
+- [ ] First round of self-improvements proposed and reviewed
 
 ### Success Criteria
 - Team regularly uses agentic workflow
 - Design specs are standard practice
 - Code quality improves measurably
 - Developer satisfaction is high
+- Implementation plans successfully execute via superpowers
+- System files improve over time based on real outcomes
 
 ---
 
@@ -1906,7 +1952,7 @@ Track:
 - **Phase 4:** 3-5 days - Extensibility
 - **Phase 5:** 1 week - Testing
 - **Phase 6:** 3-5 days - Documentation
-- **Phase 7:** Ongoing - Integration
+- **Phase 7:** Ongoing - Integration, Superpowers, Self-Optimization
 
 **Total:** 4-6 weeks to full production
 
