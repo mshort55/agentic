@@ -289,7 +289,7 @@ Domain expertise guidelines:
 Tell the user where the analysis report was saved and present a summary. Offer to:
 - Dive deeper into specific recommendations
 - Consult additional agents if needed
-- Proceed to `/prepare-implementation` to create the implementation brief for superpowers
+- Proceed to `/implement` to create the implementation brief, generate the execution plan, and start implementation
 
 ## Error Handling
 

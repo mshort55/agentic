@@ -1703,14 +1703,14 @@ Integrated [superpowers](https://github.com/obra/superpowers) as the execution l
 
 **Completed:**
 1. ✅ Shared knowledge layer (`CLAUDE.md`) — documents two-system workflow, handoff pipeline, project conventions
-2. ✅ Handoff command (`.claude/commands/prepare-implementation.md`) — `/prepare-implementation` creates a prioritized implementation brief that references the analysis report (for `writing-plans` to consume)
-3. ✅ Output directories — `analysis-reports/` (from `/analyze-spec`), `docs/superpowers/briefs/` (from `/prepare-implementation`), `docs/superpowers/plans/` (from `writing-plans`)
+2. ✅ Handoff command (`.claude/commands/implement.md`) — `/implement` creates the implementation brief, invokes `writing-plans`, and offers execution
+3. ✅ Output directories — `analysis-reports/` (from `/analyze-spec`), `docs/superpowers/briefs/` (from `/implement`), `docs/superpowers/plans/` (from `writing-plans`)
 4. ✅ User guide, developer guide, orchestrator updated with new handoff flow
 5. ✅ Clear separation of concerns: our system handles analysis, superpowers handles plan generation and execution
 
-**Design decision:** `/prepare-implementation` generates an implementation brief, NOT an execution plan. Superpowers' `writing-plans` skill is purpose-built for task decomposition with strict code completeness, TDD ordering, and implementer-aware granularity. Our value is the multi-agent analysis depth, not reimplementing plan generation.
+**Design decision:** `/implement` creates the brief AND invokes `writing-plans` AND offers execution — consolidating 3 manual steps into 1 command. Superpowers' `writing-plans` skill handles task decomposition with strict code completeness, TDD ordering, and implementer-aware granularity. Our value is the multi-agent analysis depth, not reimplementing plan generation.
 
-**Pipeline:** `Design Spec → /analyze-spec → Analysis Report → /prepare-implementation → Implementation Brief → writing-plans → Execution Plan → Execute`
+**Pipeline:** `Design Spec → /analyze-spec → Analysis Report → /implement → Implementation Brief → writing-plans → Execution Plan → Execute`
 
 #### 7.6 Self-Optimization Loop
 

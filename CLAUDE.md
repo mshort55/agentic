@@ -18,6 +18,8 @@ Use `/analyze-spec <spec>.md` to consult domain expert agents (Go, Kubernetes, c
 ### Phase 2: Execution (Superpowers)
 **When:** You have an analysis report and need to *execute* it systematically.
 
+**Requires:** superpowers plugin — install with `/plugin install superpowers@claude-plugins-official`
+
 Use superpowers skills for TDD-driven execution in git worktrees:
 - `brainstorming` — refine ideas into approved designs (or skip this if you already ran `/analyze-spec`)
 - `writing-plans` — decompose into granular 2-5 min tasks with exact code
@@ -26,10 +28,10 @@ Use superpowers skills for TDD-driven execution in git worktrees:
 
 ### Handoff Between Systems
 
-After running `/analyze-spec`, use `/prepare-implementation` to create an implementation brief — a prioritized routing document that points `writing-plans` to the full analysis report. Then use superpowers' `writing-plans` skill to generate the execution plan.
+After running `/analyze-spec`, use `/implement` to create an implementation brief, generate the execution plan via superpowers' `writing-plans`, and start execution.
 
 ```
-Design Spec → /analyze-spec → Analysis Report → /prepare-implementation → Implementation Brief → writing-plans → Execution Plan → Execute
+Design Spec → /analyze-spec → Analysis Report → /implement → Implementation Brief → writing-plans → Execution Plan → Execute
 ```
 
 ## Artifacts
@@ -47,7 +49,7 @@ Design Spec → /analyze-spec → Analysis Report → /prepare-implementation �
 .claude/
 ├── commands/                      # Slash commands
 │   ├── analyze-spec.md            # Analyze design spec with domain experts
-│   └── prepare-implementation.md  # Create implementation brief from analysis report
+│   └── implement.md               # Create brief, generate plan, offer execution
 ├── agents/
 │   ├── orchestrator/              # Orchestrator agent
 │   ├── domain-experts/            # 7 domain expert agents
@@ -62,7 +64,7 @@ analysis-reports/                  # Saved analysis reports (from /analyze-spec)
 docs/
 ├── agentic-workflow/              # System documentation
 └── superpowers/
-    ├── briefs/                    # Implementation briefs (from /prepare-implementation)
+    ├── briefs/                    # Implementation briefs (from /implement)
     └── plans/                     # Execution plans (from writing-plans)
 ```
 

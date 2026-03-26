@@ -18,7 +18,7 @@ See [Architecture](architecture.md) for the full system design including:
 .claude/
 ├── commands/
 │   ├── analyze-spec.md              # /analyze-spec slash command
-│   └── prepare-implementation.md     # /prepare-implementation — analysis report to implementation brief
+│   └── implement.md                  # /implement — brief creation, plan generation, execution
 ├── agents/
 │   ├── orchestrator/
 │   │   └── design-spec-orchestrator.md  # Main orchestrator logic
@@ -84,7 +84,7 @@ Edit `.claude/agents/orchestrator/design-spec-orchestrator.md`. The synthesis al
 
 ### Changing the slash commands
 - `.claude/commands/analyze-spec.md` — argument parsing and orchestrator invocation
-- `.claude/commands/prepare-implementation.md` — creates prioritized implementation brief referencing the analysis report
+- `.claude/commands/implement.md` — creates brief, invokes writing-plans, offers execution
 
 ### Adjusting configuration
 Edit `config/agents.yaml` to change:

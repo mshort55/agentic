@@ -698,7 +698,7 @@ monitoring:
 [Superpowers](https://github.com/obra/superpowers) is an agentic skills framework for systematic software development using TDD, worktrees, and task breakdown. It complements our system: we produce the "what and why" (analysis reports), superpowers handles the "how and when" (plan generation and code implementation).
 
 ```
-Design Spec → /analyze-spec → Analysis Report → /prepare-implementation → Implementation Brief → writing-plans → Execution Plan → Execute
+Design Spec → /analyze-spec → Analysis Report → /implement → Implementation Brief → writing-plans → Execution Plan → Execute
 ```
 
 **Artifacts and boundaries:**
@@ -706,12 +706,12 @@ Design Spec → /analyze-spec → Analysis Report → /prepare-implementation �
 | Artifact | Produced By | Consumed By | Location |
 |----------|-------------|-------------|----------|
 | Design Spec | User | `/analyze-spec` | `design-specs/` |
-| Analysis Report | Orchestrator | `/prepare-implementation` | `analysis-reports/` |
-| Implementation Brief | `/prepare-implementation` | Superpowers `writing-plans` | `docs/superpowers/briefs/` |
+| Analysis Report | Orchestrator | `/implement` | `analysis-reports/` |
+| Implementation Brief | `/implement` | Superpowers `writing-plans` | `docs/superpowers/briefs/` |
 | Execution Plan | Superpowers `writing-plans` | Superpowers subagents | `docs/superpowers/plans/` |
 
 Integration points:
-- `/prepare-implementation` creates a prioritized implementation brief that references the analysis report — `writing-plans` reads both
+- `/implement` creates a prioritized implementation brief, invokes `writing-plans` to generate the execution plan, and offers to start execution
 - Superpowers handles task decomposition, code generation, TDD ordering, and subagent execution
 - Feedback loop: Implementation outcomes improve future recommendations
 

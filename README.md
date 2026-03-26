@@ -14,7 +14,7 @@ The Agentic Workflow System coordinates multiple domain expert agents to analyze
 - **Smart Synthesis**: Intelligent combination and conflict resolution
 - **Extensible**: Add new domains without code changes
 - **Configuration-Driven**: Declarative YAML-based agent registry
-- **Superpowers Integration**: Bridges analysis to TDD-driven execution
+- **Superpowers Integration**: Bridges analysis to TDD-driven execution (requires `superpowers` plugin)
 
 ---
 
@@ -32,10 +32,8 @@ vim design-specs/my-feature.md
 
 # Review the analysis report (saved to analysis-reports/)
 
-# Prepare for implementation
-/prepare-implementation analysis-reports/2026-03-26-143052-my-feature.md
-
-# Generate the execution plan with superpowers, then execute
+# Implement: creates brief, generates plan, offers execution
+/implement analysis-reports/2026-03-26-143052-my-feature.md
 ```
 
 ---
@@ -43,7 +41,7 @@ vim design-specs/my-feature.md
 ## Pipeline
 
 ```
-Design Spec → /analyze-spec → Analysis Report → /prepare-implementation → Implementation Brief → writing-plans → Execution Plan → Execute
+Design Spec → /analyze-spec → Analysis Report → /implement → Implementation Brief → writing-plans → Execution Plan → Execute
 ```
 
 | Artifact | What It Is | Where It Lives |
@@ -100,7 +98,7 @@ All agents configured in [`config/agents.yaml`](config/agents.yaml):
 .claude/
 ├── commands/
 │   ├── analyze-spec.md            # /analyze-spec slash command
-│   └── prepare-implementation.md  # /prepare-implementation slash command
+│   └── implement.md              # /implement slash command
 ├── agents/
 │   ├── orchestrator/              # Orchestrator agent
 │   ├── domain-experts/            # 7 domain expert agents
@@ -115,7 +113,7 @@ analysis-reports/                  # Saved analysis reports (from /analyze-spec)
 docs/
 ├── agentic-workflow/              # System documentation
 └── superpowers/
-    ├── briefs/                    # Implementation briefs (from /prepare-implementation)
+    ├── briefs/                    # Implementation briefs (from /implement)
     └── plans/                     # Execution plans (from writing-plans)
 ai-docs/                           # Historical planning & research docs
 ```

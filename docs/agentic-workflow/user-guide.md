@@ -9,8 +9,8 @@ You write a design spec describing a feature, bug fix, or refactor. The system c
 1. Write a design spec (copy `design-specs/template.md` as a starting point)
 2. Run `/analyze-spec your-spec.md`
 3. Review the analysis report (saved to `analysis-reports/`)
-4. Run `/prepare-implementation` to create the implementation brief
-5. Use superpowers' `writing-plans` to generate the execution plan, then execute
+4. Run `/implement` to create the brief, generate the plan, and start execution
+5. Execute the plan via subagent-driven-development or executing-plans
 
 ## Writing Design Specs
 
@@ -88,8 +88,8 @@ When multiple agents agree on a recommendation, it's flagged as consensus. When 
 ### New Feature
 1. Write a thorough design spec with API, controller, and testing sections
 2. Run `/analyze-spec` (full mode)
-3. Review critical recommendations first
-4. Follow the phased implementation steps
+3. Review critical recommendations and resolve open questions
+4. Run `/implement` to create the brief, generate the plan, and start execution
 5. Use the testing strategy section when writing tests
 
 ### Bug Fix
@@ -116,22 +116,28 @@ You can ask Claude to:
 - Dive deeper into a specific recommendation
 - Consult additional agents you didn't include
 
-### Next: `/prepare-implementation`
+### Next: `/implement`
 
-With the analysis report in hand, create the implementation brief:
+**Requires:** The superpowers plugin must be installed for plan generation and execution. Install with `/plugin install superpowers@claude-plugins-official`, then `/reload-plugins`. The `/implement` command will check for this and tell you if it's missing.
+
+With the analysis report in hand, run `/implement` to handle everything from brief creation through execution:
 
 ```bash
-# Create a brief from the most recent analysis report
-/prepare-implementation
+# Implement from the most recent analysis report
+/implement
 
-# Create a brief from a saved analysis report
-/prepare-implementation analysis-reports/2026-03-26-143052-my-feature.md
+# Implement from a specific analysis report
+/implement analysis-reports/2026-03-26-143052-my-feature.md
 ```
 
-This generates an implementation brief at `docs/superpowers/briefs/` — a prioritized routing document that distills the key decisions, constraints, and risks from the analysis while linking back to the full analysis report for complete detail. Nothing is lost. Superpowers' `writing-plans` skill reads both the brief and the full analysis report to generate the execution plan.
+This command:
+1. Creates an implementation brief at `docs/superpowers/briefs/` — a prioritized routing document that links back to the full analysis report
+2. Checks for blocking open questions and asks you to resolve them
+3. Invokes superpowers' `writing-plans` to generate the execution plan
+4. Offers to start execution via `subagent-driven-development` or `executing-plans`
 
 ```
-Design Spec → /analyze-spec → Analysis Report → /prepare-implementation → Implementation Brief → writing-plans → Execution Plan → Execute
+Design Spec → /analyze-spec → Analysis Report → /implement → Implementation Brief → writing-plans → Execution Plan → Execute
 ```
 
 ## Common Tasks
