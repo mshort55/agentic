@@ -487,7 +487,7 @@ Configure in `agents.yaml` with `type: custom`.
 **Pre-commit hooks:**
 ```bash
 # Validate design spec before commit
-claude-code /validate-spec design-specs/my-spec.md
+claude-code /validate-spec specs/my-spec.md
 ```
 
 **CI/CD pipeline:**
@@ -705,10 +705,10 @@ Design Spec → /analyze-spec → Analysis Report → /implement → Implementat
 
 | Artifact | Produced By | Consumed By | Location |
 |----------|-------------|-------------|----------|
-| Design Spec | User | `/analyze-spec` | `design-specs/` |
-| Analysis Report | Orchestrator | `/implement` | `analysis-reports/` |
-| Implementation Brief | `/implement` | Superpowers `writing-plans` | `docs/superpowers/briefs/` |
-| Execution Plan | Superpowers `writing-plans` | Superpowers subagents | `docs/superpowers/plans/` |
+| Design Spec | User | `/analyze-spec` | `specs/` |
+| Analysis Report | Orchestrator | `/implement` | `output/analysis-reports/` |
+| Implementation Brief | `/implement` | Superpowers `writing-plans` | `output/briefs/` |
+| Execution Plan | Superpowers `writing-plans` | Superpowers subagents | `output/plans/` |
 
 Integration points:
 - `/implement` creates a prioritized implementation brief, invokes `writing-plans` to generate the execution plan, and offers to start execution
@@ -720,7 +720,7 @@ Integration points:
 Two commands support iterative improvement of domain expert agents:
 
 **`/eval-agent`** — Evaluate agent output quality
-- Runs a single agent against a design spec and saves the raw output to `eval-results/`
+- Runs a single agent against a design spec and saves the raw output to `output/eval-results/`
 - Compare two saved results after prompt changes: `/eval-agent --compare <file1> <file2>`
 - Use this before and after editing an agent's prompt to verify improvements
 
@@ -730,7 +730,7 @@ Two commands support iterative improvement of domain expert agents:
 - Asks structured questions about what worked and what didn't
 - Proposes concrete edits to agent prompt files based on lessons learned
 - All proposals require human approval before applying
-- Reviews saved to `review-cycles/` for historical reference
+- Reviews saved to `output/review-cycles/` for historical reference
 
 ```
 Design Spec → Analysis → Implementation → /review-cycle → Agent Improvements → /eval-agent (verify)
@@ -745,4 +745,4 @@ Design Spec → Analysis → Implementation → /review-cycle → Agent Improvem
 - [Agent Registry](agent-registry.md) — Catalog of all agents
 - [Adding New Agents](adding-new-agents.md) — Step-by-step guide
 - [Agent Registry Config](../../config/agents.yaml) — Source of truth for agent configuration
-- [Design Spec Template](../../design-specs/template.md)
+- [Design Spec Template](../../specs/template.md)

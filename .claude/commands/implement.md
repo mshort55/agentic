@@ -27,9 +27,9 @@ This command is the single entry point from analysis to execution. It bridges th
 
 ### Step 1: Locate the Analysis Report
 
-The input can be a file path to a saved analysis report (e.g., `analysis-reports/2026-03-26-143052-my-feature.md`).
+The input can be a file path to a saved analysis report (e.g., `output/analysis-reports/2026-03-26-143052-my-feature.md`).
 
-If no path is provided, look in `analysis-reports/` for the most recent file. If the directory is empty, tell the user to run `/analyze-spec` first.
+If no path is provided, look in `output/analysis-reports/` for the most recent file. If the directory is empty, tell the user to run `/analyze-spec` first.
 
 ### Step 2: Create the Implementation Brief
 
@@ -42,7 +42,7 @@ Read the full analysis report. Identify:
 - Open questions that need human decisions
 - The file path of the analysis report (for linking)
 
-Write the brief to `docs/superpowers/briefs/YYYY-MM-DD-HHMMSS-<feature-slug>.md` using this format:
+Write the brief to `output/briefs/YYYY-MM-DD-HHMMSS-<feature-slug>.md` using this format:
 
 ```markdown
 # <Feature Name> Implementation Brief
@@ -133,16 +133,16 @@ Use the writing-plans skill with the following context. Read both documents and 
 1. **The implementation brief** you just created — this gives writing-plans the prioritized constraints, architecture decisions, and risk boundaries
 2. **The full analysis report** referenced in the brief — this gives writing-plans the complete domain expert recommendations, testing strategies, existing codebase patterns, and detailed rationale
 
-Tell writing-plans to save the execution plan to `docs/superpowers/plans/`.
+Tell writing-plans to save the execution plan to `output/plans/`.
 
 ### Step 5: Offer Execution
 
 After the execution plan is generated, present the user with their options:
 
 ```
-Implementation brief: docs/superpowers/briefs/<file>.md
+Implementation brief: output/briefs/<file>.md
 Analysis report:      <analysis-report-path>
-Execution plan:       docs/superpowers/plans/<file>.md
+Execution plan:       output/plans/<file>.md
 
 Ready to execute. Options:
 1. Start subagent-driven-development (recommended for multi-file changes)
@@ -166,6 +166,6 @@ Wait for the user to choose before proceeding.
 ## Examples
 
 ```
-/implement analysis-reports/2026-03-26-143052-scheduled-backup.md
+/implement output/analysis-reports/2026-03-26-143052-scheduled-backup.md
 /implement
 ```

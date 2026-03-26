@@ -1,0 +1,20 @@
+# Output — keep dirs (via .gitkeep), ignore generated content
+output/analysis-reports/*
+!output/analysis-reports/.gitkeep
+
+output/eval-results/*
+!output/eval-results/.gitkeep
+
+output/review-cycles/*
+!output/review-cycles/.gitkeep
+
+output/briefs/*
+!output/briefs/.gitkeep
+
+output/plans/*
+!output/plans/.gitkeep
+
+# Specs — keep template and examples, ignore user-created specs
+specs/*
+!specs/template.md
+!specs/examples/

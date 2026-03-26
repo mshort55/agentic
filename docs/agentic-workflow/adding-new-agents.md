@@ -161,7 +161,7 @@ Create a test design spec that exercises the new agent's domain:
 
 ```bash
 # Create test spec
-cat > design-specs/test-security-expert.md << 'EOF'
+cat > specs/test-security-expert.md << 'EOF'
 # Design Spec: Add RBAC Support
 
 ## Overview

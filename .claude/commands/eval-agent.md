@@ -25,13 +25,13 @@ This command has two modes: **run** and **compare**.
 
 Extract:
 - **Agent name** (required) — e.g., `go-expert`, `k8s-expert`
-- **Spec filename** (required) — a file in `design-specs/`
+- **Spec filename** (required) — a file in `specs/`
 
-Strip any directory prefix from the spec filename — the file must be in `design-specs/`.
+Strip any directory prefix from the spec filename — the file must be in `specs/`.
 
 Validate the agent exists at `.claude/agents/domain-experts/<agent-name>.md`. If not found, list available agents from that directory.
 
-Validate the spec exists at `design-specs/<filename>`. If not found, tell the user.
+Validate the spec exists at `specs/<filename>`. If not found, tell the user.
 
 ### Step 2: Run the Agent
 
@@ -43,7 +43,7 @@ Generate a timestamp: `YYYY-MM-DD-HHMMSS`
 
 Save the raw agent output to:
 ```
-eval-results/<agent-name>/<timestamp>-<spec-slug>.md
+output/eval-results/<agent-name>/<timestamp>-<spec-slug>.md
 ```
 
 The saved file should have a header:
@@ -76,7 +76,7 @@ Evaluated <agent-name> against <spec-filename>:
   Codebase references: X
   Code examples: X
 
-Saved to: eval-results/<agent-name>/<timestamp>-<spec-slug>.md
+Saved to: output/eval-results/<agent-name>/<timestamp>-<spec-slug>.md
 ```
 
 Flag concerns:
@@ -95,7 +95,7 @@ Flag concerns:
 
 ### Step 1: Parse Arguments
 
-Extract the two file paths from `eval-results/`. If paths are relative, look inside `eval-results/`.
+Extract the two file paths from `output/eval-results/`. If paths are relative, look inside `output/eval-results/`.
 
 Read both files. If either doesn't exist, tell the user and list available eval results for that agent.
 

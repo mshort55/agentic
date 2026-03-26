@@ -22,18 +22,18 @@ The Agentic Workflow System coordinates multiple domain expert agents to analyze
 
 ```bash
 # Create a design spec from template
-cp design-specs/template.md design-specs/my-feature.md
+cp specs/template.md specs/my-feature.md
 
 # Edit your design spec
-vim design-specs/my-feature.md
+vim specs/my-feature.md
 
 # Analyze the spec with domain experts
 /analyze-spec my-feature.md
 
-# Review the analysis report (saved to analysis-reports/)
+# Review the analysis report (saved to output/analysis-reports/)
 
 # Implement: creates brief, generates plan, offers execution
-/implement analysis-reports/2026-03-26-143052-my-feature.md
+/implement output/analysis-reports/2026-03-26-143052-my-feature.md
 ```
 
 ---
@@ -46,10 +46,10 @@ Design Spec → /analyze-spec → Analysis Report → /implement → Implementat
 
 | Artifact | What It Is | Where It Lives |
 |----------|-----------|----------------|
-| Design Spec | User's input describing what to build | `design-specs/` |
-| Analysis Report | Orchestrator's synthesized expert recommendations | `analysis-reports/` |
-| Implementation Brief | Prioritized routing document referencing the analysis report | `docs/superpowers/briefs/` |
-| Execution Plan | Granular task-based plan with exact code | `docs/superpowers/plans/` |
+| Design Spec | User's input describing what to build | `specs/` |
+| Analysis Report | Orchestrator's synthesized expert recommendations | `output/analysis-reports/` |
+| Implementation Brief | Prioritized routing document referencing the analysis report | `output/briefs/` |
+| Execution Plan | Granular task-based plan with exact code | `output/plans/` |
 
 ---
 

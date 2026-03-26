@@ -118,7 +118,7 @@ None
 
 ### Suggest Agents for Spec
 
-**Request:** "Which agents for design-specs/my-feature.md?" or "Suggest agents for spec"
+**Request:** "Which agents for specs/my-feature.md?" or "Suggest agents for spec"
 
 **Action:**
 1. Read the design spec file
@@ -135,7 +135,7 @@ None
 
 **Output Format:**
 ```markdown
-# Suggested Agents for: design-specs/my-feature.md
+# Suggested Agents for: specs/my-feature.md
 
 ## Strongly Recommended (3)
 
@@ -498,7 +498,7 @@ Output: "All 7 agents healthy and operational"
 
 ### Example 2: Spec Analysis
 ```
-User: "Which agents should review design-specs/add-auth.md?"
+User: "Which agents should review specs/add-auth.md?"
 
 Helper:
 1. Reads design spec

@@ -6,15 +6,15 @@ You write a design spec describing a feature, bug fix, or refactor. The system c
 
 ## Quick Start
 
-1. Write a design spec (copy `design-specs/template.md` as a starting point)
+1. Write a design spec (copy `specs/template.md` as a starting point)
 2. Run `/analyze-spec your-spec.md`
-3. Review the analysis report (saved to `analysis-reports/`)
+3. Review the analysis report (saved to `output/analysis-reports/`)
 4. Run `/implement` to create the brief, generate the plan, and start execution
 5. Execute the plan via subagent-driven-development or executing-plans
 
 ## Writing Design Specs
 
-Use the template at `design-specs/template.md`. The most important sections are:
+Use the template at `specs/template.md`. The most important sections are:
 
 - **Overview**: What problem are you solving? (2-3 paragraphs)
 - **Goals / Non-Goals**: What's in scope and what isn't
@@ -24,7 +24,7 @@ Use the template at `design-specs/template.md`. The most important sections are:
 
 The "Domain Experts to Consult" checkboxes help the orchestrator in smart mode, but in full mode (default) all agents are consulted regardless.
 
-See `design-specs/examples/` for reference specs at different complexity levels:
+See `specs/examples/` for reference specs at different complexity levels:
 - `simple-bugfix.md` — minimal scope, 2-3 agents
 - `new-feature-with-api.md` — full scope, all 7 agents
 - `improve-e2e-tests.md` — testing-focused
@@ -70,7 +70,7 @@ See `design-specs/examples/` for reference specs at different complexity levels:
 
 ## Understanding the Output
 
-The analysis report is saved to `analysis-reports/` and has these sections:
+The analysis report is saved to `output/analysis-reports/` and has these sections:
 
 - **Executive Summary** — High-level overview and key decisions
 - **Key Recommendations** — Prioritized as Critical / Important / Nice to Have, with source agent attribution
@@ -127,11 +127,11 @@ With the analysis report in hand, run `/implement` to handle everything from bri
 /implement
 
 # Implement from a specific analysis report
-/implement analysis-reports/2026-03-26-143052-my-feature.md
+/implement output/analysis-reports/2026-03-26-143052-my-feature.md
 ```
 
 This command:
-1. Creates an implementation brief at `docs/superpowers/briefs/` — a prioritized routing document that links back to the full analysis report
+1. Creates an implementation brief at `output/briefs/` — a prioritized routing document that links back to the full analysis report
 2. Checks for blocking open questions and asks you to resolve them
 3. Invokes superpowers' `writing-plans` to generate the execution plan
 4. Offers to start execution via `subagent-driven-development` or `executing-plans`

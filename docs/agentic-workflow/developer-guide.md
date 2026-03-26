@@ -33,7 +33,7 @@ When a user runs `/analyze-spec foo.md`:
    - Read `config/agents.yaml` to find enabled agents
    - Select agents based on the mode (full/smart/focused/quick)
    - Launch all selected agents in parallel using the Agent tool
-   - Synthesize results into an analysis report and save it to `analysis-reports/`
+   - Synthesize results into an analysis report and save it to `output/analysis-reports/`
 
 The orchestrator is not code — it's a prompt that Claude follows. The Agent tool is Claude Code's built-in mechanism for spawning parallel sub-agents.
 
@@ -76,10 +76,10 @@ Edit `config/agents.yaml` to change:
 - Extensibility settings
 
 ### Evaluating agent quality
-Use `/eval-agent <agent-name> <spec.md>` to run a single agent against a design spec and save the raw output to `eval-results/`. Use `/eval-agent --compare <file1> <file2>` to diff two saved results after prompt changes.
+Use `/eval-agent <agent-name> <spec.md>` to run a single agent against a design spec and save the raw output to `output/eval-results/`. Use `/eval-agent --compare <file1> <file2>` to diff two saved results after prompt changes.
 
 ### Reviewing implementation outcomes
-After completing an implementation, run `/review-cycle <analysis-report> <commit-range>` to compare recommendations against actual code changes. The review proposes concrete edits to agent prompts based on what worked and what didn't. Reviews are saved to `review-cycles/`.
+After completing an implementation, run `/review-cycle <analysis-report> <commit-range>` to compare recommendations against actual code changes. The review proposes concrete edits to agent prompts based on what worked and what didn't. Reviews are saved to `output/review-cycles/`.
 
 ## Maintenance
 

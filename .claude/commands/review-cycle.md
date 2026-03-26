@@ -11,7 +11,7 @@ This command runs after an implementation is complete. It compares what the anal
 ### Step 1: Parse Arguments
 
 Extract:
-- **Analysis report path** (required) — a file in `analysis-reports/`
+- **Analysis report path** (required) — a file in `output/analysis-reports/`
 - **Commit range or branch** (required) — the git diff to compare against (e.g., `main..feature-branch`, `abc123..def456`, or a branch name)
 
 If either is missing, ask the user.
@@ -109,7 +109,7 @@ After applying, show a summary of what was changed.
 
 ### Step 7: Save Review
 
-Save the review to `review-cycles/YYYY-MM-DD-HHMMSS-<feature-slug>.md` with:
+Save the review to `output/review-cycles/YYYY-MM-DD-HHMMSS-<feature-slug>.md` with:
 
 ```markdown
 # Review: <feature name>
@@ -133,7 +133,7 @@ Save the review to `review-cycles/YYYY-MM-DD-HHMMSS-<feature-slug>.md` with:
 
 Tell the user:
 ```
-Review saved to: review-cycles/<filename>.md
+Review saved to: output/review-cycles/<filename>.md
 
 Tip: Run /eval-agent on modified agents to verify the changes improved output quality.
 ```
@@ -141,6 +141,6 @@ Tip: Run /eval-agent on modified agents to verify the changes improved output qu
 ## Examples
 
 ```
-/review-cycle analysis-reports/2026-03-26-143052-scheduled-backup.md main..feature/scheduled-backup
-/review-cycle analysis-reports/2026-03-27-091500-api-change.md abc123..def456
+/review-cycle output/analysis-reports/2026-03-26-143052-scheduled-backup.md main..feature/scheduled-backup
+/review-cycle output/analysis-reports/2026-03-27-091500-api-change.md abc123..def456
 ```

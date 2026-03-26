@@ -7,12 +7,12 @@ The user provided: $ARGUMENTS
 ## Instructions
 
 1. **Parse the arguments.** Extract:
-   - The spec filename (required, first argument) — this is the name of a file in `design-specs/`
+   - The spec filename (required, first argument) — this is the name of a file in `specs/`
    - Options (optional): `--fast`, `--smart`, `--focus=<areas>`
    - If no filename was provided, ask the user for one
-   - Strip any directory prefix — the file must be in `design-specs/`
+   - Strip any directory prefix — the file must be in `specs/`
 
-2. **Validate the spec file exists.** Read `design-specs/<filename>`. If it doesn't exist, tell the user the file was not found and that all design specs must be placed in the `design-specs/` directory.
+2. **Validate the spec file exists.** Read `specs/<filename>`. If it doesn't exist, tell the user the file was not found and that all design specs must be placed in the `specs/` directory.
 
 3. **Determine the analysis mode** from the options:
    - No options → **full** mode (all enabled agents)
@@ -28,7 +28,7 @@ The user provided: $ARGUMENTS
    - Launch all selected agents in parallel using the Agent tool (all in one message)
    - Each agent should receive the full design spec and analyze it from their domain perspective
    - Synthesize all agent recommendations into a unified analysis report
-   - Save the report to `analysis-reports/YYYY-MM-DD-HHMMSS-<feature-slug>.md`
+   - Save the report to `output/analysis-reports/YYYY-MM-DD-HHMMSS-<feature-slug>.md`
    - Present the report to the user
 
 ## Examples

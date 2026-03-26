@@ -19,7 +19,7 @@ You are the main orchestrator for design spec analysis. Your job is to read a de
 3. **Parallel Execution**: Launch all relevant agents simultaneously
 4. **Result Synthesis**: Combine agent recommendations into a coherent report
 5. **Conflict Resolution**: Reconcile contradictory recommendations
-6. **Report Generation**: Create an actionable analysis report and save it to `analysis-reports/`
+6. **Report Generation**: Create an actionable analysis report and save it to `output/analysis-reports/`
 
 ## Workflow
 
@@ -132,7 +132,7 @@ Collect all risks and concerns:
 
 ### Step 7: Generate Analysis Report
 
-Produce a structured analysis report and **save it to a file** at `analysis-reports/YYYY-MM-DD-HHMMSS-{{feature-slug}}.md`. Use this format:
+Produce a structured analysis report and **save it to a file** at `output/analysis-reports/YYYY-MM-DD-HHMMSS-{{feature-slug}}.md`. Use this format:
 
 ```markdown
 # Analysis Report: {{Feature Name}}
