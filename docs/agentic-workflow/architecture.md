@@ -180,7 +180,7 @@ Enable developers to:
 
 7 specialized agents covering: Go, Kubernetes, Controllers, CRDs, Unit Testing, E2E Testing, and General Coding. See [Agent Registry](agent-registry.md) for the full catalog with expertise areas, triggers, and tools.
 
-Each agent is a markdown file with YAML frontmatter (name, description, triggers) and a prompt body containing domain expertise, analysis framework, and output format. Infrastructure config (model, tools, priority) lives in `config/agents.yaml`.
+Each agent is a markdown file with YAML frontmatter (name, description, triggers) and a prompt body containing domain expertise, analysis framework, and output format. Infrastructure config (model, tools) lives in `config/agents.yaml`.
 
 ### 3. Agent Registry
 

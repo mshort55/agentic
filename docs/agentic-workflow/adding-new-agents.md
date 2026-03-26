@@ -48,7 +48,7 @@ triggers:
 ---
 ```
 
-Note: Infrastructure config (model, tools, priority) is configured in `config/agents.yaml`, not in the agent frontmatter.
+Note: Infrastructure config (model, tools) is configured in `config/agents.yaml`, not in the agent frontmatter.
 
 **Key sections to customize:**
 
@@ -106,7 +106,6 @@ Add the new agent to `config/agents.yaml` under `domain_experts`:
       type: domain_expert
       domain: "Security and compliance practices"
       enabled: true
-      priority: high    # high, medium, or low
       model: opus       # opus or sonnet
       tools:
         - Read

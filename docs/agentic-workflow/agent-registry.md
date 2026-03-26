@@ -11,7 +11,6 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | | |
 |---|---|
 | **Domain** | Go language and idioms |
-| **Priority** | High |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -28,7 +27,6 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | | |
 |---|---|
 | **Domain** | Kubernetes patterns and best practices |
-| **Priority** | High |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -45,7 +43,6 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | | |
 |---|---|
 | **Domain** | Kubernetes controller patterns |
-| **Priority** | High |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -62,7 +59,6 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | | |
 |---|---|
 | **Domain** | Custom Resource Definitions |
-| **Priority** | Medium |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -79,7 +75,6 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | | |
 |---|---|
 | **Domain** | Unit testing patterns and practices |
-| **Priority** | High |
 | **Model** | Sonnet |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -96,7 +91,6 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | | |
 |---|---|
 | **Domain** | End-to-end testing with Ginkgo |
-| **Priority** | Medium |
 | **Model** | Sonnet |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -113,7 +107,6 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | | |
 |---|---|
 | **Domain** | General coding best practices |
-| **Priority** | Medium |
 | **Model** | Sonnet |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -146,11 +139,8 @@ Invoked via `/analyze-spec` command (`.claude/commands/analyze-spec.md`).
 | Metric | Value |
 |--------|-------|
 | Total domain experts | 7 |
-| High priority | 4 (go, k8s, controller, unit-test) |
-| Medium priority | 3 (crd, e2e-test, coding) |
 | Using Opus | 4 (go, k8s, controller, crd) |
 | Using Sonnet | 3 (unit-test, e2e-test, coding) |
-| Total unique triggers | 30 |
 
 ## Related Documents
 

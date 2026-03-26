@@ -80,15 +80,15 @@ See [Architecture Documentation](docs/agentic-workflow/architecture.md) for deta
 
 All agents configured in [`config/agents.yaml`](config/agents.yaml):
 
-| Agent | Domain | Priority | Model |
-|-------|--------|----------|-------|
-| **go-expert** | Go language and idioms | High | Opus |
-| **k8s-expert** | Kubernetes patterns | High | Opus |
-| **controller-expert** | Controller-runtime patterns | High | Opus |
-| **crd-expert** | Custom Resource Definitions | Medium | Opus |
-| **unit-test-expert** | Unit testing practices | High | Sonnet |
-| **e2e-test-expert** | E2E testing with Ginkgo | Medium | Sonnet |
-| **coding-expert** | General coding practices | Medium | Sonnet |
+| Agent | Domain | Model |
+|-------|--------|-------|
+| **go-expert** | Go language and idioms | Opus |
+| **k8s-expert** | Kubernetes patterns | Opus |
+| **controller-expert** | Controller-runtime patterns | Opus |
+| **crd-expert** | Custom Resource Definitions | Opus |
+| **unit-test-expert** | Unit testing practices | Sonnet |
+| **e2e-test-expert** | E2E testing with Ginkgo | Sonnet |
+| **coding-expert** | General coding practices | Sonnet |
 
 ---
 

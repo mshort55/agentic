@@ -44,7 +44,6 @@ When invoked, determine which operation is needed based on the request:
 3. Display formatted list with:
    - Agent name
    - Domain
-   - Priority
    - Enabled status
    - Model
    - Trigger count
@@ -55,21 +54,17 @@ When invoked, determine which operation is needed based on the request:
 
 ## Enabled Agents (7)
 
-### High Priority (4)
 1. **go-expert** - Go language and idioms
    - Model: opus
    - Triggers: 6 (go, golang, *.go files, ...)
-   - Tools: Read, Grep, Glob, WebSearch
+   - Tools: Read, Grep, Glob, WebSearch, WebFetch
 
 2. **k8s-expert** - Kubernetes patterns and best practices
    - Model: opus
    - Triggers: 7 (kubernetes, k8s, deployment, ...)
-   - Tools: Read, Grep, Glob, WebSearch, Bash
+   - Tools: Read, Grep, Glob, WebSearch, WebFetch
 
-[Continue for all high priority...]
-
-### Medium Priority (3)
-[Same format...]
+[Continue for all agents...]
 
 ## Disabled Agents (0)
 None currently disabled.
@@ -87,7 +82,6 @@ None currently disabled.
    - Has required fields (name, type, domain, enabled, tools)
    - Type is valid (`domain_expert`, `orchestrator`)
    - Tools are valid Claude Code tools
-   - Priority is valid (high, medium, low)
    - Agent `.md` file exists and has frontmatter with name, description, triggers
 3. Report any issues
 
@@ -383,12 +377,12 @@ Average triggers per agent: 5
 ### ✅ go-expert
 - **Status:** Registered and file exists
 - **Location:** .claude/agents/domain-experts/go-expert.md
-- **Config:** Enabled, priority: high
+- **Config:** Enabled
 
 ### ✅ k8s-expert
 - **Status:** Registered and file exists
 - **Location:** .claude/agents/domain-experts/k8s-expert.md
-- **Config:** Enabled, priority: high
+- **Config:** Enabled
 
 [Continue for all registered agents...]
 
@@ -443,7 +437,6 @@ When analyzing specs for agent suggestions:
 - `type`: Must be `domain_expert` or `orchestrator`
 - `domain`: Descriptive string
 - `enabled`: Boolean
-- `priority`: `high`, `medium`, or `low`
 - `model`: `opus` or `sonnet`
 - `tools`: Array of valid tools
 

@@ -2,7 +2,7 @@ version: "1.0"
 
 # Agent Registry
 # Agent identity (name, description, triggers) lives in each agent's .md file
-# This file defines infrastructure config: how agents run (model, tools, priority)
+# This file defines infrastructure config: how agents run (model, tools)
 
 agent_registry:
   # Domain expert agents - specialized knowledge consultants for specific domains
@@ -11,7 +11,6 @@ agent_registry:
       type: domain_expert
       domain: "Go language and idioms"
       enabled: true
-      priority: high
       model: opus  # opus for deep analysis, sonnet for faster responses
       tools:
         - Read
@@ -24,7 +23,6 @@ agent_registry:
       type: domain_expert
       domain: "Kubernetes patterns and best practices"
       enabled: true
-      priority: high
       model: opus
       tools:
         - Read
@@ -37,7 +35,6 @@ agent_registry:
       type: domain_expert
       domain: "Kubernetes controller patterns"
       enabled: true
-      priority: high
       model: opus
       tools:
         - Read
@@ -50,7 +47,6 @@ agent_registry:
       type: domain_expert
       domain: "Custom Resource Definitions"
       enabled: true
-      priority: medium
       model: opus
       tools:
         - Read
@@ -63,7 +59,6 @@ agent_registry:
       type: domain_expert
       domain: "Unit testing patterns and practices"
       enabled: true
-      priority: high
       model: sonnet  # Faster for test analysis
       tools:
         - Read
@@ -76,7 +71,6 @@ agent_registry:
       type: domain_expert
       domain: "End-to-end testing with Ginkgo"
       enabled: true
-      priority: medium
       model: sonnet
       tools:
         - Read
@@ -89,7 +83,6 @@ agent_registry:
       type: domain_expert
       domain: "General coding best practices"
       enabled: true
-      priority: medium
       model: sonnet
       tools:
         - Read
