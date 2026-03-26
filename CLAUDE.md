@@ -69,7 +69,8 @@ output/                            # All generated content (gitignored)
 ├── briefs/                        # Implementation briefs (from /implement)
 └── plans/                         # Execution plans (from writing-plans)
 docs/
-└── agentic-workflow/              # System documentation
+└── agentic-workflow/
+    └── guide.md                   # Complete system guide
 ```
 
 ## Key Conventions

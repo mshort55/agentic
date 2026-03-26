@@ -73,7 +73,7 @@ The orchestrator prompt would say: "Scan `.claude/agents/domain-experts/` for al
 
 ---
 
-### C. Reduce documentation to 2 files
+### C. Reduce documentation to 2 files — DONE
 
 **What:** Currently there are 5 docs + CLAUDE.md + README with heavy overlap. Consolidate to:
 1. **README.md** — Quick start, pipeline overview, extending (what exists today, mostly fine)

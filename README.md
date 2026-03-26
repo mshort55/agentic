@@ -72,7 +72,7 @@ Expert Expert Expert Expert Test  Test Expert
          Analysis Report (saved)
 ```
 
-See [Architecture Documentation](docs/agentic-workflow/architecture.md) for details.
+See the [Guide](docs/agentic-workflow/guide.md) for details.
 
 ---
 
@@ -107,17 +107,13 @@ Adding new domain experts is straightforward:
 3. Add to `config/agents.yaml`
 4. **No orchestrator changes needed**
 
-See [Adding New Agents](docs/agentic-workflow/adding-new-agents.md) for the detailed guide.
+See the [Guide](docs/agentic-workflow/guide.md#adding-new-agents) for detailed steps.
 
 ---
 
 ## Documentation
 
-- [User Guide](docs/agentic-workflow/user-guide.md) — How to use the system
-- [Developer Guide](docs/agentic-workflow/developer-guide.md) — How the system works internally
-- [Architecture](docs/agentic-workflow/architecture.md) — System design and diagrams
-- [Agent Registry](docs/agentic-workflow/agent-registry.md) — Catalog of all agents
-- [Adding New Agents](docs/agentic-workflow/adding-new-agents.md) — How to add domain experts
+- [Guide](docs/agentic-workflow/guide.md) — Complete guide: usage, architecture, internals, agent catalog, and extending the system
 
 ---
 
