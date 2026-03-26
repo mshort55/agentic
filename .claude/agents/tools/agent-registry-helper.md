@@ -334,7 +334,7 @@ Average triggers per agent: 5
 **Request:** "Discover agents" or "Scan for agents"
 
 **Action:**
-1. Scan directories defined in `extensibility.agent_directories`:
+1. Scan directories defined in `paths.agent_directories`:
    - `.claude/agents/domain-experts/`
 2. For each `.md` file found:
    - Parse YAML frontmatter

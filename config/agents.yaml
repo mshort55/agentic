@@ -99,41 +99,12 @@ agent_registry:
       enabled: true
       model: opus
 
-# Extensibility configuration
-extensibility:
-  # Allow dynamic agent discovery from filesystem
-  allow_dynamic_agents: true
-
-  # Path to agent template for new agents
-  agent_template_path: ".claude/agents/templates/domain-expert-template.md"
-
-  # Auto-discover agents from these directories
-  auto_discover_agents: true
+# Paths for agent management
+paths:
+  agent_template: ".claude/agents/templates/domain-expert-template.md"
   agent_directories:
     - ".claude/agents/domain-experts"
 
-  # Validation settings
-  validation:
-    validate_on_load: true        # Validate agent definitions on load
-    strict_mode: false            # Fail on warnings vs just log
-
-# Orchestrator configuration
+# Orchestrator defaults
 orchestrator:
-  # Default mode for agent selection
   default_mode: "full"  # Options: full, smart, focused
-
-  # Parallelization settings
-  parallel_execution: true
-  max_parallel_agents: 10
-
-  # Timeout settings (milliseconds)
-  agent_timeout: 120000  # 2 minutes per agent
-  orchestration_timeout: 300000  # 5 minutes total
-
-  # Error handling
-  continue_on_agent_failure: true  # Continue if one agent fails
-  min_required_agents: 3           # Minimum agents needed for valid analysis
-
-  # Output settings
-  include_full_reports: true       # Include full agent reports in appendix
-  synthesis_format: "structured"   # Options: structured, narrative

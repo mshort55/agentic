@@ -72,8 +72,8 @@ Edit `.claude/agents/orchestrator/design-spec-orchestrator.md`. The synthesis al
 Edit `config/agents.yaml` to change:
 - Which agents are enabled/disabled
 - Agent model and tool configuration
-- Orchestrator defaults (mode, timeouts, parallelism)
-- Extensibility settings
+- Orchestrator defaults (analysis mode)
+- Agent template and directory paths
 
 ### Evaluating agent quality
 Use `/eval-agent <agent-name> <spec.md>` to run a single agent against a design spec and save the raw output to `output/eval-results/`. Use `/eval-agent --compare <file1> <file2>` to diff two saved results after prompt changes.

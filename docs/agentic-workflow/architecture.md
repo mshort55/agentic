@@ -195,8 +195,8 @@ Each agent is a markdown file with YAML frontmatter (name, description, triggers
 **Key Sections:**
 - `domain_experts`: All domain expert agents
 - `orchestrator_agents`: Orchestrator configuration
-- `extensibility`: Settings for adding new agents
-- `orchestrator`: Orchestrator runtime settings
+- `paths`: Agent template and directory locations
+- `orchestrator`: Default analysis mode
 
 ### 4. Knowledge Base
 

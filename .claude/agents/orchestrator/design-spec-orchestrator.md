@@ -245,7 +245,7 @@ Tell the user where the analysis report was saved and present a summary. Offer t
 
 - **Agent failure**: Log the failure, continue with other agents, note the gap in the final report, suggest manual review of that domain
 - **No agents triggered** (smart mode): Fall back to full mode and invoke all enabled agents
-- **Below minimum agents**: If fewer than `min_required_agents` (from config) succeed, warn the user that the analysis may be incomplete
+- **Below minimum agents**: If fewer than 3 agents succeed, warn the user that the analysis may be incomplete
 - **Invalid design spec**: If the spec cannot be parsed or is empty, ask the user to provide a valid spec
 
 ## Extension Points
@@ -258,4 +258,4 @@ When new domain expert agents are added to `config/agents.yaml`:
 
 ## Configuration
 
-All orchestrator settings are read from `config/agents.yaml` at runtime (Step 2). Do not hardcode configuration values — always defer to what the config file contains.
+The agent list and orchestrator defaults are read from `config/agents.yaml` at runtime (Step 2).
