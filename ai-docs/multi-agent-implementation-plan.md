@@ -1396,17 +1396,13 @@ Measure:
 - End-to-end latency
 - Compare to sequential execution
 
-#### 5.6 Create Test Suite Documentation
+#### 5.6 Test Suite Documentation
 
-Document all test cases and expected results in:
-`docs/agentic-workflow/test-suite.md`
+Deferred until a real codebase is available. The test design specs in `design-specs/examples/` serve as reference examples for writing design specs. Formal validation procedures should be written against a real project where agents can search actual code.
 
 ### Deliverables
-- [ ] 5+ test design specs created
-- [ ] All tests passing
-- [ ] Agent quality validated
-- [ ] Extensibility verified
-- [ ] Performance benchmarked
+- [ ] 5+ test design specs created (as reference examples)
+- [ ] Validation performed against real codebase (deferred)
 - [ ] Test suite documented
 
 ### Success Criteria
