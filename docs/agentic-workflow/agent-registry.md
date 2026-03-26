@@ -10,7 +10,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 
 | | |
 |---|---|
-| **Domain** | Go language and idioms |
+| **Description** | Go language and idioms |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -26,7 +26,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 
 | | |
 |---|---|
-| **Domain** | Kubernetes patterns and best practices |
+| **Description** | Kubernetes patterns and best practices |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -42,7 +42,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 
 | | |
 |---|---|
-| **Domain** | Kubernetes controller patterns |
+| **Description** | Kubernetes controller patterns |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -58,7 +58,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 
 | | |
 |---|---|
-| **Domain** | Custom Resource Definitions |
+| **Description** | Custom Resource Definitions |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -74,7 +74,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 
 | | |
 |---|---|
-| **Domain** | Unit testing patterns and practices |
+| **Description** | Unit testing patterns and practices |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -90,7 +90,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 
 | | |
 |---|---|
-| **Domain** | End-to-end testing with Ginkgo |
+| **Description** | End-to-end testing with Ginkgo |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
@@ -106,7 +106,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 
 | | |
 |---|---|
-| **Domain** | General coding best practices |
+| **Description** | General coding best practices |
 | **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 

@@ -9,7 +9,6 @@ agent_registry:
   domain_experts:
     - name: go-expert
       type: domain_expert
-      domain: "Go language and idioms"
       enabled: true
       model: opus
       tools:
@@ -21,7 +20,6 @@ agent_registry:
 
     - name: k8s-expert
       type: domain_expert
-      domain: "Kubernetes patterns and best practices"
       enabled: true
       model: opus
       tools:
@@ -33,7 +31,6 @@ agent_registry:
 
     - name: controller-expert
       type: domain_expert
-      domain: "Kubernetes controller patterns"
       enabled: true
       model: opus
       tools:
@@ -45,7 +42,6 @@ agent_registry:
 
     - name: crd-expert
       type: domain_expert
-      domain: "Custom Resource Definitions"
       enabled: true
       model: opus
       tools:
@@ -57,7 +53,6 @@ agent_registry:
 
     - name: unit-test-expert
       type: domain_expert
-      domain: "Unit testing patterns and practices"
       enabled: true
       model: opus
       tools:
@@ -69,7 +64,6 @@ agent_registry:
 
     - name: e2e-test-expert
       type: domain_expert
-      domain: "End-to-end testing with Ginkgo"
       enabled: true
       model: opus
       tools:
@@ -81,7 +75,6 @@ agent_registry:
 
     - name: coding-expert
       type: domain_expert
-      domain: "General coding best practices"
       enabled: true
       model: opus
       tools:

@@ -104,7 +104,6 @@ Add the new agent to `config/agents.yaml` under `domain_experts`:
 ```yaml
     - name: security-expert
       type: domain_expert
-      domain: "Security and compliance practices"
       enabled: true
       model: opus
       tools:

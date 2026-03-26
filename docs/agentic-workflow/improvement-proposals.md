@@ -153,7 +153,7 @@ The orchestrator prompt would say: "Scan `.claude/agents/domain-experts/` for al
 
 ---
 
-### G. Simplify the `domain` field duplication
+### G. Simplify the `domain` field duplication — DONE
 
 **What:** In `agents.yaml`, `domain` (e.g., "Go language and idioms") duplicates `description` in the agent's `.md` file (e.g., "Go language and idioms expert agent for design spec analysis"). They serve the same purpose — telling the orchestrator what the agent does. Remove `domain` from agents.yaml and have the orchestrator read descriptions from the `.md` frontmatter.
 

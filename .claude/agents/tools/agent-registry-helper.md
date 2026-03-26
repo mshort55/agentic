@@ -41,9 +41,9 @@ When invoked, determine which operation is needed based on the request:
 **Action:**
 1. Read `config/agents.yaml`
 2. Parse `domain_experts` section
-3. Display formatted list with:
-   - Agent name
-   - Domain
+3. For each agent, read its `.md` file frontmatter for description and triggers
+4. Display formatted list with:
+   - Agent name and description (from `.md` frontmatter)
    - Enabled status
    - Model
    - Trigger count
@@ -79,7 +79,7 @@ None currently disabled.
 **Action:**
 1. Read `config/agents.yaml`
 2. For each agent, check:
-   - Has required fields (name, type, domain, enabled, model, tools)
+   - Has required fields (name, type, enabled, model, tools)
    - Type is valid (`domain_expert`, `orchestrator`)
    - Tools are valid Claude Code tools
    - Agent `.md` file exists and has frontmatter with name, description, triggers
@@ -428,7 +428,6 @@ When analyzing specs for agent suggestions:
 **Required Fields in `agents.yaml`:**
 - `name`: Must be unique, lowercase with hyphens
 - `type`: Must be `domain_expert` or `orchestrator`
-- `domain`: Descriptive string
 - `enabled`: Boolean
 - `model`: `opus`
 - `tools`: Array of valid tools
