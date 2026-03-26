@@ -13,9 +13,10 @@
 3. [Components](#components)
 4. [Data Flow](#data-flow)
 5. [Agent Interaction Patterns](#agent-interaction-patterns)
-6. [Decision Criteria](#decision-criteria)
-7. [Extensibility Points](#extensibility-points)
-8. [Technology Stack](#technology-stack)
+6. [Synthesis Algorithm](#synthesis-algorithm)
+7. [Extensibility](#extensibility)
+8. [Superpowers Integration](#superpowers-integration)
+9. [Continuous Improvement](#continuous-improvement)
 
 ---
 
@@ -338,30 +339,7 @@ Orchestrator
 **Why**: Maximum speed, isolated contexts, true parallelization
 **Trade-off**: Higher token usage, but much faster results
 
-### Pattern 2: Sequential Analysis (Fallback)
-
-```
-Orchestrator
-    │
-    ▼
-  Agent1
-    │
-    ▼
-  Agent2
-    │
-    ▼
-  Agent3
-    │
-    ▼
-Orchestrator
-(Synthesis)
-```
-
-**When**: Agent dependency exists (rare), or deliberate choice for cost optimization
-**Why**: Lower token usage, shared context
-**Trade-off**: Slower execution time
-
-### Pattern 3: Conditional Analysis
+### Pattern 2: Conditional Analysis
 
 ```
 Orchestrator
@@ -379,35 +357,9 @@ Orchestrator
 **Why**: Optimize for cost and speed on focused changes
 **Trade-off**: May miss non-obvious concerns
 
-### Pattern 4: Background Execution
-
-```
-Orchestrator
-    │
-    ├──► Agent1 (foreground)
-    ├──► Agent2 (foreground)
-    └──► Agent3 (background) ──► Notified when complete
-         │
-         ▼
-    Continue work
-         │
-         ▼
-    Agent3 completes ──► Integrate results
-```
-
-**When**: Long-running research agents
-**Why**: Don't block on optional deep analysis
-**Trade-off**: More complex coordination
-
 ---
 
-## Decision Criteria
-
-### When to Invoke Which Agents?
-
-Four modes are available: Full (all agents), Smart (trigger-matched), Focused (user-specified), and Quick (high-priority only). See [User Guide](user-guide.md#which-mode-to-use) for when to use each mode.
-
-### Synthesis Algorithm
+## Synthesis Algorithm
 
 **Step 1: Categorization**
 ```
@@ -466,234 +418,13 @@ Create analysis report:
 
 ---
 
-## Extensibility Points
-
-### 1. Adding New Domain Expert Agents
+## Extensibility
 
 See [Adding New Agents](adding-new-agents.md) for the step-by-step guide. No orchestrator changes needed — agents are auto-discovered from the registry.
 
-### 2. Custom Agent Types
-
-Beyond domain expert agents:
-- **Implementation agents**: Can modify code (Edit, Write tools)
-- **Research agents**: Deep research (WebSearch focus)
-- **Validation agents**: Check compliance, security
-- **Migration agents**: Guide migrations
-
-Configure in `agents.yaml` with `type: custom`.
-
-### 3. Integration Points
-
-**Pre-commit hooks:**
-```bash
-# Validate design spec before commit
-claude-code /validate-spec specs/my-spec.md
-```
-
-**CI/CD pipeline:**
-```yaml
-- name: Analyze Design Spec
-  run: |
-    claude-code /analyze-spec $FEATURE.md > analysis.md
-    # Upload as artifact or comment on PR
-```
-
-**IDE integration:**
-```
-Right-click design spec → "Analyze with Claude Code"
-```
-
-### 4. Configuration Extensions
-
-**Custom orchestration modes:**
-```yaml
-orchestrator:
-  custom_modes:
-    security-focused:
-      always_include: [security-expert, coding-expert]
-      optional: [go-expert, k8s-expert]
-```
-
-**Agent sets:**
-```yaml
-agent_sets:
-  api-changes:
-    - crd-expert
-    - k8s-expert
-    - controller-expert
-  testing-only:
-    - unit-test-expert
-    - e2e-test-expert
-```
-
-### 5. Tool Extensions
-
-New tools can be added to agents via MCP (Model Context Protocol):
-- Custom linters
-- Security scanners
-- Performance profilers
-- Database query tools
-
 ---
 
-## Technology Stack
-
-### Core Platform
-- **Claude Code**: Agentic execution environment
-- **Claude API**: Models (Opus, Sonnet)
-- **Agent SDK**: For custom agent implementations (future)
-
-### Configuration
-- **YAML**: Agent registry and configuration
-- **Markdown**: Agent definitions, documentation, design specs
-
-### Tools (Claude Code Built-in)
-- **Read**: File reading
-- **Grep**: Content search
-- **Glob**: File pattern matching
-- **WebSearch**: Internet research
-- **Bash**: Command execution
-
-### Storage
-- **Filesystem**: All configuration, agents, docs stored as files
-- **Git**: Version control for all artifacts
-- **No database**: Stateless architecture
-
-### Integration
-- **CLI**: `/analyze-spec` command
-- **Git hooks**: Pre-commit validation
-- **CI/CD**: GitHub Actions, etc.
-- **MCP**: Model Context Protocol for tool extensibility
-
----
-
-## Performance Characteristics
-
-### Latency
-- **Agent execution**: 30-90 seconds per agent (parallel)
-- **Total analysis**: ~2 minutes (limited by slowest agent)
-- **Sequential would be**: ~10+ minutes (7 agents × 90 sec each)
-
-### Token Usage
-- **Per agent**: ~5K-15K tokens (input + output)
-- **7 agents**: ~50K-100K tokens total
-- **Orchestrator**: ~20K-30K tokens (synthesis)
-- **Total**: ~70K-130K tokens per analysis
-
-### Throughput
-- **Parallel agents**: 7 agents simultaneously
-- **Configurable**: `max_parallel_agents` in config
-- **Rate limits**: Claude API limits apply
-
-### Scalability
-- **Agents**: Easily scale to 10-20 agents
-- **Design specs**: No limit
-- **Codebase size**: Tools handle large repos efficiently
-
----
-
-## Security Considerations
-
-### Tool Access
-- Agents have READ access to codebase
-- No WRITE access (analysis only, not implementation)
-- WebSearch is outbound only
-- Bash access limited to read-only commands
-
-### Data Privacy
-- Design specs may contain sensitive information
-- Stays within user's Claude Code session
-- No external storage by default
-- Logging configurable
-
-### Configuration Security
-- `agents.yaml` is version-controlled
-- Changes require code review
-- Validation on load prevents malformed agents
-
----
-
-## Failure Modes and Resilience
-
-### Agent Failure
-**Scenario**: One agent fails or times out
-
-**Handling:**
-- `continue_on_agent_failure: true` (default)
-- Orchestrator notes missing analysis
-- Continues with remaining agents
-- Flags gap in final report
-- Suggests manual review of failed domain
-
-### Orchestrator Failure
-**Scenario**: Orchestrator crashes during synthesis
-
-**Handling:**
-- Agent results are logged
-- Can manually review agent outputs
-- Re-run orchestrator on cached results (future)
-
-### Invalid Configuration
-**Scenario**: `agents.yaml` is malformed
-
-**Handling:**
-- Validation on load
-- Clear error messages
-- Falls back to default configuration
-
-### Network Issues
-**Scenario**: WebSearch fails
-
-**Handling:**
-- Agents note research limitation
-- Rely on embedded expertise in prompts
-- Continue with codebase analysis
-- Flag reduced confidence in recommendations
-
----
-
-## Monitoring and Observability
-
-### Metrics Tracked
-- Agent usage frequency
-- Execution times per agent
-- Token consumption
-- Recommendation acceptance rate
-- Synthesis quality feedback
-
-### Logging
-- Agent invocations
-- Tool usage
-- Errors and warnings
-- Synthesis decisions
-
-### Debug Mode
-```yaml
-monitoring:
-  debug_mode: true  # Verbose logging
-  log_agent_prompts: true
-  log_tool_calls: true
-```
-
----
-
-## Future Enhancements
-
-### Planned Features
-1. **Agent memory**: Agents remember past analyses
-2. **Learning loop**: Optimize prompts based on feedback
-3. **Custom agents via skill-creator**: Generate agents on demand
-4. **Agent optimization**: Use skill-creator evals
-5. **Caching**: Cache agent results for similar specs
-6. **Streaming results**: Show agent progress in real-time
-
-### Research Areas
-1. **Agent collaboration**: Agents communicate with each other
-2. **Hierarchical agents**: Sub-agents for deep dives
-3. **Multi-spec analysis**: Compare multiple design specs
-4. **Automated implementation**: Agents write code, not just recommend
-
-### Superpowers Integration
+## Superpowers Integration
 
 [Superpowers](https://github.com/obra/superpowers) is an agentic skills framework for systematic software development using TDD, worktrees, and task breakdown. It complements our system: we produce the "what and why" (analysis reports), superpowers handles the "how and when" (plan generation and code implementation).
 
@@ -715,7 +446,9 @@ Integration points:
 - Superpowers handles task decomposition, code generation, TDD ordering, and subagent execution
 - Feedback loop: Implementation outcomes improve future recommendations
 
-### Continuous Improvement
+---
+
+## Continuous Improvement
 
 Two commands support iterative improvement of domain expert agents:
 

@@ -226,10 +226,6 @@ extensibility:
   auto_discover_agents: true
   agent_directories:
     - ".claude/agents/domain-experts"
-    - ".claude/agents/custom"
-
-  # Allow custom agent types
-  custom_agent_types_enabled: true
 
   # Validation settings
   validation:

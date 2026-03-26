@@ -85,7 +85,7 @@ None currently disabled.
 1. Read `/UbuntuSync/agentic/config/agents.yaml`
 2. For each agent, check:
    - Has required fields (name, type, domain, enabled, tools, triggers)
-   - Type is valid (`domain_expert`, `orchestrator`, `custom`)
+   - Type is valid (`domain_expert`, `orchestrator`)
    - Tools are valid Claude Code tools
    - Triggers array is non-empty
    - Priority is valid (high, medium, low)
@@ -349,7 +349,6 @@ Average triggers per agent: 5
 **Action:**
 1. Scan directories defined in `extensibility.agent_directories`:
    - `.claude/agents/domain-experts/`
-   - `.claude/agents/custom/`
 2. For each `.md` file found:
    - Parse YAML frontmatter
    - Extract agent metadata
@@ -367,7 +366,6 @@ Average triggers per agent: 5
 **Scan Date:** 2026-03-25
 **Directories Scanned:**
 - .claude/agents/domain-experts/
-- .claude/agents/custom/
 
 ---
 
@@ -442,7 +440,7 @@ When analyzing specs for agent suggestions:
 
 **Required Fields:**
 - `name`: Must be unique, lowercase with hyphens
-- `type`: Must be `domain_expert`, `orchestrator`, or `custom`
+- `type`: Must be `domain_expert` or `orchestrator`
 - `domain`: Descriptive string
 - `description`: Clear purpose statement
 - `enabled`: Boolean
