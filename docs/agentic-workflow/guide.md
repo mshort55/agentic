@@ -63,15 +63,7 @@ See `specs/examples/` for reference specs at different complexity levels:
 
 #### Agent short names for `--focus`
 
-| Short Name    | Agent              |
-|---------------|--------------------|
-| `go`          | go-expert          |
-| `k8s`         | k8s-expert         |
-| `controller`  | controller-expert  |
-| `crd`         | crd-expert         |
-| `unit-test`   | unit-test-expert   |
-| `e2e-test`    | e2e-test-expert    |
-| `coding`      | coding-expert      |
+Use the agent name without the `-expert` suffix: `go`, `k8s`, `controller`, `crd`, `unit-test`, `e2e-test`, `coding`.
 
 #### Which mode to use
 
@@ -342,7 +334,7 @@ Agents are independent — they don't see each other's output. The orchestrator 
 
 ## Agent Catalog
 
-All agents configured in `config/agents.yaml`. All use Opus model and tools: Read, Grep, Glob, WebSearch, WebFetch.
+All agents configured in `config/agents.yaml`. See that file for current model and tool assignments.
 
 ### go-expert
 
@@ -539,14 +531,14 @@ Note: `description` and `triggers` live in the agent's `.md` file frontmatter, n
 
 ### Step 6: Validate and Test
 
-Run the `agent-registry-helper` to check configuration, then test with a sample spec:
+Test with a sample spec:
 
 1. Run `/analyze-spec test-spec.md --focus=security`
 2. Verify the agent produces comprehensive, actionable recommendations
 3. Check the output follows the expected format
 4. Ensure recommendations are specific to the design spec, not generic
 
-If using `--focus` mode, add the short name mapping to `.claude/commands/analyze-spec.md`.
+The `--focus` mode uses the agent name without the `-expert` suffix (e.g., `security` for `security-expert`). This follows from the naming convention — no explicit mapping needed.
 
 ### Best Practices for Agents
 
@@ -622,7 +614,7 @@ Design Spec → Analysis → Implementation → /review-cycle → Agent Improvem
 ### Agent file not found
 - Verify the file is at `.claude/agents/domain-experts/YOUR-AGENT.md`
 - Check the filename matches the `name` field in `agents.yaml`
-- Run the `agent-registry-helper` discovery scan to detect mismatches
+- List `.claude/agents/domain-experts/` to check for mismatches
 
 ---
 
@@ -632,7 +624,6 @@ Design Spec → Analysis → Implementation → /review-cycle → Agent Improvem
 - Agent template: `.claude/agents/templates/domain-expert-template.md`
 - Agent definitions: `.claude/agents/domain-experts/*.md`
 - Agent registry: `config/agents.yaml`
-- Registry helper: `.claude/agents/tools/agent-registry-helper.md`
 
 ### Related
 - [README](../../README.md) — Project overview and quick start

@@ -55,8 +55,7 @@ Design Spec → /analyze-spec → Analysis Report → /implement → Implementat
 ├── agents/
 │   ├── orchestrator/              # Orchestrator agent
 │   ├── domain-experts/            # 7 domain expert agents
-│   ├── templates/                 # Agent template + shared prompt templates
-│   └── tools/                     # Registry helper
+│   └── templates/                 # Agent template + shared prompt templates
 config/
 └── agents.yaml                    # Agent registry and configuration
 specs/                             # User-written design specs (input)

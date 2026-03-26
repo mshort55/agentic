@@ -18,8 +18,7 @@ The user provided: $ARGUMENTS
    - No options → **full** mode (all enabled agents)
    - `--smart` → **smart** mode (only agents whose triggers match the spec content)
    - `--focus=<areas>` → **focused** mode (only the specified agents)
-     - Agent short names: `go`, `k8s`, `controller`, `crd`, `unit-test`, `e2e-test`, `coding`
-     - These map to: `go-expert`, `k8s-expert`, `controller-expert`, `crd-expert`, `unit-test-expert`, `e2e-test-expert`, `coding-expert`
+     - Use the agent name without the `-expert` suffix (e.g., `go`, `k8s`, `controller`, `crd`, `unit-test`, `e2e-test`, `coding`)
 
 4. **Follow the orchestrator instructions** in `.claude/agents/orchestrator/design-spec-orchestrator.md` to:
    - Load the agent registry from `config/agents.yaml`

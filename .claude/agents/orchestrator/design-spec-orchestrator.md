@@ -37,8 +37,9 @@ Read the agent registry at `config/agents.yaml`.
 
 Identify:
 - Which agents are enabled
-- Agent triggers
 - Configuration mode (full/smart/focused)
+
+Then read each enabled agent's `.md` file (from the directories listed in `paths.agent_directories`) to get their triggers and descriptions from the YAML frontmatter.
 
 ### Step 3: Determine Agent Activation
 
