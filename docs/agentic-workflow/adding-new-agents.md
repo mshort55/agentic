@@ -190,13 +190,13 @@ Test the agent:
 
 ### Step 9: Update Documentation
 
-Add the new agent to `docs/agentic-workflow/agent-registry.md` (when it exists) with:
+Add the new agent to [agent-registry.md](agent-registry.md) with:
 - Agent name and purpose
 - When to use it
 - Key expertise areas
 - Example triggers
 
-If using `--focus` mode, update the agent name mapping in the analyze-design-spec skill.
+If using `--focus` mode, add the short name mapping to `.claude/commands/analyze-spec.md`.
 
 ---
 
@@ -302,6 +302,8 @@ To update an existing agent's expertise:
 - Registry helper (validation + discovery): `.claude/agents/tools/agent-registry-helper.md`
 
 ### Related Documents
-- [Architecture](architecture.md) - System overview and design
-- [skill-creator Integration](skill-creator-integration.md) - Automated agent creation (future)
-- [Agent Registry](../../config/agents.yaml) - Configuration reference
+- [User Guide](user-guide.md) — How to use the system
+- [Developer Guide](developer-guide.md) — How the system works internally
+- [Architecture](architecture.md) — System overview and design
+- [Agent Registry](agent-registry.md) — Catalog of all agents
+- [skill-creator Integration](skill-creator-integration.md) — Automated agent creation (future)

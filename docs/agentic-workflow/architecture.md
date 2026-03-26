@@ -177,62 +177,9 @@ Enable developers to:
 
 **Location:** `.claude/agents/domain-experts/*.md`
 
-Each domain expert agent is a specialized consultant for one domain:
+7 specialized agents covering: Go, Kubernetes, Controllers, CRDs, Unit Testing, E2E Testing, and General Coding. See [Agent Registry](agent-registry.md) for the full catalog with expertise areas, triggers, and tools.
 
-#### go-expert
-- **Domain**: Go language, idioms, patterns
-- **Analyzes**: Code structure, error handling, concurrency, testing
-- **Tools**: Read, Grep, Glob, WebSearch
-
-#### k8s-expert
-- **Domain**: Kubernetes resources and patterns
-- **Analyzes**: Deployments, services, RBAC, networking, configuration
-- **Tools**: Read, Grep, Glob, WebSearch, Bash
-
-#### controller-expert
-- **Domain**: Kubernetes controllers and operators
-- **Analyzes**: Reconciliation logic, controller-runtime patterns, finalizers
-- **Tools**: Read, Grep, Glob, WebSearch
-
-#### crd-expert
-- **Domain**: Custom Resource Definitions
-- **Analyzes**: API design, validation, versioning, webhooks
-- **Tools**: Read, Grep, Glob, WebSearch
-
-#### unit-test-expert
-- **Domain**: Unit testing
-- **Analyzes**: Test structure, coverage, mocking, table-driven tests
-- **Tools**: Read, Grep, Glob, WebSearch
-
-#### e2e-test-expert
-- **Domain**: End-to-end testing with Ginkgo
-- **Analyzes**: Test scenarios, environment setup, flake reduction
-- **Tools**: Read, Grep, Glob, WebSearch, Bash
-
-#### coding-expert
-- **Domain**: General coding practices
-- **Analyzes**: Code quality, SOLID principles, refactoring, organization
-- **Tools**: Read, Grep, Glob
-
-**Agent Structure:**
-```yaml
----
-name: agent-name
-description: Brief description
-model: opus | sonnet
-type: domain_expert
-tools:
-  - Tool1
-  - Tool2
-triggers:
-  - trigger1
-  - trigger2
----
-
-# Agent prompt/instructions
-# Analysis framework
-# Output format guidelines
-```
+Each agent is a markdown file with YAML frontmatter (name, model, type, tools, triggers) and a prompt body containing domain expertise, analysis framework, and output format.
 
 ### 3. Agent Registry
 
@@ -458,26 +405,7 @@ Orchestrator
 
 ### When to Invoke Which Agents?
 
-**Mode: Full (Default)**
-- Invoke ALL enabled agents
-- Use for: Comprehensive analysis, new features, uncertain scope
-- Trade-off: Higher cost, thorough coverage
-
-**Mode: Smart**
-- Match design spec content against agent triggers
-- Invoke only matching agents
-- Use for: Focused changes, clear scope
-- Trade-off: May miss edge cases
-
-**Mode: Focused**
-- User explicitly specifies agents (e.g., `--focus=go,testing`)
-- Use for: Known domain-specific changes
-- Trade-off: Requires user knowledge of what's needed
-
-**Mode: Quick**
-- Invoke only high-priority agents
-- Use for: Small bug fixes, quick analyses
-- Trade-off: Less comprehensive
+Four modes are available: Full (all agents), Smart (trigger-matched), Focused (user-specified), and Quick (high-priority only). See [User Guide](user-guide.md#which-mode-to-use) for when to use each mode.
 
 ### Synthesis Algorithm
 
@@ -542,13 +470,7 @@ Create implementation plan:
 
 ### 1. Adding New Domain Expert Agents
 
-**Process:**
-1. Copy template: `.claude/agents/templates/domain-expert-template.md`
-2. Customize for new domain with comprehensive expertise in prompt
-3. Register in `config/agents.yaml`
-4. Test with sample design spec
-
-**No orchestrator changes needed** - agents are auto-discovered.
+See [Adding New Agents](adding-new-agents.md) for the step-by-step guide. No orchestrator changes needed — agents are auto-discovered from the registry.
 
 ### 2. Custom Agent Types
 
@@ -827,12 +749,10 @@ Design Spec → Analysis → Plan → Implementation → Review
 
 ## References
 
-- [Multi-Agent Implementation Plan](../../ai-docs/multi-agent-implementation-plan.md)
-- [Agent Registry](../../config/agents.yaml)
+- [User Guide](user-guide.md) — How to use the system
+- [Developer Guide](developer-guide.md) — How the system works internally
+- [Agent Registry](agent-registry.md) — Catalog of all agents
+- [Adding New Agents](adding-new-agents.md) — Step-by-step guide
+- [skill-creator Integration](skill-creator-integration.md) — Automated agent management
+- [Agent Registry Config](../../config/agents.yaml) — Source of truth for agent configuration
 - [Design Spec Template](../../design-specs/template.md)
-- [Domain Expert Agents](../../.claude/agents/domain-experts/)
-
----
-
-**Document maintained by:** Engineering Team
-**Questions?** See [Adding New Agents Guide](adding-new-agents.md)

@@ -1642,11 +1642,10 @@ Create `docs/agentic-workflow/examples/`:
 - Example workflow scenarios
 
 ### Deliverables
-- [ ] Complete user documentation
-- [ ] Complete developer documentation
-- [ ] Agent registry catalog
-- [ ] Runbook for common tasks
-- [ ] Examples and templates
+- [ ] User guide with common tasks section (consolidates runbook) — `user-guide.md`
+- [ ] Developer guide referencing existing architecture/agent docs — `developer-guide.md`
+- [ ] Agent registry catalog — `agent-registry.md`
+- [ ] Examples already created in Phase 5 — `design-specs/examples/`
 
 ### Success Criteria
 - Documentation is comprehensive and clear
