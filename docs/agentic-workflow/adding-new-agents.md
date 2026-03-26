@@ -197,7 +197,7 @@ All domain expert agents use Opus for consistent deep analysis quality. Since ag
 
 ### Analysis Agents (Default)
 - Focus on reviewing design specs and providing recommendations
-- Tools: Read, Grep, Glob, WebSearch
+- Tools: Read, Grep, Glob, WebSearch, WebFetch
 - Examples: go-expert, k8s-expert, all current domain experts
 
 ### Research Agents
@@ -234,7 +234,7 @@ To update an existing agent's expertise:
 ## Troubleshooting
 
 ### Agent not triggered in smart mode
-- Check triggers in `agents.yaml` match design spec content
+- Check triggers in the agent's `.md` frontmatter match design spec content
 - Verify agent is `enabled: true`
 - Try full mode to confirm agent works at all
 

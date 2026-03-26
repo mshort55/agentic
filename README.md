@@ -137,7 +137,7 @@ See [Adding New Agents](docs/agentic-workflow/adding-new-agents.md) for the deta
 - **Models**: Claude Opus 4.6
 - **Configuration**: YAML
 - **Documentation**: Markdown
-- **Tools**: Read, Grep, Glob, WebSearch, Bash
+- **Tools**: Read, Grep, Glob, WebSearch, WebFetch
 
 ---
 

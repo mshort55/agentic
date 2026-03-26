@@ -8,9 +8,9 @@ See [Architecture](architecture.md) for the full system design including:
 - Architecture diagram (user → orchestrator → agents → tools → knowledge base → output)
 - Component descriptions
 - Data flow (step-by-step)
-- Agent interaction patterns (parallel, sequential, conditional, background)
+- Agent interaction patterns (parallel, conditional)
 - Synthesis algorithm (categorize → group → detect consensus → resolve conflicts → aggregate risks → generate report)
-- Performance characteristics and failure modes
+- Extensibility and continuous improvement
 
 ## Key Files
 
@@ -71,7 +71,7 @@ Edit `.claude/agents/orchestrator/design-spec-orchestrator.md`. The synthesis al
 ### Adjusting configuration
 Edit `config/agents.yaml` to change:
 - Which agents are enabled/disabled
-- Agent priorities and model selection
+- Agent model and tool configuration
 - Orchestrator defaults (mode, timeouts, parallelism)
 - Extensibility settings
 

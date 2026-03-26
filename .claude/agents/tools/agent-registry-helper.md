@@ -79,7 +79,7 @@ None currently disabled.
 **Action:**
 1. Read `config/agents.yaml`
 2. For each agent, check:
-   - Has required fields (name, type, domain, enabled, tools)
+   - Has required fields (name, type, domain, enabled, model, tools)
    - Type is valid (`domain_expert`, `orchestrator`)
    - Tools are valid Claude Code tools
    - Agent `.md` file exists and has frontmatter with name, description, triggers
@@ -124,7 +124,6 @@ None
 4. Rank agents by:
    - Explicit checkbox selection (highest)
    - Trigger keyword matches (by count)
-   - Priority level
 5. Return suggested agents with reasoning
 
 **Output Format:**
@@ -316,8 +315,8 @@ Expert in Go best practices, patterns, error handling, concurrency, and testing.
 - Read: 7 agents
 - Grep: 7 agents
 - Glob: 7 agents
-- WebSearch: 6 agents
-- Bash: 2 agents
+- WebSearch: 7 agents
+- WebFetch: 7 agents
 
 ### Trigger Coverage
 Total unique triggers: 35
@@ -431,7 +430,7 @@ When analyzing specs for agent suggestions:
 - `type`: Must be `domain_expert` or `orchestrator`
 - `domain`: Descriptive string
 - `enabled`: Boolean
-- `model`: `opus` or `sonnet`
+- `model`: `opus`
 - `tools`: Array of valid tools
 
 **Required Fields in agent `.md` frontmatter:**

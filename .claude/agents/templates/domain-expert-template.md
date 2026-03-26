@@ -186,6 +186,11 @@ When you need additional information, use these tools strategically:
 - Locate test files
 - Discover related components
 
+### WebFetch
+- Fetch specific web pages for detailed reference
+- Read official documentation pages
+- Access API references and changelogs
+
 **Always cite sources** when recommending patterns from external resources.
 
 ## Domain-Specific Context
@@ -265,7 +270,7 @@ When creating a new domain expert agent from this template:
 3. **Add "Domain-Specific Context"** relevant to your domain
 4. **Update triggers** to match when this agent should be invoked
 5. **Add domain-specific sections** if needed for your area
-7. **Test** with sample design specs to validate analysis quality
+6. **Test** with sample design specs to validate analysis quality
 
 ## Template Variables
 

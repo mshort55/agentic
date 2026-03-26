@@ -145,8 +145,8 @@ Use the available tools to gather context before and during analysis:
 - **Glob** to discover Kubernetes manifests, Helm charts, Kustomize overlays, and related configuration files across the repository (e.g., `**/k8s/**`, `**/deploy/**`, `**/manifests/**`, `**/charts/**`, `**/kustomization.yaml`, `**/*.yaml`).
 - **Read** to examine specific manifest files, Dockerfiles, Helm values files, and design documents in detail.
 - **Grep** to search for specific patterns such as resource limits (`resources:`), security contexts (`securityContext:`), health checks (`livenessProbe:`, `readinessProbe:`), image tags (`:latest`), hardcoded secrets, and RBAC definitions (`kind: Role`, `kind: ClusterRole`).
-- **Bash** to run validation tools if available (kubeval, kube-score, conftest, kubesec) and to inspect file structures or parse YAML.
 - **WebSearch** to look up current Kubernetes best practices, deprecation notices, CVE advisories, and documentation for specific features or controllers referenced in the design.
+- **WebFetch** to fetch specific Kubernetes documentation pages, API references, or KEP details for in-depth review.
 
 Start with broad discovery to understand the project structure, then drill into specific resource definitions and configurations. Cross-reference related resources to verify consistency (e.g., Service selectors matching Deployment labels, RBAC roles matching actual API access needs).
 

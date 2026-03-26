@@ -102,8 +102,8 @@ Enable developers to:
 │                      TOOL LAYER                                  │
 │                                                                  │
 │  ┌────────┐  ┌────────┐  ┌────────┐  ┌────────┐  ┌────────┐   │
-│  │  Read  │  │  Grep  │  │  Glob  │  │  Web   │  │  Bash  │   │
-│  │        │  │        │  │        │  │ Search │  │        │   │
+│  │  Read  │  │  Grep  │  │  Glob  │  │  Web   │  │  Web   │   │
+│  │        │  │        │  │        │  │ Search │  │ Fetch  │   │
 │  └────────┘  └────────┘  └────────┘  └────────┘  └────────┘   │
 │                                                                  │
 │  Agents use tools to:                                           │
@@ -243,7 +243,7 @@ Agents use Claude Code tools:
    │
    ├─ Parse spec content
    ├─ Match against agent triggers
-   └─ Consider enabled agents and priorities
+   └─ Consider enabled agents
    ↓
 6. Orchestrator launches agents in PARALLEL
    │
