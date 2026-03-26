@@ -98,7 +98,8 @@ All agents configured in [`config/agents.yaml`](config/agents.yaml):
 .claude/
 ├── commands/
 │   ├── analyze-spec.md            # /analyze-spec slash command
-│   └── implement.md              # /implement slash command
+│   ├── implement.md              # /implement slash command
+│   └── eval-agent.md            # /eval-agent slash command
 ├── agents/
 │   ├── orchestrator/              # Orchestrator agent
 │   ├── domain-experts/            # 7 domain expert agents
@@ -110,6 +111,7 @@ design-specs/                      # User-written design specs (input)
 ├── template.md
 └── examples/
 analysis-reports/                  # Saved analysis reports (from /analyze-spec)
+eval-results/                      # Saved agent eval outputs (from /eval-agent)
 docs/
 ├── agentic-workflow/              # System documentation
 └── superpowers/

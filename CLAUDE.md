@@ -49,11 +49,12 @@ Design Spec → /analyze-spec → Analysis Report → /implement → Implementat
 .claude/
 ├── commands/                      # Slash commands
 │   ├── analyze-spec.md            # Analyze design spec with domain experts
-│   └── implement.md               # Create brief, generate plan, offer execution
+│   ├── implement.md               # Create brief, generate plan, offer execution
+│   └── eval-agent.md              # Evaluate agent output quality
 ├── agents/
 │   ├── orchestrator/              # Orchestrator agent
 │   ├── domain-experts/            # 7 domain expert agents
-│   ├── templates/                 # Agent template
+│   ├── templates/                 # Agent template + shared prompt templates
 │   └── tools/                     # Registry helper
 config/
 └── agents.yaml                    # Agent registry and configuration
@@ -61,6 +62,7 @@ design-specs/                      # User-written design specs (input)
 ├── template.md
 └── examples/
 analysis-reports/                  # Saved analysis reports (from /analyze-spec)
+eval-results/                      # Saved agent eval outputs (from /eval-agent)
 docs/
 ├── agentic-workflow/              # System documentation
 └── superpowers/

@@ -306,4 +306,3 @@ To update an existing agent's expertise:
 - [Developer Guide](developer-guide.md) — How the system works internally
 - [Architecture](architecture.md) — System overview and design
 - [Agent Registry](agent-registry.md) — Catalog of all agents
-- [skill-creator Integration](skill-creator-integration.md) — Automated agent creation (future)

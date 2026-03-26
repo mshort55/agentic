@@ -762,6 +762,5 @@ Design Spec → Analysis → Plan → Implementation → Review
 - [Developer Guide](developer-guide.md) — How the system works internally
 - [Agent Registry](agent-registry.md) — Catalog of all agents
 - [Adding New Agents](adding-new-agents.md) — Step-by-step guide
-- [skill-creator Integration](skill-creator-integration.md) — Automated agent management
 - [Agent Registry Config](../../config/agents.yaml) — Source of truth for agent configuration
 - [Design Spec Template](../../design-specs/template.md)

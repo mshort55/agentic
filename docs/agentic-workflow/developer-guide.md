@@ -18,7 +18,8 @@ See [Architecture](architecture.md) for the full system design including:
 .claude/
 ├── commands/
 │   ├── analyze-spec.md              # /analyze-spec slash command
-│   └── implement.md                  # /implement — brief creation, plan generation, execution
+│   ├── implement.md                  # /implement — brief creation, plan generation, execution
+│   └── eval-agent.md                # /eval-agent — agent output quality evaluation
 ├── agents/
 │   ├── orchestrator/
 │   │   └── design-spec-orchestrator.md  # Main orchestrator logic
@@ -40,6 +41,7 @@ design-specs/                          # User-written design specs (input)
 ├── template.md
 └── examples/
 analysis-reports/                      # Saved analysis reports (from /analyze-spec)
+eval-results/                          # Saved agent eval outputs (from /eval-agent)
 ```
 
 ## How the Orchestrator Works
@@ -93,8 +95,8 @@ Edit `config/agents.yaml` to change:
 - Orchestrator defaults (mode, timeouts, parallelism)
 - Extensibility settings
 
-### Automated agent creation (future)
-See [skill-creator Integration](skill-creator-integration.md) for plans to use skill-creator for agent generation, evaluation, and optimization.
+### Evaluating agent quality
+Use `/eval-agent <agent-name> <spec.md>` to run a single agent against a design spec and save the raw output to `eval-results/`. Use `/eval-agent --compare <file1> <file2>` to diff two saved results after prompt changes.
 
 ## Maintenance
 
@@ -106,4 +108,3 @@ See the "Extending Existing Agents" section of [Adding New Agents](adding-new-ag
 - [User Guide](user-guide.md) — End-user documentation
 - [Agent Registry](agent-registry.md) — Catalog of all agents
 - [Adding New Agents](adding-new-agents.md) — Step-by-step guide
-- [skill-creator Integration](skill-creator-integration.md) — Automated agent management

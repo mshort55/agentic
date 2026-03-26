@@ -145,6 +145,9 @@ Design Spec → /analyze-spec → Analysis Report → /implement → Implementat
 ### Updating an Agent's Expertise
 Edit the agent file directly at `.claude/agents/domain-experts/<agent>.md`. No restart or registration changes needed — the orchestrator reads agent files on each run.
 
+### Evaluating Agent Quality
+Run `/eval-agent <agent-name> <spec.md>` to test an agent against a design spec and save the raw output. After making prompt changes, run it again and compare with `/eval-agent --compare <old-result> <new-result>`.
+
 ### Checking Agent Configuration
 Use the `agent-registry-helper` to list agents, validate config, or discover unregistered agent files.
 
@@ -158,6 +161,7 @@ See [Adding New Agents](adding-new-agents.md) for the step-by-step guide.
 | Design spec template | `design-specs/template.md` |
 | Example specs | `design-specs/examples/` |
 | Analysis reports | `analysis-reports/` |
+| Eval results | `eval-results/` |
 | Implementation briefs | `docs/superpowers/briefs/` |
 | Agent definitions | `.claude/agents/domain-experts/*.md` |
 | Orchestrator | `.claude/agents/orchestrator/design-spec-orchestrator.md` |
