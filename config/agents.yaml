@@ -11,7 +11,7 @@ agent_registry:
       type: domain_expert
       domain: "Go language and idioms"
       enabled: true
-      model: opus  # opus for deep analysis, sonnet for faster responses
+      model: opus
       tools:
         - Read
         - Grep
@@ -59,7 +59,7 @@ agent_registry:
       type: domain_expert
       domain: "Unit testing patterns and practices"
       enabled: true
-      model: sonnet  # Faster for test analysis
+      model: opus
       tools:
         - Read
         - Grep
@@ -71,7 +71,7 @@ agent_registry:
       type: domain_expert
       domain: "End-to-end testing with Ginkgo"
       enabled: true
-      model: sonnet
+      model: opus
       tools:
         - Read
         - Grep
@@ -83,7 +83,7 @@ agent_registry:
       type: domain_expert
       domain: "General coding best practices"
       enabled: true
-      model: sonnet
+      model: opus
       tools:
         - Read
         - Grep

@@ -196,7 +196,7 @@ Each agent is a markdown file with YAML frontmatter (name, description, triggers
 - `domain_experts`: All domain expert agents
 - `orchestrator_agents`: Orchestrator configuration
 - `extensibility`: Settings for adding new agents
-- `monitoring`: Metrics and logging configuration
+- `orchestrator`: Orchestrator runtime settings
 
 ### 4. Knowledge Base
 
@@ -222,7 +222,7 @@ Agents use Claude Code tools:
 - **Grep**: Search codebase for patterns
 - **Glob**: Find files by pattern
 - **WebSearch**: Research latest best practices
-- **Bash**: Execute commands (e.g., test checks)
+- **WebFetch**: Fetch specific web pages for detailed reference
 
 ---
 

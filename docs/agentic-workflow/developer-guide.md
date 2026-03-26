@@ -31,7 +31,7 @@ When a user runs `/analyze-spec foo.md`:
 3. The orchestrator instructions tell Claude to:
    - Read the design spec
    - Read `config/agents.yaml` to find enabled agents
-   - Select agents based on the mode (full/smart/focused/quick)
+   - Select agents based on the mode (full/smart/focused)
    - Launch all selected agents in parallel using the Agent tool
    - Synthesize results into an analysis report and save it to `output/analysis-reports/`
 

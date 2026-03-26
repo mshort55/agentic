@@ -86,9 +86,9 @@ All agents configured in [`config/agents.yaml`](config/agents.yaml):
 | **k8s-expert** | Kubernetes patterns | Opus |
 | **controller-expert** | Controller-runtime patterns | Opus |
 | **crd-expert** | Custom Resource Definitions | Opus |
-| **unit-test-expert** | Unit testing practices | Sonnet |
-| **e2e-test-expert** | E2E testing with Ginkgo | Sonnet |
-| **coding-expert** | General coding practices | Sonnet |
+| **unit-test-expert** | Unit testing practices | Opus |
+| **e2e-test-expert** | E2E testing with Ginkgo | Opus |
+| **coding-expert** | General coding practices | Opus |
 
 ---
 
@@ -134,7 +134,7 @@ See [Adding New Agents](docs/agentic-workflow/adding-new-agents.md) for the deta
 ## Technology Stack
 
 - **Platform**: Claude Code
-- **Models**: Claude Opus 4.6, Sonnet 4.5
+- **Models**: Claude Opus 4.6
 - **Configuration**: YAML
 - **Documentation**: Markdown
 - **Tools**: Read, Grep, Glob, WebSearch, Bash

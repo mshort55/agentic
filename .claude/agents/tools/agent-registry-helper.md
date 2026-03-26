@@ -39,7 +39,7 @@ When invoked, determine which operation is needed based on the request:
 **Request:** "List all agents" or "Show available agents"
 
 **Action:**
-1. Read `/UbuntuSync/agentic/config/agents.yaml`
+1. Read `config/agents.yaml`
 2. Parse `domain_experts` section
 3. Display formatted list with:
    - Agent name
@@ -77,7 +77,7 @@ None currently disabled.
 **Request:** "Check agent status" or "Validate agents"
 
 **Action:**
-1. Read `/UbuntuSync/agentic/config/agents.yaml`
+1. Read `config/agents.yaml`
 2. For each agent, check:
    - Has required fields (name, type, domain, enabled, tools)
    - Type is valid (`domain_expert`, `orchestrator`)
@@ -116,7 +116,7 @@ None
 
 **Action:**
 1. Read the design spec file
-2. Read `/UbuntuSync/agentic/config/agents.yaml`
+2. Read `config/agents.yaml`
 3. For each agent, check if any triggers match spec content:
    - Check section headers
    - Check "Domain Experts to Consult" checkboxes
@@ -175,7 +175,7 @@ Invoke: go-expert, k8s-expert, controller-expert, unit-test-expert, coding-exper
 **Request:** "Validate agent config" or "Check agents.yaml"
 
 **Action:**
-1. Read `/UbuntuSync/agentic/config/agents.yaml`
+1. Read `config/agents.yaml`
 2. Validate YAML syntax
 3. Validate schema:
    - version field exists
@@ -230,7 +230,7 @@ Invoke: go-expert, k8s-expert, controller-expert, unit-test-expert, coding-exper
 **Request:** "Generate agent report" or "Document all agents"
 
 **Action:**
-1. Read `/UbuntuSync/agentic/config/agents.yaml`
+1. Read `config/agents.yaml`
 2. For each agent, read its definition file (if exists)
 3. Extract metadata:
    - Domain and expertise areas
@@ -263,7 +263,6 @@ Invoke: go-expert, k8s-expert, controller-expert, unit-test-expert, coding-exper
 ## go-expert
 
 **Domain:** Go language and idioms
-**Priority:** High
 **Model:** Opus
 **Status:** Enabled
 
@@ -291,6 +290,7 @@ Expert in Go best practices, patterns, error handling, concurrency, and testing.
 - Grep
 - Glob
 - WebSearch
+- WebFetch
 
 ### When to Use
 - Design specs involving Go code changes
@@ -299,7 +299,7 @@ Expert in Go best practices, patterns, error handling, concurrency, and testing.
 - Performance optimization needs
 
 ### Definition File
-`.claude/agents/domain-experts/go-expert.md` (Not yet created - Phase 2)
+`.claude/agents/domain-experts/go-expert.md`
 
 ---
 
@@ -309,14 +309,8 @@ Expert in Go best practices, patterns, error handling, concurrency, and testing.
 
 ## Agent Statistics
 
-### By Priority
-- High: 4 agents (57%)
-- Medium: 3 agents (43%)
-- Low: 0 agents (0%)
-
 ### By Model
-- Opus: 4 agents
-- Sonnet: 3 agents
+- Opus: 7 agents
 
 ### By Tool Usage
 - Read: 7 agents
@@ -415,12 +409,12 @@ None. All registered agents have corresponding definition files.
 ## Implementation Notes
 
 ### Source of Truth
-Always reference: `/UbuntuSync/agentic/config/agents.yaml`
+Always reference: `config/agents.yaml`
 
 ### Reading YAML
 Use the Read tool to load the configuration:
 ```
-Read file_path=/UbuntuSync/agentic/config/agents.yaml
+Read file_path=config/agents.yaml
 ```
 
 ### Parsing Design Specs
@@ -526,13 +520,6 @@ Helper:
 - Recommend agent archival for unused agents
 - Detect trigger conflicts automatically
 - Generate agent definitions from natural language descriptions
-
-### Integration with skill-creator
-Once integrated with skill-creator:
-- Generate new agents on-demand
-- Optimize agent prompts based on usage
-- Run evals on agent quality
-- Benchmark agent performance
 
 ---
 

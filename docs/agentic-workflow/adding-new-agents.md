@@ -106,7 +106,7 @@ Add the new agent to `config/agents.yaml` under `domain_experts`:
       type: domain_expert
       domain: "Security and compliance practices"
       enabled: true
-      model: opus       # opus or sonnet
+      model: opus
       tools:
         - Read
         - Grep
@@ -189,14 +189,7 @@ If using `--focus` mode, add the short name mapping to `.claude/commands/analyze
 
 ### Model Selection
 
-- **Opus**: For agents that need deep analysis, complex reasoning, or broad knowledge synthesis (e.g., go-expert, controller-expert)
-- **Sonnet**: For agents that handle more structured, pattern-matching analysis where speed matters (e.g., unit-test-expert, coding-expert)
-
-### Priority
-
-- **High**: Core domain that applies to most features (Go, Kubernetes, controllers, unit tests)
-- **Medium**: Important but not always relevant (CRDs, E2E tests, coding practices)
-- **Low**: Specialized domains that apply to few features
+All domain expert agents use Opus for consistent deep analysis quality. Since agents run in parallel, using a faster model on some agents doesn't improve overall analysis time (it's bottlenecked by the slowest agent).
 
 ---
 

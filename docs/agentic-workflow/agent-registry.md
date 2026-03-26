@@ -75,7 +75,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | | |
 |---|---|
 | **Domain** | Unit testing patterns and practices |
-| **Model** | Sonnet |
+| **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
 **Expertise:** Table-driven tests, test organization and structure, mocking strategies (gomock, interfaces), test helpers and utilities, coverage analysis, test naming conventions, parallel test execution, benchmark testing (`b.Loop()`), `synctest` for time-dependent code, race detection.
@@ -91,7 +91,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | | |
 |---|---|
 | **Domain** | End-to-end testing with Ginkgo |
-| **Model** | Sonnet |
+| **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
 **Expertise:** Ginkgo v2 BDD testing, Gomega matchers, test environment setup (envtest, kind), test isolation and cleanup (`DeferCleanup`), flake reduction, parallel execution strategies, `DescribeTableSubtree`, `ReportEntries`, `SpecPriority`, `--gojson-report`, CI/CD integration.
@@ -107,7 +107,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | | |
 |---|---|
 | **Domain** | General coding best practices |
-| **Model** | Sonnet |
+| **Model** | Opus |
 | **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
 **Expertise:** SOLID principles, DRY/KISS/YAGNI, code organization and modularity, naming conventions, documentation practices, refactoring patterns, technical debt management, security best practices, structured logging (`log/slog`), error handling patterns.
@@ -139,8 +139,7 @@ Invoked via `/analyze-spec` command (`.claude/commands/analyze-spec.md`).
 | Metric | Value |
 |--------|-------|
 | Total domain experts | 7 |
-| Using Opus | 4 (go, k8s, controller, crd) |
-| Using Sonnet | 3 (unit-test, e2e-test, coding) |
+| Using Opus | 7 (all agents) |
 
 ## Related Documents
 

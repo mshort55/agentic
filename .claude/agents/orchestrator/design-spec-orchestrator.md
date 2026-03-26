@@ -33,11 +33,11 @@ Read the design spec file provided by the user. Parse and understand:
 
 ### Step 2: Load Agent Registry
 
-Read the agent registry at `/UbuntuSync/agentic/config/agents.yaml`.
+Read the agent registry at `config/agents.yaml`.
 
 Identify:
 - Which agents are enabled
-- Agent triggers and priorities
+- Agent triggers
 - Configuration mode (full/smart/focused)
 
 ### Step 3: Determine Agent Activation
