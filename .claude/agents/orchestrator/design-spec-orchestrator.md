@@ -1,8 +1,6 @@
 ---
 name: design-spec-orchestrator
 description: Orchestrates design spec analysis by consulting specialized domain expert agents in parallel and synthesizing their recommendations into an actionable analysis report
-type: orchestrator
-model: opus
 triggers:
   - "analyze design spec"
   - "/analyze-spec"

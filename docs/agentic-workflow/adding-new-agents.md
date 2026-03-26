@@ -39,13 +39,6 @@ Open the new file and replace all template placeholders:
 ---
 name: security-expert
 description: Security and compliance expert agent for design spec analysis
-model: opus        # opus for deep analysis, sonnet for faster responses
-type: domain_expert
-tools:
-  - Read
-  - Grep
-  - Glob
-  - WebSearch
 triggers:
   - security
   - auth
@@ -54,6 +47,8 @@ triggers:
   - compliance
 ---
 ```
+
+Note: Infrastructure config (model, tools, priority) is configured in `config/agents.yaml`, not in the agent frontmatter.
 
 **Key sections to customize:**
 
@@ -102,21 +97,7 @@ triggers:
   - cve               # Related workflow
 ```
 
-### Step 5: Select Tools
-
-Choose only the tools the agent will actually use:
-
-| Tool       | When to Include                                    |
-|------------|----------------------------------------------------|
-| Read       | Always (agents need to read specs and code)        |
-| Grep       | When agent needs to search codebase for patterns   |
-| Glob       | When agent needs to find files by pattern          |
-| WebSearch  | When agent should research latest best practices   |
-| Bash       | When agent needs to run commands (e.g., check versions, run linters) |
-
-Most domain expert agents need: `Read`, `Grep`, `Glob`, `WebSearch`.
-
-### Step 6: Register in Agent Registry
+### Step 5: Register in Agent Registry
 
 Add the new agent to `config/agents.yaml` under `domain_experts`:
 
@@ -124,7 +105,6 @@ Add the new agent to `config/agents.yaml` under `domain_experts`:
     - name: security-expert
       type: domain_expert
       domain: "Security and compliance practices"
-      description: "Expert in security best practices, authentication, authorization, and compliance"
       enabled: true
       priority: high    # high, medium, or low
       model: opus       # opus or sonnet
@@ -133,21 +113,12 @@ Add the new agent to `config/agents.yaml` under `domain_experts`:
         - Grep
         - Glob
         - WebSearch
-      triggers:
-        - "security"
-        - "auth"
-        - "secrets"
-        - "rbac"
-        - "compliance"
-      expertise_areas:
-        - "Authentication and authorization"
-        - "Secrets management"
-        - "RBAC design"
-        - "Security scanning"
-        - "Compliance requirements"
+        - WebFetch
 ```
 
-### Step 7: Validate
+Note: `description` and `triggers` live in the agent's `.md` file frontmatter, not here.
+
+### Step 6: Validate
 
 Run the `agent-registry-helper` to check configuration. It can verify:
 - Agent definition file has valid structure
@@ -155,7 +126,7 @@ Run the `agent-registry-helper` to check configuration. It can verify:
 - Agent is properly registered in `agents.yaml`
 - No naming conflicts with existing agents
 
-### Step 8: Test
+### Step 7: Test
 
 Create a test design spec that exercises the new agent's domain:
 
@@ -188,7 +159,7 @@ Test the agent:
 3. Check the output follows the expected format
 4. Ensure recommendations are specific to the design spec, not generic
 
-### Step 9: Update Documentation
+### Step 8: Update Documentation
 
 Add the new agent to [agent-registry.md](agent-registry.md) with:
 - Agent name and purpose

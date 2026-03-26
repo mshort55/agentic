@@ -13,7 +13,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | **Domain** | Go language and idioms |
 | **Priority** | High |
 | **Model** | Opus |
-| **Tools** | Read, Grep, Glob, WebSearch |
+| **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
 **Expertise:** Idiomatic patterns, error handling (`errors.Is`/`errors.As`, wrapping), concurrency (goroutines, channels, sync, context), project structure (`internal/`, `pkg/`, `cmd/`), testing (table-driven, testify, gomock, benchmarks, `synctest`), performance and memory management.
 
@@ -30,7 +30,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | **Domain** | Kubernetes patterns and best practices |
 | **Priority** | High |
 | **Model** | Opus |
-| **Tools** | Read, Grep, Glob, WebSearch, Bash |
+| **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
 **Expertise:** Resource patterns and manifests, deployment strategies, service discovery and networking, ConfigMaps and Secrets, RBAC and security, resource limits and requests, health checks (liveness, readiness, startup probes), labels, selectors, namespace organization.
 
@@ -47,7 +47,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | **Domain** | Kubernetes controller patterns |
 | **Priority** | High |
 | **Model** | Opus |
-| **Tools** | Read, Grep, Glob, WebSearch |
+| **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
 **Expertise:** controller-runtime patterns, reconciliation loop design, event filtering and predicates, error handling and retry logic, leader election, finalizers and garbage collection, status conditions, watches and indexers, owner references, performance and scalability.
 
@@ -64,7 +64,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | **Domain** | Custom Resource Definitions |
 | **Priority** | Medium |
 | **Model** | Opus |
-| **Tools** | Read, Grep, Glob, WebSearch |
+| **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
 **Expertise:** API design and versioning, kubebuilder markers and validation, OpenAPI schema design, CEL validation (GA in K8s 1.29), validation ratcheting, status subresource, printer columns, webhook validation, conversion webhooks, backward compatibility.
 
@@ -81,7 +81,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | **Domain** | Unit testing patterns and practices |
 | **Priority** | High |
 | **Model** | Sonnet |
-| **Tools** | Read, Grep, Glob, WebSearch |
+| **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
 **Expertise:** Table-driven tests, test organization and structure, mocking strategies (gomock, interfaces), test helpers and utilities, coverage analysis, test naming conventions, parallel test execution, benchmark testing (`b.Loop()`), `synctest` for time-dependent code, race detection.
 
@@ -98,7 +98,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | **Domain** | End-to-end testing with Ginkgo |
 | **Priority** | Medium |
 | **Model** | Sonnet |
-| **Tools** | Read, Grep, Glob, WebSearch, Bash |
+| **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
 **Expertise:** Ginkgo v2 BDD testing, Gomega matchers, test environment setup (envtest, kind), test isolation and cleanup (`DeferCleanup`), flake reduction, parallel execution strategies, `DescribeTableSubtree`, `ReportEntries`, `SpecPriority`, `--gojson-report`, CI/CD integration.
 
@@ -115,7 +115,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | **Domain** | General coding best practices |
 | **Priority** | Medium |
 | **Model** | Sonnet |
-| **Tools** | Read, Grep, Glob |
+| **Tools** | Read, Grep, Glob, WebSearch, WebFetch |
 
 **Expertise:** SOLID principles, DRY/KISS/YAGNI, code organization and modularity, naming conventions, documentation practices, refactoring patterns, technical debt management, security best practices, structured logging (`log/slog`), error handling patterns.
 

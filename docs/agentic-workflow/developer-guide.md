@@ -40,7 +40,7 @@ The orchestrator is not code — it's a prompt that Claude follows. The Agent to
 ## How Agents Work
 
 Each agent is a markdown file with:
-- **YAML frontmatter**: name, description, model, type, tools, triggers
+- **YAML frontmatter**: name, description, triggers (infrastructure config like model, tools, and priority lives in `config/agents.yaml`)
 - **Prompt body**: role description, expertise areas, best practices, pitfalls, analysis framework, output format, key principles
 
 When the orchestrator launches an agent, it sends the design spec content as the prompt. The agent then:

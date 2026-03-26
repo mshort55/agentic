@@ -1,13 +1,6 @@
 ---
 name: crd-expert
 description: Custom Resource Definitions expert agent for design spec analysis
-model: opus
-type: domain_expert
-tools:
-  - Read
-  - Grep
-  - Glob
-  - WebSearch
 triggers:
   - "crd"
   - "custom resource"

@@ -1,14 +1,6 @@
 ---
 name: k8s-expert
 description: Kubernetes patterns and best practices expert agent for design spec analysis
-model: opus
-type: domain_expert
-tools:
-  - Read
-  - Grep
-  - Glob
-  - WebSearch
-  - Bash
 triggers:
   - "kubernetes"
   - "k8s"

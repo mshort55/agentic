@@ -1,13 +1,6 @@
 ---
 name: unit-test-expert
 description: Unit testing patterns and practices expert agent for design spec analysis
-model: sonnet
-type: domain_expert
-tools:
-  - Read
-  - Grep
-  - Glob
-  - WebSearch
 triggers:
   - "unit test"
   - "_test.go"

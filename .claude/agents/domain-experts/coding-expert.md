@@ -1,12 +1,6 @@
 ---
 name: coding-expert
 description: General coding best practices expert agent for design spec analysis
-model: sonnet
-type: domain_expert
-tools:
-  - Read
-  - Grep
-  - Glob
 triggers:
   - "code quality"
   - "clean code"

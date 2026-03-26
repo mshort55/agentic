@@ -1,13 +1,6 @@
 ---
 name: {{AGENT_NAME}}
 description: {{DOMAIN}} expert agent for design spec analysis
-model: opus
-type: domain_expert
-tools:
-  - Read
-  - Grep
-  - Glob
-  - WebSearch
 triggers:
   - {{TRIGGER_1}}
   - {{TRIGGER_2}}
@@ -271,8 +264,7 @@ When creating a new domain expert agent from this template:
 2. **Fill in "Areas of Expertise"** with 5-10 specific areas
 3. **Add "Domain-Specific Context"** relevant to your domain
 4. **Update triggers** to match when this agent should be invoked
-5. **Customize tools** - only include tools this agent will actually use
-6. **Add domain-specific sections** if needed for your area
+5. **Add domain-specific sections** if needed for your area
 7. **Test** with sample design specs to validate analysis quality
 
 ## Template Variables

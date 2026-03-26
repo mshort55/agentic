@@ -1,13 +1,6 @@
 ---
 name: controller-expert
 description: Kubernetes controller patterns expert agent for design spec analysis
-model: opus
-type: domain_expert
-tools:
-  - Read
-  - Grep
-  - Glob
-  - WebSearch
 triggers:
   - "controller"
   - "reconcile"

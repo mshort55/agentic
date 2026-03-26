@@ -1,8 +1,8 @@
 version: "1.0"
 
 # Agent Registry
-# This file defines all available domain expert agents and orchestrators
-# Agents are automatically discovered and can be invoked by the orchestrator
+# Agent identity (name, description, triggers) lives in each agent's .md file
+# This file defines infrastructure config: how agents run (model, tools, priority)
 
 agent_registry:
   # Domain expert agents - specialized knowledge consultants for specific domains
@@ -10,7 +10,6 @@ agent_registry:
     - name: go-expert
       type: domain_expert
       domain: "Go language and idioms"
-      description: "Expert in Go best practices, patterns, error handling, concurrency, and testing"
       enabled: true
       priority: high
       model: opus  # opus for deep analysis, sonnet for faster responses
@@ -19,25 +18,11 @@ agent_registry:
         - Grep
         - Glob
         - WebSearch
-      triggers:
-        - "go"
-        - "golang"
-        - "*.go files"
-        - "goroutines"
-        - "channels"
-        - "interfaces"
-      expertise_areas:
-        - "Idiomatic Go patterns"
-        - "Error handling (errors.Is, errors.As, wrapping)"
-        - "Concurrency (goroutines, channels, sync, context)"
-        - "Project structure (internal/, pkg/, cmd/)"
-        - "Testing (table-driven, testify, gomock)"
-        - "Performance and memory management"
+        - WebFetch
 
     - name: k8s-expert
       type: domain_expert
       domain: "Kubernetes patterns and best practices"
-      description: "Expert in Kubernetes resources, deployment strategies, RBAC, and networking"
       enabled: true
       priority: high
       model: opus
@@ -46,28 +31,11 @@ agent_registry:
         - Grep
         - Glob
         - WebSearch
-        - Bash
-      triggers:
-        - "kubernetes"
-        - "k8s"
-        - "deployment"
-        - "service"
-        - "configmap"
-        - "secret"
-        - "rbac"
-      expertise_areas:
-        - "Resource patterns and manifests"
-        - "Deployment strategies"
-        - "Service discovery and networking"
-        - "ConfigMaps and Secrets"
-        - "RBAC and security"
-        - "Resource limits and requests"
-        - "Health checks (liveness, readiness)"
+        - WebFetch
 
     - name: controller-expert
       type: domain_expert
       domain: "Kubernetes controller patterns"
-      description: "Expert in controller-runtime, reconciliation loops, and operator patterns"
       enabled: true
       priority: high
       model: opus
@@ -76,26 +44,11 @@ agent_registry:
         - Grep
         - Glob
         - WebSearch
-      triggers:
-        - "controller"
-        - "reconcile"
-        - "controller-runtime"
-        - "operator"
-        - "watch"
-      expertise_areas:
-        - "controller-runtime patterns"
-        - "Reconciliation loop design"
-        - "Event filtering and predicates"
-        - "Error handling and retry logic"
-        - "Leader election"
-        - "Finalizers and garbage collection"
-        - "Status conditions"
-        - "Performance and scalability"
+        - WebFetch
 
     - name: crd-expert
       type: domain_expert
       domain: "Custom Resource Definitions"
-      description: "Expert in CRD design, API versioning, validation, and webhooks"
       enabled: true
       priority: medium
       model: opus
@@ -104,25 +57,11 @@ agent_registry:
         - Grep
         - Glob
         - WebSearch
-      triggers:
-        - "crd"
-        - "custom resource"
-        - "api"
-        - "kubebuilder"
-        - "webhook"
-      expertise_areas:
-        - "API design and versioning"
-        - "Kubebuilder markers and validation"
-        - "OpenAPI schema design"
-        - "Status subresource"
-        - "Printer columns"
-        - "Webhook validation"
-        - "Conversion webhooks"
+        - WebFetch
 
     - name: unit-test-expert
       type: domain_expert
       domain: "Unit testing patterns and practices"
-      description: "Expert in Go unit testing, table-driven tests, mocking, and test organization"
       enabled: true
       priority: high
       model: sonnet  # Faster for test analysis
@@ -131,25 +70,11 @@ agent_registry:
         - Grep
         - Glob
         - WebSearch
-      triggers:
-        - "unit test"
-        - "_test.go"
-        - "testing"
-        - "mock"
-        - "testify"
-      expertise_areas:
-        - "Table-driven tests in Go"
-        - "Test organization and structure"
-        - "Mocking strategies (gomock, interfaces)"
-        - "Test helpers and utilities"
-        - "Coverage and meaningful tests"
-        - "Test naming conventions"
-        - "Parallel test execution"
+        - WebFetch
 
     - name: e2e-test-expert
       type: domain_expert
       domain: "End-to-end testing with Ginkgo"
-      description: "Expert in Ginkgo/Gomega, test environment setup, and integration testing"
       enabled: true
       priority: medium
       model: sonnet
@@ -158,25 +83,11 @@ agent_registry:
         - Grep
         - Glob
         - WebSearch
-        - Bash
-      triggers:
-        - "e2e"
-        - "ginkgo"
-        - "integration test"
-        - "gomega"
-      expertise_areas:
-        - "Ginkgo BDD testing"
-        - "Gomega matchers"
-        - "Test environment setup"
-        - "Test isolation and cleanup"
-        - "Flake reduction"
-        - "Parallel execution strategies"
-        - "CI/CD integration"
+        - WebFetch
 
     - name: coding-expert
       type: domain_expert
       domain: "General coding best practices"
-      description: "Expert in clean code, SOLID principles, refactoring, and code organization"
       enabled: true
       priority: medium
       model: sonnet
@@ -184,20 +95,8 @@ agent_registry:
         - Read
         - Grep
         - Glob
-      triggers:
-        - "code quality"
-        - "clean code"
-        - "refactoring"
-        - "solid"
-        - "code organization"
-      expertise_areas:
-        - "SOLID principles"
-        - "DRY, KISS, YAGNI"
-        - "Code organization and modularity"
-        - "Naming conventions"
-        - "Documentation practices"
-        - "Refactoring patterns"
-        - "Technical debt management"
+        - WebSearch
+        - WebFetch
 
   # Orchestrator agents - coordinate and synthesize
   orchestrator_agents:
@@ -206,13 +105,6 @@ agent_registry:
       description: "Main orchestrator for design spec analysis"
       enabled: true
       model: opus
-      capabilities:
-        - "Reads design specs"
-        - "Determines relevant domain experts"
-        - "Launches agents in parallel"
-        - "Synthesizes recommendations"
-        - "Resolves conflicts"
-        - "Generates analysis reports"
 
 # Extensibility configuration
 extensibility:
@@ -252,20 +144,3 @@ orchestrator:
   # Output settings
   include_full_reports: true       # Include full agent reports in appendix
   synthesis_format: "structured"   # Options: structured, narrative
-
-  # Background execution
-  allow_background_agents: true
-  background_timeout: 600000  # 10 minutes
-
-# Logging and monitoring
-monitoring:
-  log_agent_invocations: true
-  track_metrics: true
-  metrics_path: ".claude/metrics/"
-
-  # Metrics to track
-  metrics:
-    - agent_usage_count
-    - agent_execution_time
-    - recommendation_acceptance_rate
-    - synthesis_quality_score

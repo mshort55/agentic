@@ -84,11 +84,11 @@ None currently disabled.
 **Action:**
 1. Read `/UbuntuSync/agentic/config/agents.yaml`
 2. For each agent, check:
-   - Has required fields (name, type, domain, enabled, tools, triggers)
+   - Has required fields (name, type, domain, enabled, tools)
    - Type is valid (`domain_expert`, `orchestrator`)
    - Tools are valid Claude Code tools
-   - Triggers array is non-empty
    - Priority is valid (high, medium, low)
+   - Agent `.md` file exists and has frontmatter with name, description, triggers
 3. Report any issues
 
 **Output Format:**
@@ -438,15 +438,18 @@ When analyzing specs for agent suggestions:
 
 ### Validation Rules
 
-**Required Fields:**
+**Required Fields in `agents.yaml`:**
 - `name`: Must be unique, lowercase with hyphens
 - `type`: Must be `domain_expert` or `orchestrator`
 - `domain`: Descriptive string
-- `description`: Clear purpose statement
 - `enabled`: Boolean
 - `priority`: `high`, `medium`, or `low`
 - `model`: `opus` or `sonnet`
 - `tools`: Array of valid tools
+
+**Required Fields in agent `.md` frontmatter:**
+- `name`: Must match the `agents.yaml` entry
+- `description`: Clear purpose statement
 - `triggers`: Non-empty array of strings
 
 **Valid Tools:**

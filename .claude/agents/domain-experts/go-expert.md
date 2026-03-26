@@ -1,13 +1,6 @@
 ---
 name: go-expert
 description: Go language and idioms expert agent for design spec analysis
-model: opus
-type: domain_expert
-tools:
-  - Read
-  - Grep
-  - Glob
-  - WebSearch
 triggers:
   - "go"
   - "golang"

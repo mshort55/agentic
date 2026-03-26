@@ -1,14 +1,6 @@
 ---
 name: e2e-test-expert
 description: End-to-end testing with Ginkgo expert agent for design spec analysis
-model: sonnet
-type: domain_expert
-tools:
-  - Read
-  - Grep
-  - Glob
-  - WebSearch
-  - Bash
 triggers:
   - "e2e"
   - "ginkgo"
