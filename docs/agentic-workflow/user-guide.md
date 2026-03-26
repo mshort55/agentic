@@ -2,14 +2,15 @@
 
 ## What This System Does
 
-You write a design spec describing a feature, bug fix, or refactor. The system consults specialized domain expert agents in parallel — Go, Kubernetes, controllers, CRDs, unit testing, e2e testing, and general coding — then synthesizes their recommendations into a single implementation plan.
+You write a design spec describing a feature, bug fix, or refactor. The system consults specialized domain expert agents in parallel — Go, Kubernetes, controllers, CRDs, unit testing, e2e testing, and general coding — then synthesizes their recommendations into a single analysis report.
 
 ## Quick Start
 
 1. Write a design spec (copy `design-specs/template.md` as a starting point)
-2. Run `/analyze-spec design-specs/your-spec.md`
-3. Review the implementation plan
-4. Start coding based on the recommendations
+2. Run `/analyze-spec your-spec.md`
+3. Review the analysis report (saved to `analysis-reports/`)
+4. Run `/prepare-implementation` to create the implementation brief
+5. Use superpowers' `writing-plans` to generate the execution plan, then execute
 
 ## Writing Design Specs
 
@@ -34,16 +35,16 @@ See `design-specs/examples/` for reference specs at different complexity levels:
 
 ```bash
 # Full analysis with all agents (default)
-/analyze-spec design-specs/your-spec.md
+/analyze-spec your-spec.md
 
 # Quick — high-priority agents only (go, k8s, controller, unit-test)
-/analyze-spec design-specs/your-spec.md --fast
+/analyze-spec your-spec.md --fast
 
 # Smart — auto-detect relevant agents from spec content
-/analyze-spec design-specs/your-spec.md --smart
+/analyze-spec your-spec.md --smart
 
 # Focused — specify exactly which agents
-/analyze-spec design-specs/your-spec.md --focus=crd,controller,go
+/analyze-spec your-spec.md --focus=crd,controller,go
 ```
 
 ### Agent short names for `--focus`
@@ -69,7 +70,7 @@ See `design-specs/examples/` for reference specs at different complexity levels:
 
 ## Understanding the Output
 
-The implementation plan has these sections:
+The analysis report is saved to `analysis-reports/` and has these sections:
 
 - **Executive Summary** — High-level overview and key decisions
 - **Key Recommendations** — Prioritized as Critical / Important / Nice to Have, with source agent attribution
@@ -113,9 +114,25 @@ When multiple agents agree on a recommendation, it's flagged as consensus. When 
 
 You can ask Claude to:
 - Dive deeper into a specific recommendation
-- Start implementing a specific phase
 - Consult additional agents you didn't include
-- Update the design spec based on findings
+
+### Next: `/prepare-implementation`
+
+With the analysis report in hand, create the implementation brief:
+
+```bash
+# Create a brief from the most recent analysis report
+/prepare-implementation
+
+# Create a brief from a saved analysis report
+/prepare-implementation analysis-reports/2026-03-26-143052-my-feature.md
+```
+
+This generates an implementation brief at `docs/superpowers/briefs/` — a prioritized routing document that distills the key decisions, constraints, and risks from the analysis while linking back to the full analysis report for complete detail. Nothing is lost. Superpowers' `writing-plans` skill reads both the brief and the full analysis report to generate the execution plan.
+
+```
+Design Spec → /analyze-spec → Analysis Report → /prepare-implementation → Implementation Brief → writing-plans → Execution Plan → Execute
+```
 
 ## Common Tasks
 
@@ -134,9 +151,11 @@ See [Adding New Agents](adding-new-agents.md) for the step-by-step guide.
 |------|-------|
 | Design spec template | `design-specs/template.md` |
 | Example specs | `design-specs/examples/` |
+| Analysis reports | `analysis-reports/` |
+| Implementation briefs | `docs/superpowers/briefs/` |
 | Agent definitions | `.claude/agents/domain-experts/*.md` |
 | Orchestrator | `.claude/agents/orchestrator/design-spec-orchestrator.md` |
-| Slash command | `.claude/commands/analyze-spec.md` |
+| Slash commands | `.claude/commands/` |
 | Agent registry | `config/agents.yaml` |
 
 ## Related Documents

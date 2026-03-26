@@ -6,7 +6,7 @@ Multi-agent system for analyzing design specifications and providing comprehensi
 
 ## Overview
 
-The Agentic Workflow System coordinates multiple domain expert agents to analyze design specifications in parallel, synthesizing their recommendations into actionable implementation plans.
+The Agentic Workflow System coordinates multiple domain expert agents to analyze design specifications in parallel, synthesizing their recommendations into actionable analysis reports.
 
 **Key Features:**
 - **7 Domain Expert Agents**: Go, Kubernetes, Controllers, CRDs, Unit Testing, E2E Testing, Coding
@@ -14,24 +14,11 @@ The Agentic Workflow System coordinates multiple domain expert agents to analyze
 - **Smart Synthesis**: Intelligent combination and conflict resolution
 - **Extensible**: Add new domains without code changes
 - **Configuration-Driven**: Declarative YAML-based agent registry
+- **Superpowers Integration**: Bridges analysis to TDD-driven execution
 
 ---
 
 ## Quick Start
-
-### Current Status: Phase 1 Complete ✅
-
-Infrastructure established. Agent templates and tools ready.
-
-- ✅ **Phase 0:** Project setup and architecture
-- ✅ **Phase 1:** Agent infrastructure (templates, tools, integration plan)
-- 📋 **Phase 2:** Create 7 domain expert agents (next)
-
-See [Phase 1 Summary](ai-docs/phase-1-summary.md) for completion details.
-
-### Using the System (Future)
-
-Once implementation is complete:
 
 ```bash
 # Create a design spec from template
@@ -40,39 +27,31 @@ cp design-specs/template.md design-specs/my-feature.md
 # Edit your design spec
 vim design-specs/my-feature.md
 
-# Analyze the spec (Phase 3+)
-/analyze-spec design-specs/my-feature.md
+# Analyze the spec with domain experts
+/analyze-spec my-feature.md
 
-# Review the generated implementation plan
+# Review the analysis report (saved to analysis-reports/)
+
+# Prepare for implementation
+/prepare-implementation analysis-reports/2026-03-26-143052-my-feature.md
+
+# Generate the execution plan with superpowers, then execute
 ```
 
 ---
 
-## Directory Structure
+## Pipeline
 
 ```
-/UbuntuSync/Agentic/
-├── .claude/
-│   └── agents/
-│       ├── domain-experts/   # Domain expert agent definitions (Phase 2)
-│       ├── orchestrator/     # Orchestrator agents (Phase 3)
-│       ├── templates/        # Agent templates (Phase 1)
-│       └── tools/            # Helper tools (Phase 1+)
-├── ai-docs/                  # AI-generated planning & documentation
-│   ├── agentic-workflow-research.md
-│   ├── multi-agent-implementation-plan.md
-│   ├── phase-0-summary.md
-│   └── TERMINOLOGY_UPDATE.md
-├── config/
-│   └── agents.yaml          # Agent registry and configuration
-├── design-specs/
-│   ├── template.md          # Design spec template
-│   └── examples/            # Example specs (Phase 5)
-├── docs/
-│   └── agentic-workflow/
-│       └── architecture.md  # System architecture
-└── README.md                # This file
+Design Spec → /analyze-spec → Analysis Report → /prepare-implementation → Implementation Brief → writing-plans → Execution Plan → Execute
 ```
+
+| Artifact | What It Is | Where It Lives |
+|----------|-----------|----------------|
+| Design Spec | User's input describing what to build | `design-specs/` |
+| Analysis Report | Orchestrator's synthesized expert recommendations | `analysis-reports/` |
+| Implementation Brief | Prioritized routing document referencing the analysis report | `docs/superpowers/briefs/` |
+| Execution Plan | Granular task-based plan with exact code | `docs/superpowers/plans/` |
 
 ---
 
@@ -92,7 +71,7 @@ Expert Expert Expert Expert Test  Test Expert
     └─────┴─────┴─────┴─────┴─────┴─────┘
                     │
                     ▼
-            Synthesis & Plan
+         Analysis Report (saved)
 ```
 
 See [Architecture Documentation](docs/agentic-workflow/architecture.md) for details.
@@ -115,68 +94,54 @@ All agents configured in [`config/agents.yaml`](config/agents.yaml):
 
 ---
 
-## Implementation Roadmap
+## Directory Structure
 
-See [Multi-Agent Implementation Plan](ai-docs/multi-agent-implementation-plan.md) for detailed phases.
-
-### Phase 0: Project Setup ✅ COMPLETE
-- Directory structure
-- Agent registry configuration
-- Design spec template
-- Architecture documentation
-
-### Phase 1: Agent Infrastructure ✅ COMPLETE
-- Agent template
-- Agent registry helper
-- skill-creator integration
-
-### Phase 2: Domain Expert Agents (1-2 weeks)
-- Build 7 domain expert agents with embedded expertise
-
-### Phase 3: Build Orchestrator (1 week)
-- Main orchestrator logic
-- Synthesis algorithm
-- Implementation plan generation
-
-### Phase 4: Extensibility Framework (3-5 days)
-- Agent discovery
-- Validation tools
-- Adding new agents guide
-
-### Phase 5: Testing & Validation (1 week)
-- Create test design specs
-- End-to-end testing
-- Performance validation
-
-### Phase 6: Documentation (3-5 days)
-- User guide
-- Developer guide
-- Runbook
-
-### Phase 7: Integration (Ongoing)
-- Workflow integration
-- Team onboarding
-- Feedback loop
-
-**Target:** 4-6 weeks to production
-**MVP:** 2-3 weeks (Phases 0-3)
+```
+.claude/
+├── commands/
+│   ├── analyze-spec.md            # /analyze-spec slash command
+│   └── prepare-implementation.md  # /prepare-implementation slash command
+├── agents/
+│   ├── orchestrator/              # Orchestrator agent
+│   ├── domain-experts/            # 7 domain expert agents
+│   ├── templates/                 # Agent template
+│   └── tools/                     # Registry helper
+config/
+└── agents.yaml                    # Agent registry and configuration
+design-specs/                      # User-written design specs (input)
+├── template.md
+└── examples/
+analysis-reports/                  # Saved analysis reports (from /analyze-spec)
+docs/
+├── agentic-workflow/              # System documentation
+└── superpowers/
+    ├── briefs/                    # Implementation briefs (from /prepare-implementation)
+    └── plans/                     # Execution plans (from writing-plans)
+ai-docs/                           # Historical planning & research docs
+```
 
 ---
 
-## Key Documentation
+## Extending the System
 
-### Planning & Research
-- [Agentic Workflow Research](ai-docs/agentic-workflow-research.md) - Initial research and design options
-- [Implementation Plan](ai-docs/multi-agent-implementation-plan.md) - Detailed phased implementation
-- [Phase 0 Summary](ai-docs/phase-0-summary.md) - Phase 0 completion details
-- [Terminology Update](ai-docs/TERMINOLOGY_UPDATE.md) - Naming decisions
+Adding new domain experts is straightforward:
 
-### Architecture & Design
-- [System Architecture](docs/agentic-workflow/architecture.md) - Complete system design
-- [Agent Registry](config/agents.yaml) - Agent configuration
+1. Copy agent template from `.claude/agents/templates/`
+2. Customize for your domain with comprehensive expertise in prompt
+3. Add to `config/agents.yaml`
+4. **No orchestrator changes needed**
 
-### Templates
-- [Design Spec Template](design-specs/template.md) - Template for creating specs
+See [Adding New Agents](docs/agentic-workflow/adding-new-agents.md) for the detailed guide.
+
+---
+
+## Documentation
+
+- [User Guide](docs/agentic-workflow/user-guide.md) — How to use the system
+- [Developer Guide](docs/agentic-workflow/developer-guide.md) — How the system works internally
+- [Architecture](docs/agentic-workflow/architecture.md) — System design and diagrams
+- [Agent Registry](docs/agentic-workflow/agent-registry.md) — Catalog of all agents
+- [Adding New Agents](docs/agentic-workflow/adding-new-agents.md) — How to add domain experts
 
 ---
 
@@ -200,54 +165,4 @@ See [Multi-Agent Implementation Plan](ai-docs/multi-agent-implementation-plan.md
 
 ---
 
-## Extending the System
-
-Adding new domain experts is straightforward:
-
-1. Copy agent template from `.claude/agents/templates/`
-2. Customize for your domain with comprehensive expertise in prompt
-3. Add to `config/agents.yaml`
-4. **No orchestrator changes needed** ✅
-
-See Phase 4 implementation plan for detailed guide.
-
----
-
-## Contributing
-
-### Workflow
-1. Create design spec from template
-2. Analyze with orchestrator (when available)
-3. Review recommendations
-4. Implement
-5. Share feedback to improve agents
-
-### Improving Agents
-- Refine agent prompts with updated expertise
-- Use skill-creator for optimization (future)
-- Test with diverse design specs
-
----
-
-## Status & Next Steps
-
-**Current Phase:** Phase 0 Complete ✅
-**Next Phase:** Phase 1 - Agent Infrastructure Setup
-
-See [Phase 0 Summary](ai-docs/phase-0-summary.md) for what was completed.
-
-See [Implementation Plan](ai-docs/multi-agent-implementation-plan.md) for next steps.
-
----
-
-## Questions?
-
-- **How does it work?** → [Architecture](docs/agentic-workflow/architecture.md)
-- **What was the research?** → [Research Doc](ai-docs/agentic-workflow-research.md)
-- **What's the plan?** → [Implementation Plan](ai-docs/multi-agent-implementation-plan.md)
-- **What's been done?** → [Phase 0 Summary](ai-docs/phase-0-summary.md)
-
----
-
 **Project Started:** 2026-03-25
-**Status:** Foundation Complete, Ready for Phase 1

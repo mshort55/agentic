@@ -27,7 +27,7 @@ The Agentic Workflow system is a multi-agent architecture designed to analyze de
 
 Enable developers to:
 - Receive expert guidance across multiple domain areas simultaneously
-- Get consistent, actionable implementation plans
+- Get consistent, actionable analysis reports
 - Leverage best practices without manual consultation
 - Reduce code review cycles through upfront analysis
 - Scale expertise across the team
@@ -65,7 +65,7 @@ Enable developers to:
 │  │  • Determines relevant domain expert agents                     │ │
 │  │  • Launches agents in parallel                             │ │
 │  │  • Collects and synthesizes results                        │ │
-│  │  • Generates implementation plan                           │ │
+│  │  • Generates analysis report                           │ │
 │  └────────────────────────────────────────────────────────────┘ │
 └────────────────────────────┬────────────────────────────────────┘
                              │
@@ -136,7 +136,7 @@ Enable developers to:
 ┌─────────────────────────────────────────────────────────────────┐
 │                       OUTPUT LAYER                               │
 │  ┌────────────────────────────────────────────────────────────┐ │
-│  │  Implementation Plan                                        │ │
+│  │  Analysis Report                                            │ │
 │  │  • Executive summary                                        │ │
 │  │  • Prioritized recommendations (High/Med/Low)               │ │
 │  │  • Implementation steps by phase                            │ │
@@ -165,7 +165,7 @@ Enable developers to:
 - Collect results from all agents
 - Synthesize recommendations into coherent plan
 - Resolve conflicts between agent recommendations
-- Generate structured implementation plan
+- Generate structured analysis report
 
 **Key Algorithms:**
 - **Agent Selection**: Match design spec content against agent triggers
@@ -232,7 +232,7 @@ Agents use Claude Code tools:
 ```
 1. User creates design spec
    ↓
-2. User invokes: /analyze-spec design-specs/my-feature.md
+2. User invokes: /analyze-spec my-feature.md
    ↓
 3. Orchestrator reads design spec
    ↓
@@ -274,7 +274,7 @@ Agents use Claude Code tools:
    ├─ Merge risks and concerns
    └─ Generate unified view
    ↓
-10. Orchestrator generates implementation plan
+10. Orchestrator generates analysis report
     │
     ├─ Executive summary
     ├─ Prioritized recommendations
@@ -453,7 +453,7 @@ Collect all risks:
 
 **Step 6: Plan Generation**
 ```
-Create implementation plan:
+Create analysis report:
   ├─ Executive summary (synthesis overview)
   ├─ Critical recommendations (High priority + consensus)
   ├─ Important recommendations (High priority OR Medium + consensus)
@@ -494,7 +494,7 @@ claude-code /validate-spec design-specs/my-spec.md
 ```yaml
 - name: Analyze Design Spec
   run: |
-    claude-code /analyze-spec design-specs/$FEATURE.md > analysis.md
+    claude-code /analyze-spec $FEATURE.md > analysis.md
     # Upload as artifact or comment on PR
 ```
 
@@ -622,7 +622,7 @@ New tools can be added to agents via MCP (Model Context Protocol):
 - `continue_on_agent_failure: true` (default)
 - Orchestrator notes missing analysis
 - Continues with remaining agents
-- Flags gap in final plan
+- Flags gap in final report
 - Suggests manual review of failed domain
 
 ### Orchestrator Failure
@@ -693,17 +693,26 @@ monitoring:
 3. **Multi-spec analysis**: Compare multiple design specs
 4. **Automated implementation**: Agents write code, not just recommend
 
-### Superpowers Integration (Phase 6-7)
+### Superpowers Integration
 
-[Superpowers](https://github.com/obra/superpowers) is an agentic skills framework for systematic software development using TDD, worktrees, and task breakdown. It complements our system: we produce the "what and why" (analysis and implementation plans), superpowers handles the "how and when" (actual code implementation).
+[Superpowers](https://github.com/obra/superpowers) is an agentic skills framework for systematic software development using TDD, worktrees, and task breakdown. It complements our system: we produce the "what and why" (analysis reports), superpowers handles the "how and when" (plan generation and code implementation).
 
 ```
-Design Spec → Agentic Analysis → Implementation Plan → Superpowers → Working Code
+Design Spec → /analyze-spec → Analysis Report → /prepare-implementation → Implementation Brief → writing-plans → Execution Plan → Execute
 ```
+
+**Artifacts and boundaries:**
+
+| Artifact | Produced By | Consumed By | Location |
+|----------|-------------|-------------|----------|
+| Design Spec | User | `/analyze-spec` | `design-specs/` |
+| Analysis Report | Orchestrator | `/prepare-implementation` | `analysis-reports/` |
+| Implementation Brief | `/prepare-implementation` | Superpowers `writing-plans` | `docs/superpowers/briefs/` |
+| Execution Plan | Superpowers `writing-plans` | Superpowers subagents | `docs/superpowers/plans/` |
 
 Integration points:
-- Handoff: Our implementation plans feed into superpowers' planning phase
-- On-demand consultation: Domain experts available during implementation
+- `/prepare-implementation` creates a prioritized implementation brief that references the analysis report — `writing-plans` reads both
+- Superpowers handles task decomposition, code generation, TDD ordering, and subagent execution
 - Feedback loop: Implementation outcomes improve future recommendations
 
 ### Self-Optimization Loop (Phase 7+)
@@ -737,7 +746,7 @@ Design Spec → Analysis → Plan → Implementation → Review
 **Examples of self-learned improvements:**
 - "go-expert never catches X pattern → add to go-expert prompt"
 - "crd-expert trigger list missing 'validation webhook' → add trigger"
-- "implementation plans lack migration steps → update orchestrator synthesis format"
+- "analysis reports lack migration steps → update orchestrator synthesis format"
 - "e2e-test-expert recommendations too generic → add project-specific conventions"
 
 **Safeguards:**

@@ -203,7 +203,7 @@ agent_registry:
   orchestrator_agents:
     - name: design-spec-orchestrator
       type: orchestrator
-      description: "Main orchestrator for design spec analysis and implementation planning"
+      description: "Main orchestrator for design spec analysis"
       enabled: true
       model: opus
       capabilities:
@@ -212,7 +212,7 @@ agent_registry:
         - "Launches agents in parallel"
         - "Synthesizes recommendations"
         - "Resolves conflicts"
-        - "Generates implementation plans"
+        - "Generates analysis reports"
 
 # Extensibility configuration
 extensibility:

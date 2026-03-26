@@ -7,11 +7,12 @@ The user provided: $ARGUMENTS
 ## Instructions
 
 1. **Parse the arguments.** Extract:
-   - The spec file path (required, first argument)
+   - The spec filename (required, first argument) — this is the name of a file in `design-specs/`
    - Options (optional): `--fast`, `--smart`, `--focus=<areas>`
-   - If no path was provided, ask the user for one
+   - If no filename was provided, ask the user for one
+   - Strip any directory prefix — the file must be in `design-specs/`
 
-2. **Validate the spec file exists.** Read the file at the given path. If it doesn't exist, tell the user and stop.
+2. **Validate the spec file exists.** Read `design-specs/<filename>`. If it doesn't exist, tell the user the file was not found and that all design specs must be placed in the `design-specs/` directory.
 
 3. **Determine the analysis mode** from the options:
    - No options → **full** mode (all enabled agents)
@@ -26,14 +27,15 @@ The user provided: $ARGUMENTS
    - Select agents based on the analysis mode
    - Launch all selected agents in parallel using the Agent tool (all in one message)
    - Each agent should receive the full design spec and analyze it from their domain perspective
-   - Synthesize all agent recommendations into a unified implementation plan
-   - Present the plan to the user
+   - Synthesize all agent recommendations into a unified analysis report
+   - Save the report to `analysis-reports/YYYY-MM-DD-HHMMSS-<feature-slug>.md`
+   - Present the report to the user
 
 ## Examples
 
 ```
-/analyze-spec design-specs/add-webhook-support.md
-/analyze-spec design-specs/bug-fix.md --fast
-/analyze-spec design-specs/api-change.md --focus=crd,controller
-/analyze-spec design-specs/new-feature.md --smart
+/analyze-spec add-webhook-support.md
+/analyze-spec bug-fix.md --fast
+/analyze-spec api-change.md --focus=crd,controller
+/analyze-spec new-feature.md --smart
 ```

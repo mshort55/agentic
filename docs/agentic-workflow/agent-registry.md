@@ -135,7 +135,7 @@ Catalog of all domain expert agents in the system. For the raw configuration, se
 | **Model** | Opus |
 | **Location** | `.claude/agents/orchestrator/design-spec-orchestrator.md` |
 
-Reads design specs, selects relevant agents, launches them in parallel, synthesizes their recommendations, resolves conflicts, and generates implementation plans.
+Reads design specs, selects relevant agents, launches them in parallel, synthesizes their recommendations, resolves conflicts, and generates analysis reports saved to `analysis-reports/`.
 
 Invoked via `/analyze-spec` command (`.claude/commands/analyze-spec.md`).
 

@@ -183,7 +183,7 @@ EOF
 ```
 
 Test the agent:
-1. Run `/analyze-spec design-specs/examples/test-security-expert.md --focus=security`
+1. Run `/analyze-spec examples/test-security-expert.md --focus=security`
 2. Verify the agent produces comprehensive, actionable recommendations
 3. Check the output follows the expected format
 4. Ensure recommendations are specific to the design spec, not generic

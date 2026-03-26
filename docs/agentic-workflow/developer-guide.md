@@ -9,7 +9,7 @@ See [Architecture](architecture.md) for the full system design including:
 - Component descriptions
 - Data flow (step-by-step)
 - Agent interaction patterns (parallel, sequential, conditional, background)
-- Synthesis algorithm (categorize → group → detect consensus → resolve conflicts → aggregate risks → generate plan)
+- Synthesis algorithm (categorize → group → detect consensus → resolve conflicts → aggregate risks → generate report)
 - Performance characteristics and failure modes
 
 ## Key Files
@@ -17,7 +17,8 @@ See [Architecture](architecture.md) for the full system design including:
 ```
 .claude/
 ├── commands/
-│   └── analyze-spec.md              # /analyze-spec slash command
+│   ├── analyze-spec.md              # /analyze-spec slash command
+│   └── prepare-implementation.md     # /prepare-implementation — analysis report to implementation brief
 ├── agents/
 │   ├── orchestrator/
 │   │   └── design-spec-orchestrator.md  # Main orchestrator logic
@@ -35,14 +36,15 @@ See [Architecture](architecture.md) for the full system design including:
 │       └── agent-registry-helper.md
 config/
 └── agents.yaml                       # Agent registry and configuration
-design-specs/
+design-specs/                          # User-written design specs (input)
 ├── template.md
-└── examples/                         # Reference design specs
+└── examples/
+analysis-reports/                      # Saved analysis reports (from /analyze-spec)
 ```
 
 ## How the Orchestrator Works
 
-When a user runs `/analyze-spec design-specs/foo.md`:
+When a user runs `/analyze-spec foo.md`:
 
 1. Claude reads `.claude/commands/analyze-spec.md` — this is the slash command prompt
 2. The command tells Claude to read the orchestrator at `.claude/agents/orchestrator/design-spec-orchestrator.md`
@@ -51,7 +53,7 @@ When a user runs `/analyze-spec design-specs/foo.md`:
    - Read `config/agents.yaml` to find enabled agents
    - Select agents based on the mode (full/smart/focused/quick)
    - Launch all selected agents in parallel using the Agent tool
-   - Synthesize results into an implementation plan
+   - Synthesize results into an analysis report and save it to `analysis-reports/`
 
 The orchestrator is not code — it's a prompt that Claude follows. The Agent tool is Claude Code's built-in mechanism for spawning parallel sub-agents.
 
@@ -80,8 +82,9 @@ Edit the agent's `.md` file directly. Changes take effect on the next run — no
 ### Changing orchestrator behavior
 Edit `.claude/agents/orchestrator/design-spec-orchestrator.md`. The synthesis algorithm, output format, and agent selection logic are all defined there.
 
-### Changing the slash command
-Edit `.claude/commands/analyze-spec.md`. This controls argument parsing and how the orchestrator is invoked.
+### Changing the slash commands
+- `.claude/commands/analyze-spec.md` — argument parsing and orchestrator invocation
+- `.claude/commands/prepare-implementation.md` — creates prioritized implementation brief referencing the analysis report
 
 ### Adjusting configuration
 Edit `config/agents.yaml` to change:
