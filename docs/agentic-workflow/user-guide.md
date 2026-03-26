@@ -37,9 +37,6 @@ See `specs/examples/` for reference specs at different complexity levels:
 # Full analysis with all agents (default)
 /analyze-spec your-spec.md
 
-# Quick — high-priority agents only (go, k8s, controller, unit-test)
-/analyze-spec your-spec.md --fast
-
 # Smart — auto-detect relevant agents from spec content
 /analyze-spec your-spec.md --smart
 
@@ -63,8 +60,7 @@ See `specs/examples/` for reference specs at different complexity levels:
 
 | Situation | Mode | Why |
 |-----------|------|-----|
-| New feature, unclear scope | `--full` (default) | Don't miss anything |
-| Small bug fix, clear scope | `--fast` | Speed over thoroughness |
+| New feature, unclear scope | (default) | All agents, don't miss anything |
 | You know what domains matter | `--focus=x,y` | Skip irrelevant agents |
 | Medium change, want auto-detection | `--smart` | Let triggers decide |
 
@@ -94,7 +90,7 @@ When multiple agents agree on a recommendation, it's flagged as consensus. When 
 
 ### Bug Fix
 1. Write a minimal design spec: overview, proposed fix, regression test
-2. Run `/analyze-spec your-spec.md --fast`
+2. Run `/analyze-spec your-spec.md --focus=go,unit-test`
 3. Focus on the go-expert and unit-test-expert recommendations
 4. Implement fix and regression test
 

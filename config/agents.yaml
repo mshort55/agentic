@@ -239,7 +239,7 @@ extensibility:
 # Orchestrator configuration
 orchestrator:
   # Default mode for agent selection
-  default_mode: "full"  # Options: full, smart, focused, quick
+  default_mode: "full"  # Options: full, smart, focused
 
   # Parallelization settings
   parallel_execution: true

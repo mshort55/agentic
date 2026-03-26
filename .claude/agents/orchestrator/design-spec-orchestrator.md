@@ -40,7 +40,7 @@ Read the agent registry at `/UbuntuSync/agentic/config/agents.yaml`.
 Identify:
 - Which agents are enabled
 - Agent triggers and priorities
-- Configuration mode (full/smart/focused/quick)
+- Configuration mode (full/smart/focused)
 
 ### Step 3: Determine Agent Activation
 
@@ -61,9 +61,6 @@ Match design spec content against agent triggers:
 
 **Mode: Focused**
 User explicitly specifies which agents via `--focus=agent1,agent2`.
-
-**Mode: Quick**
-Invoke only high-priority agents (skip medium/low priority).
 
 **Default behavior**: If uncertain about which agents are relevant, invoke ALL enabled agents. Comprehensive analysis is preferred over missing important concerns.
 
@@ -140,7 +137,7 @@ Produce a structured analysis report and **save it to a file** at `output/analys
 **Generated:** {{Date}}
 **Design Spec:** {{spec-path}}
 **Agents Consulted:** {{comma-separated agent list}}
-**Analysis Mode:** {{full/smart/focused/quick}}
+**Analysis Mode:** {{full/smart/focused}}
 
 ## Executive Summary
 

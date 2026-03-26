@@ -8,7 +8,7 @@ The user provided: $ARGUMENTS
 
 1. **Parse the arguments.** Extract:
    - The spec filename (required, first argument) — this is the name of a file in `specs/`
-   - Options (optional): `--fast`, `--smart`, `--focus=<areas>`
+   - Options (optional): `--smart`, `--focus=<areas>`
    - If no filename was provided, ask the user for one
    - Strip any directory prefix — the file must be in `specs/`
 
@@ -16,7 +16,6 @@ The user provided: $ARGUMENTS
 
 3. **Determine the analysis mode** from the options:
    - No options → **full** mode (all enabled agents)
-   - `--fast` → **quick** mode (high-priority agents only)
    - `--smart` → **smart** mode (only agents whose triggers match the spec content)
    - `--focus=<areas>` → **focused** mode (only the specified agents)
      - Agent short names: `go`, `k8s`, `controller`, `crd`, `unit-test`, `e2e-test`, `coding`
@@ -35,7 +34,6 @@ The user provided: $ARGUMENTS
 
 ```
 /analyze-spec add-webhook-support.md
-/analyze-spec bug-fix.md --fast
 /analyze-spec api-change.md --focus=crd,controller
 /analyze-spec new-feature.md --smart
 ```
