@@ -140,40 +140,6 @@ This command:
 Design Spec → /analyze-spec → Analysis Report → /implement → Implementation Brief → writing-plans → Execution Plan → Execute
 ```
 
-## Common Tasks
+## Modifying the System
 
-### Updating an Agent's Expertise
-Edit the agent file directly at `.claude/agents/domain-experts/<agent>.md`. No restart or registration changes needed — the orchestrator reads agent files on each run.
-
-### Evaluating Agent Quality
-Run `/eval-agent <agent-name> <spec.md>` to test an agent against a design spec and save the raw output. After making prompt changes, run it again and compare with `/eval-agent --compare <old-result> <new-result>`.
-
-### Reviewing a Completed Implementation
-After finishing an implementation, run `/review-cycle <analysis-report> <commit-range>` to compare what agents recommended against what was actually built. The review identifies skipped recommendations, unpredicted changes, and proposes concrete edits to agent prompts based on lessons learned.
-
-### Checking Agent Configuration
-Use the `agent-registry-helper` to list agents, validate config, or discover unregistered agent files.
-
-### Adding a New Domain Expert
-See [Adding New Agents](adding-new-agents.md) for the step-by-step guide.
-
-## File Locations
-
-| What | Where |
-|------|-------|
-| Design spec template | `design-specs/template.md` |
-| Example specs | `design-specs/examples/` |
-| Analysis reports | `analysis-reports/` |
-| Eval results | `eval-results/` |
-| Review cycles | `review-cycles/` |
-| Implementation briefs | `docs/superpowers/briefs/` |
-| Agent definitions | `.claude/agents/domain-experts/*.md` |
-| Orchestrator | `.claude/agents/orchestrator/design-spec-orchestrator.md` |
-| Slash commands | `.claude/commands/` |
-| Agent registry | `config/agents.yaml` |
-
-## Related Documents
-
-- [Agent Registry](agent-registry.md) — Full catalog of all agents
-- [Developer Guide](developer-guide.md) — How the system works internally
-- [Adding New Agents](adding-new-agents.md) — How to add domain experts
+For editing agents, adding new domain experts, evaluating agent quality, reviewing implementation outcomes, and other system modifications, see the [Developer Guide](developer-guide.md).

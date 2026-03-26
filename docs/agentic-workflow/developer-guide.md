@@ -65,6 +65,8 @@ Edit `.claude/agents/orchestrator/design-spec-orchestrator.md`. The synthesis al
 ### Changing the slash commands
 - `.claude/commands/analyze-spec.md` — argument parsing and orchestrator invocation
 - `.claude/commands/implement.md` — creates brief, invokes writing-plans, offers execution
+- `.claude/commands/eval-agent.md` — agent output quality evaluation and comparison
+- `.claude/commands/review-cycle.md` — post-implementation review and agent improvement
 
 ### Adjusting configuration
 Edit `config/agents.yaml` to change:
