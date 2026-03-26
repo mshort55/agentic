@@ -94,31 +94,7 @@ All agents configured in [`config/agents.yaml`](config/agents.yaml):
 
 ## Directory Structure
 
-```
-.claude/
-├── commands/
-│   ├── analyze-spec.md            # /analyze-spec slash command
-│   ├── implement.md              # /implement slash command
-│   └── eval-agent.md            # /eval-agent slash command
-├── agents/
-│   ├── orchestrator/              # Orchestrator agent
-│   ├── domain-experts/            # 7 domain expert agents
-│   ├── templates/                 # Agent template
-│   └── tools/                     # Registry helper
-config/
-└── agents.yaml                    # Agent registry and configuration
-design-specs/                      # User-written design specs (input)
-├── template.md
-└── examples/
-analysis-reports/                  # Saved analysis reports (from /analyze-spec)
-eval-results/                      # Saved agent eval outputs (from /eval-agent)
-docs/
-├── agentic-workflow/              # System documentation
-└── superpowers/
-    ├── briefs/                    # Implementation briefs (from /implement)
-    └── plans/                     # Execution plans (from writing-plans)
-ai-docs/                           # Historical planning & research docs
-```
+See `CLAUDE.md` for the full project structure tree.
 
 ---
 

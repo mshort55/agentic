@@ -50,7 +50,8 @@ Design Spec → /analyze-spec → Analysis Report → /implement → Implementat
 ├── commands/                      # Slash commands
 │   ├── analyze-spec.md            # Analyze design spec with domain experts
 │   ├── implement.md               # Create brief, generate plan, offer execution
-│   └── eval-agent.md              # Evaluate agent output quality
+│   ├── eval-agent.md              # Evaluate agent output quality
+│   └── review-cycle.md            # Post-implementation review and agent improvement
 ├── agents/
 │   ├── orchestrator/              # Orchestrator agent
 │   ├── domain-experts/            # 7 domain expert agents
@@ -63,6 +64,7 @@ design-specs/                      # User-written design specs (input)
 └── examples/
 analysis-reports/                  # Saved analysis reports (from /analyze-spec)
 eval-results/                      # Saved agent eval outputs (from /eval-agent)
+review-cycles/                     # Post-implementation reviews (from /review-cycle)
 docs/
 ├── agentic-workflow/              # System documentation
 └── superpowers/

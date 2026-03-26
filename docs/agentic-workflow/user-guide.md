@@ -148,6 +148,9 @@ Edit the agent file directly at `.claude/agents/domain-experts/<agent>.md`. No r
 ### Evaluating Agent Quality
 Run `/eval-agent <agent-name> <spec.md>` to test an agent against a design spec and save the raw output. After making prompt changes, run it again and compare with `/eval-agent --compare <old-result> <new-result>`.
 
+### Reviewing a Completed Implementation
+After finishing an implementation, run `/review-cycle <analysis-report> <commit-range>` to compare what agents recommended against what was actually built. The review identifies skipped recommendations, unpredicted changes, and proposes concrete edits to agent prompts based on lessons learned.
+
 ### Checking Agent Configuration
 Use the `agent-registry-helper` to list agents, validate config, or discover unregistered agent files.
 
@@ -162,6 +165,7 @@ See [Adding New Agents](adding-new-agents.md) for the step-by-step guide.
 | Example specs | `design-specs/examples/` |
 | Analysis reports | `analysis-reports/` |
 | Eval results | `eval-results/` |
+| Review cycles | `review-cycles/` |
 | Implementation briefs | `docs/superpowers/briefs/` |
 | Agent definitions | `.claude/agents/domain-experts/*.md` |
 | Orchestrator | `.claude/agents/orchestrator/design-spec-orchestrator.md` |

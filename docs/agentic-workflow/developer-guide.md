@@ -14,35 +14,13 @@ See [Architecture](architecture.md) for the full system design including:
 
 ## Key Files
 
-```
-.claude/
-├── commands/
-│   ├── analyze-spec.md              # /analyze-spec slash command
-│   ├── implement.md                  # /implement — brief creation, plan generation, execution
-│   └── eval-agent.md                # /eval-agent — agent output quality evaluation
-├── agents/
-│   ├── orchestrator/
-│   │   └── design-spec-orchestrator.md  # Main orchestrator logic
-│   ├── domain-experts/
-│   │   ├── go-expert.md
-│   │   ├── k8s-expert.md
-│   │   ├── controller-expert.md
-│   │   ├── crd-expert.md
-│   │   ├── unit-test-expert.md
-│   │   ├── e2e-test-expert.md
-│   │   └── coding-expert.md
-│   ├── templates/
-│   │   └── domain-expert-template.md
-│   └── tools/
-│       └── agent-registry-helper.md
-config/
-└── agents.yaml                       # Agent registry and configuration
-design-specs/                          # User-written design specs (input)
-├── template.md
-└── examples/
-analysis-reports/                      # Saved analysis reports (from /analyze-spec)
-eval-results/                          # Saved agent eval outputs (from /eval-agent)
-```
+See `CLAUDE.md` for the full project structure tree. The most important files for understanding the system:
+
+- `.claude/commands/` — slash commands (`analyze-spec`, `implement`, `eval-agent`, `review-cycle`)
+- `.claude/agents/orchestrator/design-spec-orchestrator.md` — main orchestrator logic
+- `.claude/agents/domain-experts/*.md` — 7 domain expert agent definitions
+- `.claude/agents/templates/` — agent template and shared prompt template
+- `config/agents.yaml` — agent registry and configuration
 
 ## How the Orchestrator Works
 
@@ -97,6 +75,9 @@ Edit `config/agents.yaml` to change:
 
 ### Evaluating agent quality
 Use `/eval-agent <agent-name> <spec.md>` to run a single agent against a design spec and save the raw output to `eval-results/`. Use `/eval-agent --compare <file1> <file2>` to diff two saved results after prompt changes.
+
+### Reviewing implementation outcomes
+After completing an implementation, run `/review-cycle <analysis-report> <commit-range>` to compare recommendations against actual code changes. The review proposes concrete edits to agent prompts based on what worked and what didn't. Reviews are saved to `review-cycles/`.
 
 ## Maintenance
 

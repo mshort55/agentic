@@ -715,44 +715,26 @@ Integration points:
 - Superpowers handles task decomposition, code generation, TDD ordering, and subagent execution
 - Feedback loop: Implementation outcomes improve future recommendations
 
-### Self-Optimization Loop (Phase 7+)
+### Continuous Improvement
 
-The end-to-end agentic workflow should continuously improve itself. After each full cycle (design spec → analysis → implementation), lessons learned feed back to optimize the system's own files.
+Two commands support iterative improvement of domain expert agents:
+
+**`/eval-agent`** — Evaluate agent output quality
+- Runs a single agent against a design spec and saves the raw output to `eval-results/`
+- Compare two saved results after prompt changes: `/eval-agent --compare <file1> <file2>`
+- Use this before and after editing an agent's prompt to verify improvements
+
+**`/review-cycle`** — Post-implementation review
+- After completing an implementation, compares analysis report recommendations against the actual code changes (git diff)
+- Maps each recommendation to followed / skipped / unpredicted
+- Asks structured questions about what worked and what didn't
+- Proposes concrete edits to agent prompt files based on lessons learned
+- All proposals require human approval before applying
+- Reviews saved to `review-cycles/` for historical reference
 
 ```
-Design Spec → Analysis → Plan → Implementation → Review
-     ↑                                              │
-     └──────────── Lessons Learned ←───────────────┘
+Design Spec → Analysis → Implementation → /review-cycle → Agent Improvements → /eval-agent (verify)
 ```
-
-**Goal:** The system self-tunes its own markdown and YAML files based on real-world outcomes.
-
-**What gets optimized:**
-- **Domain expert agent prompts** - Refine expertise, add patterns that worked, remove advice that didn't
-- **Agent registry config** (`agents.yaml`) - Adjust triggers, priorities, model selections based on usage
-- **Design spec template** - Improve template based on what information agents actually needed
-- **Orchestrator prompts** - Improve synthesis based on what recommendations were actionable vs ignored
-
-**How it works:**
-1. After implementation completes, a review step captures:
-   - Which recommendations were followed vs skipped (and why)
-   - What problems arose that no agent predicted
-   - What patterns emerged that should be codified
-   - Which agents provided the most/least value
-2. A self-optimization agent analyzes the review and proposes changes to system files
-3. Changes are submitted for human review (not auto-applied)
-4. Approved changes are committed, improving future cycles
-
-**Examples of self-learned improvements:**
-- "go-expert never catches X pattern → add to go-expert prompt"
-- "crd-expert trigger list missing 'validation webhook' → add trigger"
-- "analysis reports lack migration steps → update orchestrator synthesis format"
-- "e2e-test-expert recommendations too generic → add project-specific conventions"
-
-**Safeguards:**
-- All proposed changes require human approval
-- Changes tracked via git for easy rollback
-- Metrics tracked to verify improvements over time
 
 ---
 

@@ -3,4 +3,4 @@ Agent Notes:
 2. check and update agent tools
 3. check and update agent models
 4. consider analyze-spec options (removing/simplifying)
-5. ### Self-Optimization Loop (Phase 7+) (architecture doc)
+5. Self-Optimization Loop replaced with /review-cycle and /eval-agent commands
